@@ -1,0 +1,70 @@
+# TweetCraft AI — archivos a ignorar en Git
+
+# ── Entorno virtual ───────────────────────────────────────────────────────────
+venv/
+env/
+ENV/
+.venv/
+
+# ── Variables de entorno (NUNCA subir a Git!) ─────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+build/
+dist/
+
+# ── Tests y cobertura ─────────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+playwright-report/
+test-results/
+
+# ── Playwright ────────────────────────────────────────────────────────────────
+.playwright/
+
+# ── IDEs ──────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Sistema operativo ─────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Base de datos local ───────────────────────────────────────────────────────
+*.db
+*.sqlite
+
+# ── Archivos temporales ───────────────────────────────────────────────────────
+tmp/
+temp/
+*.tmp
+
+# ── Imágenes generadas ────────────────────────────────────────────────────────
+screenshots/
+generated_images/
+
+# ── Archivos sensibles ────────────────────────────────────────────────────────
+secrets.json
+credentials.json
+api_keys.json
+private_keys.json
+rate_limits.json
+
+# ── Frontend (por si en el futuro usas npm) ───────────────────────────────────
+node_modules/

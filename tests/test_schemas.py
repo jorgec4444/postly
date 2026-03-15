@@ -1,0 +1,81 @@
+"""Unit tests for app.schemas."""
+import pytest
+from pydantic import ValidationError
+
+from app.schemas import FeedbackRequest, ImageRequest, TweetRequest
+
+
+class TestTweetRequest:
+    def test_valid_request(self):
+        req = TweetRequest(text="Hello world")
+        assert req.text == "Hello world"
+        assert req.style == "professional"
+
+    def test_strips_whitespace(self):
+        req = TweetRequest(text="  hello  ")
+        assert req.text == "hello"
+
+    def test_empty_text_raises(self):
+        with pytest.raises(ValidationError):
+            TweetRequest(text="")
+
+    def test_blank_text_raises(self):
+        with pytest.raises(ValidationError):
+            TweetRequest(text="   ")
+
+    def test_text_over_500_raises(self):
+        with pytest.raises(ValidationError):
+            TweetRequest(text="x" * 501)
+
+    def test_exactly_500_chars_is_valid(self):
+        req = TweetRequest(text="x" * 500)
+        assert len(req.text) == 500
+
+    def test_custom_style(self):
+        req = TweetRequest(text="hi", style="viral")
+        assert req.style == "viral"
+
+    def test_default_style_is_professional(self):
+        req = TweetRequest(text="hi")
+        assert req.style == "professional"
+
+
+class TestImageRequest:
+    def test_valid_request(self):
+        req = ImageRequest(text="Hello", theme="dark")
+        assert req.text == "Hello"
+        assert req.theme == "dark"
+
+    def test_default_theme_is_light(self):
+        req = ImageRequest(text="Hello")
+        assert req.theme == "light"
+
+    def test_empty_text_raises(self):
+        with pytest.raises(ValidationError):
+            ImageRequest(text="")
+
+    def test_blank_text_raises(self):
+        with pytest.raises(ValidationError):
+            ImageRequest(text="  ")
+
+
+class TestFeedbackRequest:
+    def test_valid_feedback(self):
+        req = FeedbackRequest(feedback="Great app!")
+        assert req.feedback == "Great app!"
+
+    def test_strips_whitespace(self):
+        req = FeedbackRequest(feedback="  nice  ")
+        assert req.feedback == "nice"
+
+    def test_empty_feedback_raises(self):
+        with pytest.raises(ValidationError):
+            FeedbackRequest(feedback="")
+
+    def test_blank_feedback_raises(self):
+        with pytest.raises(ValidationError):
+            FeedbackRequest(feedback="   ")
+
+    def test_feedback_over_2000_raises(self):
+        with pytest.raises(ValidationError):
+            FeedbackRequest(feedback="x" * 2001)
