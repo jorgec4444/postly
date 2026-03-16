@@ -259,7 +259,7 @@ Las contribuciones son bienvenidas. Por favor:
 
 ## 📄 Licencia
 
-Copyright © 2025 Jorge Vinagre
+Copyright © 2026 Jorge Vinagre
 
 Este proyecto está licenciado bajo **GNU AGPLv3 con Commons Clause**.
 

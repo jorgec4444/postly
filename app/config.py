@@ -19,7 +19,7 @@ load_dotenv(_env_path)
 # ── OpenAI ──────────────────────────────────────────────────────────────────
 OPENAI_API_KEY: Optional[str] = os.getenv("OPENAI_API_KEY")
 
-# Correct model name is "gpt-4o-mini" (the old code used an invalid name).
+# Correct model name is "gpt-4o-mini"
 MODEL_NAME: str = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
 # ── Supabase ─────────────────────────────────────────────────────────────────
