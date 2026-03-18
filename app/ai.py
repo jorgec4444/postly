@@ -1,7 +1,7 @@
 # Copyright © 2025 Jorge Vinagre
 # SPDX-License-Identifier: AGPL-3.0-only WITH Commons-Clause
 
-"""AI helpers: wrapper around OpenAI calls for tweet improvement."""
+"""AI helpers: wrapper around OpenAI calls for text improvement."""
 import logging
 
 from fastapi import HTTPException
@@ -12,7 +12,7 @@ from .prompts import IMPROVEMENT_PROMPTS, DEFAULT_STYLE
 logger = logging.getLogger(__name__)
 
 
-async def improve_tweet_with_ai(text: str, style: str) -> str:
+async def improve_text_with_ai(text: str, style: str) -> str:
     """Use OpenAI to improve *text* according to *style*.
 
     Raises:
@@ -38,7 +38,7 @@ async def improve_tweet_with_ai(text: str, style: str) -> str:
             messages=[
                 {
                     "role": "system",
-                    "content": "Eres un experto en copywriting para redes sociales.",
+                    "content": "You are a copywriting expert for social media.",
                 },
                 {"role": "user", "content": prompt},
             ],

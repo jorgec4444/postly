@@ -133,8 +133,8 @@ class RateLimiter:
             self._db.table("generations").insert(
                 {
                     "ip": ip,
-                    "tweet_original": original,
-                    "tweet_improved": improved,
+                    "text_original": original,
+                    "text_improved": improved,
                     "style": style,
                 }
             ).execute()

@@ -1,10 +1,11 @@
 /**
- * TweetCraft AI — Frontend
+ * Postly — Frontend
  * Vanilla JS, no dependencies.
  */
 
 // ── Config ────────────────────────────────────────────────────────────────────
-const API_URL = 'http://localhost:8000';
+//const API_URL = 'http://localhost:8000';
+const API_URL = 'https://mi-backend-767444481459.europe-west1.run.app';
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let selectedVariation = null; // { version, text }
@@ -77,7 +78,7 @@ function updateUsageChip() {
 
 // ── Character counter ─────────────────────────────────────────────────────────
 function updateCharCount() {
-  const len  = $('tweetInput').value.length;
+  const len  = $('textInput').value.length;
   const el   = $('charCount');
   el.textContent = `${len} / 500`;
   el.classList.remove('warn', 'over');
@@ -87,9 +88,9 @@ function updateCharCount() {
 
 // ── Templates ─────────────────────────────────────────────────────────────────
 function useTemplate(type) {
-  $('tweetInput').value = TEMPLATES[type] || '';
+  $('textInput').value = TEMPLATES[type] || '';
   updateCharCount();
-  $('tweetInput').focus();
+  $('textInput').focus();
 }
 
 // ── Theme pills ───────────────────────────────────────────────────────────────
@@ -160,7 +161,7 @@ async function copyVariation(event, version) {
 
 // ── Improve ───────────────────────────────────────────────────────────────────
 async function improve() {
-  const text = $('tweetInput').value.trim();
+  const text = $('textInput').value.trim();
   if (!text)          return showToast('Escribe algo primero');
   if (text.length > 500) return showToast('Máximo 500 caracteres');
 
@@ -225,9 +226,9 @@ async function fetchRateLimitStatus() {
 }
 
 function applyThemeToTemplate(theme) {
-  const inner = document.getElementById('tweetTemplateInner');
-  const body  = document.getElementById('tweetTemplateText');
-  const handle = document.getElementById('tweetTemplateDate');
+  const inner = document.getElementById('textTemplateInner');
+  const body  = document.getElementById('textTemplateText');
+  const handle = document.getElementById('textTemplateDate');
 
   // Resetear estilos inline anteriores
   inner.removeAttribute('style');
@@ -249,13 +250,13 @@ function applyThemeToTemplate(theme) {
   inner.style.borderColor  = t.border;
 
   // Texto principal y secundario
-  document.getElementById('tweetTemplateText').style.color = t.text;
-  document.querySelector('#tweetTemplateInner .tweet-name').style.color    = t.text;
-  document.querySelector('#tweetTemplateInner .tweet-handle').style.color  = t.secondary;
-  document.querySelector('#tweetTemplateInner .tweet-footer').style.color  = t.secondary;
-  document.querySelector('#tweetTemplateInner .tweet-footer').style.borderTopColor   = t.border;
-  document.querySelector('#tweetTemplateInner .tweet-watermark').style.color         = t.secondary;
-  document.querySelector('#tweetTemplateInner .tweet-watermark').style.borderTopColor = t.border;
+  document.getElementById('textTemplateText').style.color = t.text;
+  document.querySelector('#textTemplateInner .text-name').style.color    = t.text;
+  document.querySelector('#textTemplateInner .text-handle').style.color  = t.secondary;
+  document.querySelector('#textTemplateInner .text-footer').style.color  = t.secondary;
+  document.querySelector('#textTemplateInner .text-footer').style.borderTopColor   = t.border;
+  document.querySelector('#textTemplateInner .text-watermark').style.color         = t.secondary;
+  document.querySelector('#textTemplateInner .text-watermark').style.borderTopColor = t.border;
 }
 
 // ── Image generation ──────────────────────────────────────────────────────────
@@ -270,8 +271,8 @@ async function generateImage() {
   btn.innerHTML = '<span> class="spinner" style="width:14px;height:14px;border-width:2px;display:inline-block;vertical-align:middle;margin-right:8px"></span> Generando…';
 
   try {
-    const templateText = document.getElementById('tweetTemplateText');
-    const templateDate = document.getElementById('tweetTemplateDate');
+    const templateText = document.getElementById('textTemplateText');
+    const templateDate = document.getElementById('textTemplateDate');
     templateText.textContent = selectedVariation.text;
     templateDate.textContent = new Date().toLocaleDateString('es-ES', {
       hour: '2-digit', minute: '2-digit',
@@ -280,7 +281,7 @@ async function generateImage() {
 
     applyThemeToTemplate(selectedTheme);
 
-    const inner = document.getElementById('tweetTemplateInner');
+    const inner = document.getElementById('textTemplateInner');
     const canvas = await html2canvas(inner, {
       scale: 2,
       useCORS: true,
@@ -306,7 +307,7 @@ function downloadImage() {
   const img = $('generatedImage');
   const a   = document.createElement('a');
   a.href     = img.src;
-  a.download = `tweetcraft-${Date.now()}.png`;
+  a.download = `textcraft-${Date.now()}.png`;
   a.click();
 }
 
@@ -327,7 +328,7 @@ function shareToLinkedIn() {
 }
 
 function shareViaWhatsApp() {
-  const text = encodeURIComponent('Mira el tweet que he creado con TweetCraft AI 🎨');
+  const text = encodeURIComponent('Mira el text que he creado con textCraft AI 🎨');
   window.open(`https://wa.me/?text=${text}`, '_blank');
   closeModal('shareModal');
 }
@@ -409,13 +410,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Restore saved theme
   initTheme();
   // Character counter
-  $('tweetInput').addEventListener('input', updateCharCount);
+  $('textInput').addEventListener('input', updateCharCount);
 
   // Improve button
   $('improveBtn').addEventListener('click', improve);
 
   // Allow Ctrl+Enter to submit
-  $('tweetInput').addEventListener('keydown', (e) => {
+  $('textInput').addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') improve();
   });
 

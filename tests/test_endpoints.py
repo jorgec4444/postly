@@ -1,4 +1,4 @@
-"""Integration tests for TweetCraft AI endpoints."""
+"""Integration tests for Postly AI endpoints."""
 import base64
 from unittest.mock import AsyncMock, MagicMock, patch
 
@@ -8,7 +8,7 @@ from fastapi.testclient import TestClient
 
 # ── Fixtures ──────────────────────────────────────────────────────────────────
 
-def _make_openai_client(text="Improved tweet"):
+def _make_openai_client(text="Improved text"):
     client = MagicMock()
     client.chat.completions.create.return_value = MagicMock(
         **{"choices": [MagicMock(**{"message.content": text})]}

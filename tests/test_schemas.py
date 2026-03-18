@@ -2,61 +2,42 @@
 import pytest
 from pydantic import ValidationError
 
-from app.schemas import FeedbackRequest, ImageRequest, TweetRequest
+from app.schemas import FeedbackRequest, TextRequest
 
 
-class TestTweetRequest:
+class TestTextRequest:
     def test_valid_request(self):
-        req = TweetRequest(text="Hello world")
+        req = TextRequest(text="Hello world")
         assert req.text == "Hello world"
         assert req.style == "professional"
 
     def test_strips_whitespace(self):
-        req = TweetRequest(text="  hello  ")
+        req = TextRequest(text="  hello  ")
         assert req.text == "hello"
 
     def test_empty_text_raises(self):
         with pytest.raises(ValidationError):
-            TweetRequest(text="")
+            TextRequest(text="")
 
     def test_blank_text_raises(self):
         with pytest.raises(ValidationError):
-            TweetRequest(text="   ")
+            TextRequest(text="   ")
 
     def test_text_over_500_raises(self):
         with pytest.raises(ValidationError):
-            TweetRequest(text="x" * 501)
+            TextRequest(text="x" * 501)
 
     def test_exactly_500_chars_is_valid(self):
-        req = TweetRequest(text="x" * 500)
+        req = TextRequest(text="x" * 500)
         assert len(req.text) == 500
 
     def test_custom_style(self):
-        req = TweetRequest(text="hi", style="viral")
+        req = TextRequest(text="hi", style="viral")
         assert req.style == "viral"
 
     def test_default_style_is_professional(self):
-        req = TweetRequest(text="hi")
+        req = TextRequest(text="hi")
         assert req.style == "professional"
-
-
-class TestImageRequest:
-    def test_valid_request(self):
-        req = ImageRequest(text="Hello", theme="dark")
-        assert req.text == "Hello"
-        assert req.theme == "dark"
-
-    def test_default_theme_is_light(self):
-        req = ImageRequest(text="Hello")
-        assert req.theme == "light"
-
-    def test_empty_text_raises(self):
-        with pytest.raises(ValidationError):
-            ImageRequest(text="")
-
-    def test_blank_text_raises(self):
-        with pytest.raises(ValidationError):
-            ImageRequest(text="  ")
 
 
 class TestFeedbackRequest:

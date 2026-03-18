@@ -1,39 +1,39 @@
 # Copyright © 2025 Jorge Vinagre
 # SPDX-License-Identifier: AGPL-3.0-only WITH Commons-Clause
 
-"""Prompts used to instruct the language model for tweet improvements.
+"""Prompts used to instruct the language model for text improvements.
 
 Each prompt expects a single format argument: {text}.
 """
 
 IMPROVEMENT_PROMPTS: dict[str, str] = {
     "professional": (
-        "Eres un experto en contenido profesional para LinkedIn y Twitter/X.\n"
-        "Mejora el siguiente tweet para que sea más profesional, claro y valioso.\n"
-        "Mantén el mensaje original pero hazlo más impactante.\n"
-        "Usa un tono profesional pero accesible.\n"
-        "Máximo 280 caracteres.\n\n"
-        "Tweet original: {text}\n\n"
-        "Devuelve SOLO el tweet mejorado, sin comillas ni explicaciones."
+        "You are a professional for LinkedIn and Twitter/X.\n"
+        "Improve the following text to make it more professional, clear, and valuable.\n"
+        "Keep the original message but make it more impactful.\n"
+        "Use a professional but accessible tone.\n"
+        "Maximum 280 characters.\n\n"
+        "Original text: {text}\n\n"
+        "Return only the improved text, without quotes or explanations."
     ),
     "casual": (
-        "Eres un experto en contenido casual y cercano para redes sociales.\n"
-        "Reescribe el siguiente tweet de manera más conversacional y friendly.\n"
-        "Añade emojis apropiados (máximo 2-3).\n"
-        "Hazlo más personal y relatable.\n"
-        "Máximo 280 caracteres.\n\n"
-        "Tweet original: {text}\n\n"
-        "Devuelve SOLO el tweet mejorado, sin comillas ni explicaciones."
+        "You are an expert in casual and approachable content for social media.\n"
+        "Rewrite the following text in a more conversational and friendly way.\n"
+        "Add appropriate emojis (maximum 2-3).\n"
+        "Make it more personal and relatable.\n"
+        "Maximum 280 characters.\n\n"
+        "Original text: {text}\n\n"
+        "Return only the improved text, without quotes or explanations."
     ),
     "viral": (
-        "Eres un experto en contenido viral para Twitter/X.\n"
-        "Transforma el siguiente tweet para maximizar engagement.\n"
-        "Usa un hook potente al inicio.\n"
-        "Añade estructura con saltos de línea si ayuda.\n"
-        "Puede incluir 1-2 emojis estratégicos.\n"
-        "Máximo 280 caracteres.\n\n"
-        "Tweet original: {text}\n\n"
-        "Devuelve SOLO el tweet mejorado, sin comillas ni explicaciones."
+        "You are an expert in viral content for Instagram.\n"
+        "Transform the following text to maximize engagement.\n"
+        "Use a powerful hook at the beginning.\n"
+        "Add structure with line breaks if it helps.\n"
+        "Can include 1-2 strategic emojis.\n"
+        "Maximum 280 characters.\n\n"
+        "Original text: {text}\n\n"
+        "Return only the improved text, without quotes or explanations."
     ),
 }
 

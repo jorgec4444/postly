@@ -155,8 +155,8 @@ create table rate_limits (
 create table generations (
   id             bigserial primary key,
   ip             text,
-  tweet_original text,
-  tweet_improved text,
+  text_original text,
+  text_improved text,
   style          text,
   created_at     timestamptz default now()
 );

@@ -7,27 +7,27 @@ from typing import List, Optional
 from pydantic import BaseModel, Field, field_validator
 
 
-class TweetRequest(BaseModel):
-    text: str = Field(..., min_length=1, max_length=500, description="Tweet text to improve")
+class TextRequest(BaseModel):
+    text: str = Field(..., min_length=1, max_length=500, description="Text to improve")
     style: Optional[str] = Field("professional", description="Improvement style")
 
     @field_validator("text")
     @classmethod
     def text_must_not_be_blank(cls, v: str) -> str:
         if not v.strip():
-            raise ValueError("Tweet text cannot be blank")
+            raise ValueError("Text cannot be blank")
         return v.strip()
 
 
-class TweetVariation(BaseModel):
+class TextVariation(BaseModel):
     version: str
     text: str
     description: str
 
 
-class TweetResponse(BaseModel):
+class TextResponse(BaseModel):
     original: str
-    variations: List[TweetVariation]
+    variations: List[TextVariation]
 
 
 class FeedbackRequest(BaseModel):

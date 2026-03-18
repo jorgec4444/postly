@@ -1,4 +1,4 @@
-"""TweetCraft AI — FastAPI application entry point."""
+"""Postly — FastAPI application entry point."""
 import asyncio
 import logging
 from contextlib import asynccontextmanager
@@ -7,7 +7,7 @@ from datetime import datetime
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.ai import improve_tweet_with_ai
+from app.ai import improve_text_with_ai
 from app.config import ADMIN_API_KEY, init_openai_client
 from app.database import init_supabase
 from app.feedback import feedback_logger
@@ -15,9 +15,9 @@ from app.rate_limiter import rate_limiter
 from app.schemas import (
     FeedbackRequest,
     RateLimitStatus,
-    TweetRequest,
-    TweetResponse,
-    TweetVariation,
+    TextRequest,
+    TextResponse,
+    TextVariation,
 )
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(name)s: %(message)s")
@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):  # noqa: ARG001
-    logger.info("Starting TweetCraft AI…")
+    logger.info("Starting Postly`…")
     init_supabase()
     init_openai_client()
     logger.info("Startup complete.")
@@ -39,8 +39,8 @@ async def lifespan(app: FastAPI):  # noqa: ARG001
 # ── App ───────────────────────────────────────────────────────────────────────
 
 app = FastAPI(
-    title="TweetCraft AI",
-    description="Improve tweets with AI and generate shareable images.",
+    title="Postly",
+    description="Improve text for posts on Instagram, LinkedIn, Twitter, and more with AI.",
     version="2.0.0",
     contact={"name": "Jorge Vinagre", "email": "jorgecdev444@gmail.com"},
     lifespan=lifespan,
@@ -48,8 +48,8 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=["https://postly.vinagre444.workers.dev"],
+    allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
@@ -87,10 +87,10 @@ def _rate_limit_error(status: dict):
 @app.get("/", tags=["meta"])
 async def root():
     return {
-        "service": "TweetCraft AI",
+        "service": "Postly",
         "version": "2.0.0",
         "endpoints": {
-            "POST /improve": "Improve a tweet with AI (3 variations)",
+            "POST /improve": "Improve a text with AI (3 variations)",
             "GET  /rate-limit/status": "Check remaining free generations",
             "POST /feedback": "Submit feedback",
             "GET  /health": "Health check",
@@ -104,9 +104,9 @@ async def health():
     return {"status": "healthy", "timestamp": datetime.now().isoformat()}
 
 
-@app.post("/improve", response_model=TweetResponse, tags=["tweets"])
-async def improve_tweet(request: TweetRequest, req: Request):
-    """Return three AI-improved variations of the submitted tweet."""
+@app.post("/improve", response_model=TextResponse, tags=["text-improvement"])
+async def improve_text(request: TextRequest, req: Request):
+    """Return three AI-improved variations of the submitted text."""
     ip = _get_client_ip(req)
     status = rate_limiter.check_limit(ip)
     if not status["allowed"]:
@@ -114,15 +114,15 @@ async def improve_tweet(request: TweetRequest, req: Request):
 
     # Run all three styles in parallel
     professional, casual, viral = await asyncio.gather(
-        improve_tweet_with_ai(request.text, "professional"),
-        improve_tweet_with_ai(request.text, "casual"),
-        improve_tweet_with_ai(request.text, "viral"),
+        improve_text_with_ai(request.text, "professional"),
+        improve_text_with_ai(request.text, "casual"),
+        improve_text_with_ai(request.text, "viral"),
     )
 
     variations = [
-        TweetVariation(version="professional", text=professional, description="Tono profesional para LinkedIn"),
-        TweetVariation(version="casual",       text=casual,       description="Tono casual y cercano"),
-        TweetVariation(version="viral",        text=viral,        description="Optimizado para engagement"),
+        TextVariation(version="professional", text=professional, description="Professional tone for LinkedIn"),
+        TextVariation(version="casual",       text=casual,       description="Casual and approachable tone"),
+        TextVariation(version="viral",        text=viral,        description="Optimized for engagement"),
     ]
 
     rate_limiter.increment(ip)
@@ -134,7 +134,7 @@ async def improve_tweet(request: TweetRequest, req: Request):
         style="professional",
     )
 
-    return TweetResponse(original=request.text, variations=variations)
+    return TextResponse(original=request.text, variations=variations)
 
 
 @app.get("/rate-limit/status", response_model=RateLimitStatus, tags=["rate-limit"])

@@ -411,29 +411,29 @@
       .hero-platforms { flex-wrap: wrap; }
     }
 
-    /* ── Tweet card template (html2canvas) ── */
-    #tweetTemplateInner {
+    /* ── text card template (html2canvas) ── */
+    #textTemplateInner {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: #ffffff; border: 2px solid #eff3f4;
       border-radius: 16px; padding: 32px; width: 600px;
     }
-    #tweetTemplateInner .tweet-avatar {
+    #textTemplateInner .text-avatar {
       width: 48px; height: 48px; border-radius: 50%;
       background: linear-gradient(135deg, #5a4af4, #818cf8); margin-bottom: 12px;
     }
-    #tweetTemplateInner .tweet-name {
+    #textTemplateInner .text-name {
       font-weight: 700; font-size: 16px; color: #0f1419; margin-bottom: 2px;
     }
-    #tweetTemplateInner .tweet-handle { font-size: 14px; color: #536471; margin-bottom: 16px; }
-    #tweetTemplateInner .tweet-body {
+    #textTemplateInner .text-handle { font-size: 14px; color: #536471; margin-bottom: 16px; }
+    #textTemplateInner .text-body {
       font-size: 20px; line-height: 1.5; color: #0f1419;
       margin-bottom: 16px; word-wrap: break-word;
     }
-    #tweetTemplateInner .tweet-footer {
+    #textTemplateInner .text-footer {
       font-size: 14px; color: #536471;
       padding-top: 16px; border-top: 1px solid #eff3f4; margin-bottom: 16px;
     }
-    #tweetTemplateInner .tweet-watermark {
+    #textTemplateInner .text-watermark {
       text-align: center; font-size: 12px; color: #536471;
       padding-top: 12px; border-top: 1px solid #eff3f4;
     }
@@ -456,7 +456,7 @@
   <section class="hero">
     <div class="hero-eyebrow">AI Content Tool</div>
     <h1>Publish faster.<br><span class="hl">Manage better.</span></h1>
-    <p>Paste your draft and let AI rewrite it in 3 styles — professional, casual or viral. Then generate a ready-to-share image in seconds.</p>
+    <p>Your clients' social media, managed from one place.</p>
     <div class="hero-platforms">
       <span>Built for</span>
       <span class="platform-pill">Instagram</span>
@@ -467,7 +467,7 @@
 
   <p class="compose-label">Your draft</p>
   <div class="compose-card">
-    <textarea id="tweetInput" placeholder="Write or paste your post here…" maxlength="500" rows="5"></textarea>
+    <textarea id="textInput" placeholder="Write or paste your post here…" maxlength="500" rows="5"></textarea>
     <div class="compose-footer">
       <span class="char-count" id="charCount">0 / 500</span>
       <button id="improveBtn">
@@ -555,21 +555,21 @@
   </section>
 
   <footer>
-    <p>Postly &copy; 2025</p>
+    <p>Postly &copy; 2026</p>
     <button class="feedback-link" onclick="openFeedbackModal()">Leave feedback</button>
   </footer>
 
   <!-- Hidden template for html2canvas capture -->
-  <div id="tweetTemplate" style="position:fixed; left:-9999px; top:0; width:600px;">
-    <div id="tweetTemplateInner">
-      <div class="tweet-avatar"></div>
+  <div id="textTemplate" style="position:fixed; left:-9999px; top:0; width:600px;">
+    <div id="textTemplateInner">
+      <div class="text-avatar"></div>
       <div>
-        <div class="tweet-name">Postly User</div>
-        <div class="tweet-handle">@postly</div>
+        <div class="text-name">Postly User</div>
+        <div class="text-handle">@postly</div>
       </div>
-      <div class="tweet-body" id="tweetTemplateText"></div>
-      <div class="tweet-footer" id="tweetTemplateDate"></div>
-      <div class="tweet-watermark">✦ Created with Postly</div>
+      <div class="text-body" id="textTemplateText"></div>
+      <div class="text-footer" id="textTemplateDate"></div>
+      <div class="text-watermark">✦ Created with Postly</div>
     </div>
   </div>
 </div>

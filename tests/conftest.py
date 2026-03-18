@@ -1,4 +1,4 @@
-"""Shared pytest fixtures for TweetCraft AI tests."""
+"""Shared pytest fixtures for Postly tests."""
 import sys
 from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
@@ -44,7 +44,7 @@ def mock_openai_client():
     """Return a MagicMock OpenAI client that returns a canned completion."""
     client = MagicMock()
     client.chat.completions.create.return_value = _make_openai_response(
-        "This is an improved tweet."
+        "This is an improved text."
     )
     return client
 
