@@ -1,3 +1,6 @@
+# Copyright © 2026 Jorge Vinagre
+# SPDX-License-Identifier: AGPL-3.0-only WITH Commons-Clause
+
 """Unit tests for app.rate_limiter."""
 from unittest.mock import MagicMock, patch
 

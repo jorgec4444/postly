@@ -1,3 +1,6 @@
+# Copyright © 2026 Jorge Vinagre
+# SPDX-License-Identifier: AGPL-3.0-only WITH Commons-Clause
+
 """Integration tests for Postly AI endpoints."""
 import base64
 from unittest.mock import AsyncMock, MagicMock, patch

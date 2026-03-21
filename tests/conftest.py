@@ -1,3 +1,6 @@
+# Copyright © 2026 Jorge Vinagre
+# SPDX-License-Identifier: AGPL-3.0-only WITH Commons-Clause
+
 """Shared pytest fixtures for Postly tests."""
 import sys
 from pathlib import Path

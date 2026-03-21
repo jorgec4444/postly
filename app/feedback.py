@@ -1,4 +1,4 @@
-# Copyright © 2025 Jorge Vinagre
+# Copyright © 2026 Jorge Vinagre
 # SPDX-License-Identifier: AGPL-3.0-only WITH Commons-Clause
 
 """Feedback persistence via Supabase."""

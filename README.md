@@ -300,7 +300,7 @@ Contributions are welcome. Please:
 
 ## 📄 License
 
-Copyright © 2025 Jorge Vinagre
+Copyright © 2026 Jorge Vinagre
 
 Licensed under **GNU AGPLv3 with Commons Clause**.
 
