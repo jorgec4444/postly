@@ -376,6 +376,21 @@ GitHub push → Actions build → wrangler deploy → Cloudflare Worker
 - [ ] Recurring posts
 - [ ] AI-powered content calendar — suggest a full week of content per client
  
+### Based on competitor research
+
+#### Must-have for agencies
+- [ ] Cloud media library per client — store logos, images, videos and brand assets (bindings Cloudlfare R2)
+- [ ] Approval workflow — review and approve content before it goes live
+- [ ] Post preview — show exactly how the post will look on each platform
+- [ ] Image auto-resize — automatically adapt images to each platform's specs
+- [ ] Video validation — check video specs before publishing (length, size, format)
+
+#### Nice to have
+- [ ] Post templates — save frequently used formats per client or platform
+- [ ] Bulk scheduling — upload and schedule multiple posts at once
+- [ ] Canva integration — import designs directly from Canva
+- [ ] Per-client analytics — impressions, clicks and performance per client
+
 ### 💳 Phase 6 — Monetisation
 - [ ] Stripe integration
 - [ ] Plans: Free (5/day, no account), Starter (€12/mo, 1 client), Pro (€29/mo, 5 clients), Agency (€79/mo, unlimited clients)
