@@ -33,9 +33,9 @@ def _make_supabase(rows=None):
 @pytest.fixture()
 def client():
     with (
-        patch("backend.app.database._supabase_client", _make_supabase()),
-        patch("backend.app.config._openai_client", _make_openai_client()),
-        patch("backend.app.ai.get_openai_client", return_value=_make_openai_client()),
+        patch("app.database._supabase_client", _make_supabase()),
+        patch("app.config._openai_client", _make_openai_client()),
+        patch("app.ai.get_openai_client", return_value=_make_openai_client()),
     ):
         from backend.main import app
         with TestClient(app) as c:
@@ -90,10 +90,10 @@ class TestImprove:
         r = client.post("/improve", json={"text": "x" * 501})
         assert r.status_code == 422
 
-    def test_rate_limit_blocks_after_limit(self, client):
+    def test_rate_limit_blocks_after_limit(self):
         from backend.app.config import FREE_DAILY_LIMIT
         rows = [{"count": FREE_DAILY_LIMIT}]
-        with patch("backend.app.database._supabase_client", _make_supabase(rows)):
+        with patch("app.database._supabase_client", _make_supabase(rows)):
             from backend.main import app
             with TestClient(app) as blocked_client:
                 r = blocked_client.post("/improve", json={"text": "hello"})
