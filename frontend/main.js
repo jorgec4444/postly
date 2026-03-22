@@ -1,5 +1,5 @@
 /**
- * Postly — Frontend
+ * Orkly — Frontend
  * Vanilla JS, no dependencies.
  */
 

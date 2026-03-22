@@ -1,7 +1,7 @@
 # Copyright © 2026 Jorge Vinagre
 # SPDX-License-Identifier: AGPL-3.0-only WITH Commons-Clause
 
-"""Postly — FastAPI application entry point."""
+"""Orkly — FastAPI application entry point."""
 import asyncio
 import logging
 from contextlib import asynccontextmanager
@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):  # noqa: ARG001
-    logger.info("Starting Postly`…")
+    logger.info("Starting Orkly`…")
     init_supabase()
     init_openai_client()
     logger.info("Startup complete.")
@@ -42,7 +42,7 @@ async def lifespan(app: FastAPI):  # noqa: ARG001
 # ── App ───────────────────────────────────────────────────────────────────────
 
 app = FastAPI(
-    title="Postly",
+    title="Orkly",
     description="Improve text for posts on Instagram, LinkedIn, Twitter, and more with AI.",
     version="2.0.0",
     contact={"name": "Jorge Vinagre", "email": "jorgecdev444@gmail.com"},
@@ -51,7 +51,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://postly.vinagre444.workers.dev"],
+    allow_origins=["https://orkly.vinagre444.workers.dev", "https://orkly.app"],
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
@@ -90,7 +90,7 @@ def _rate_limit_error(status: dict):
 @app.get("/", tags=["meta"])
 async def root():
     return {
-        "service": "Postly",
+        "service": "Orkly",
         "version": "2.0.0",
         "endpoints": {
             "POST /improve": "Improve a text with AI (3 variations)",
