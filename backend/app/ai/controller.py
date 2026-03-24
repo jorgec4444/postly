@@ -7,9 +7,9 @@ from fastapi import APIRouter, Request
 from .schemas import TextRequest, TextResponse, TextVariation
 from .service import improve_text
 
-router = APIRouter()
+router = APIRouter(prefix="/ai", tags=["ai"])
 
-@router.post("/improve", response_model=TextResponse, tags=["text-improvement"])
+@router.post("/improve-text", response_model=TextResponse, tags=["text-improvement"])
 async def improve(request: TextRequest, req: Request):
     """Improve the submitted text with AI, returning three variations."""
     improved = await improve_text(request, req)

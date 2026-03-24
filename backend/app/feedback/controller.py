@@ -1,3 +1,7 @@
+# Copyright © 2026 Jorge Vinagre
+# SPDX-License-Identifier: AGPL-3.0-only WITH Commons-Clause
+"""Feedback-related API endpoints."""
+
 import logging
 
 from fastapi import APIRouter, Request
@@ -7,10 +11,11 @@ from .schemas import FeedbackRequest
 from .service import feedback_logger
 
 logger = logging.getLogger(__name__)
-router = APIRouter()
 
-@router.post("/feedback", tags=["feedback"])
-async def receive_feedback(body: FeedbackRequest, req: Request):
+router = APIRouter(prefix="/feedback", tags=["feedback"])
+
+@router.post("/save", response_model=dict)
+async def send_feedback(body: FeedbackRequest, req: Request):
     """Store user feedback."""
     logger.info(f"Received feedback from IP {get_client_ip(req)}")
     feedback_logger.log_feedback(

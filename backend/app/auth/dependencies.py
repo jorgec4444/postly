@@ -3,13 +3,8 @@
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
-from supabase import create_client
-import os
+from app.database import get_supabase
 
-supabase = create_client(
-    os.environ.get("SUPABASE_URL"),
-    os.environ.get("SUPABASE_SERVICE_KEY")
-)
 
 async def get_current_user(
     cred: HTTPAuthorizationCredentials = Depends(HTTPBearer(auto_error=False))
@@ -21,7 +16,8 @@ async def get_current_user(
         )
     
     try:
-        user = supabase.auth.get_user(cred.credentials)
+        db = get_supabase()
+        user = db.auth.get_user(cred.credentials)
         return user.user
     except Exception:
         raise HTTPException(

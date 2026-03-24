@@ -15,6 +15,7 @@ from app.text_generation.controller import router as text_generation_router
 from app.rate_limit.controller import router as rate_limit_router
 from app.feedback.controller import router as feedback_router
 from app.admin.controller import router as admin_router
+from app.clients.controller import router as clients_router
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(name)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -44,7 +45,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://orkly.vinagre444.workers.dev", "https://orkly.app"],
+    allow_origins=["https://orkly.vinagre444.workers.dev", "https://orkly.app", "http://localhost:5173/"],
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["*"]
@@ -57,6 +58,7 @@ app.include_router(text_generation_router)
 app.include_router(rate_limit_router)
 app.include_router(feedback_router)
 app.include_router(admin_router)
+app.include_router(clients_router)
 
 @app.get("/", tags=["meta"])
 async def root():
