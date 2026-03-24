@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast'
 import { toastConfig } from './config/toastConfig'
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
+import Clients from './pages/Clients'
 import AuthListener from './components/AuthListener'
 
 function App() {
@@ -12,7 +13,12 @@ function App() {
     <AuthListener />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="clients" element={<Clients />} />
+          <Route path="create" element={<div>Create Content</div>} />
+          <Route path="settings" element={<div>Settings</div>} />
+        </Route>
+        
       </Routes>
     </BrowserRouter>
   )

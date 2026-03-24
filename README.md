@@ -166,16 +166,16 @@ CREATE TABLE public.feedback_logs (
   CONSTRAINT feedback_logs_pkey PRIMARY KEY (id),
   CONSTRAINT feedback_logs_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
 );
-CREATE TABLE public.generations (
-  id bigint NOT NULL DEFAULT nextval('generations_id_seq'::regclass),
-  ip text,
-  text_original text,
-  text_improved text,
-  style text,
-  created_at timestamp with time zone DEFAULT now(),
-  client_id bigint,
-  CONSTRAINT generations_pkey PRIMARY KEY (id),
-  CONSTRAINT generations_client_id_fkey FOREIGN KEY (client_id) REFERENCES public.clients(id)
+create table public.generations (
+  id bigserial not null,
+  ip text null,
+  text_original text null,
+  text_improved text null,
+  style text null,
+  created_at timestamp with time zone null default now(),
+  client_id bigint null,
+  constraint generations_pkey primary key (id),
+  constraint generations_client_id_fkey foreign KEY (client_id) references clients (id)
 );
 CREATE TABLE public.profiles (
   id bigint NOT NULL DEFAULT nextval('profiles_id_seq'::regclass),

@@ -2,12 +2,17 @@
 # SPDX-License-Identifier: AGPL-3.0-only WITH Commons-Clause
 
 """AI helpers: wrapper around OpenAI calls for text improvement."""
+import asyncio
 import logging
 
-from fastapi import HTTPException
+from fastapi import HTTPException, Request
 
-from .config import get_openai_client, MODEL_NAME
-from .prompts import IMPROVEMENT_PROMPTS, DEFAULT_STYLE
+from utils.http import get_client_ip
+from rate_limit.serivce import rate_limiter, rate_limit_error
+from .schemas import TextRequest, TextResponse, TextVariation
+
+from app.config import get_openai_client, MODEL_NAME
+from prompts import IMPROVEMENT_PROMPTS, DEFAULT_STYLE
 
 logger = logging.getLogger(__name__)
 
@@ -56,3 +61,28 @@ async def improve_text_with_ai(text: str, style: str) -> str:
     except Exception as exc:
         logger.exception("OpenAI API error for style=%s", style)
         raise HTTPException(status_code=500, detail=f"Error with OpenAI API: {exc}") from exc
+
+
+async def improve_text(request: TextRequest, req: Request):
+    """Return three AI-improved variations of the submitted text."""
+    ip = get_client_ip(req)
+    status = rate_limiter.check_limit(ip)
+    if not status["allowed"]:
+        rate_limit_error(status)
+
+    # Run all three styles in parallel
+    professional, casual, viral = await asyncio.gather(
+        improve_text_with_ai(request.text, "professional"),
+        improve_text_with_ai(request.text, "casual"),
+        improve_text_with_ai(request.text, "viral"),
+    )
+
+    variations = [
+        TextVariation(version="professional", text=professional, description="Professional tone for LinkedIn"),
+        TextVariation(version="casual",       text=casual,       description="Casual and approachable tone"),
+        TextVariation(version="viral",        text=viral,        description="Optimized for engagement"),
+    ]
+
+    rate_limiter.increment(ip)
+
+    return TextResponse(original=request.text, variations=variations)

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet } from "react-router-dom";
 import { toast } from 'react-hot-toast'
+
+import Sidebar from "../components/Sidebar";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -23,7 +25,10 @@ function Dashboard() {
 
     return (
         <div>
-            <h1>Welcome to the Dashboard</h1>
+            <Sidebar />
+             <main className="ml-64 p-8 min-h-screen bg-bg">
+                <Outlet />
+            </main>
         </div>
     );
 }

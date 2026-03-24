@@ -7,11 +7,10 @@ function AuthListener() {
 
     useEffect(() => {
         supabase.auth.onAuthStateChange((event, session) => {
-        if (event === 'SIGNED_IN' && session) {
+        if (event === 'SIGNED_IN' && session && window.location.pathname === '/') {
             navigate('/dashboard');
         }
         })
-        return () => subscription.unsubscribe()
     }, [])
     return null
 }

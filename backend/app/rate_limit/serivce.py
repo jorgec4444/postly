@@ -9,10 +9,10 @@ so the app stays usable during development or DB outages.
 import logging
 from collections import defaultdict
 from datetime import datetime
-from typing import Optional
+from fastapi import HTTPException
 
-from .config import FREE_DAILY_LIMIT
-from .database import get_supabase
+from app.config import FREE_DAILY_LIMIT
+from app.database import get_supabase
 
 logger = logging.getLogger(__name__)
 
@@ -31,6 +31,22 @@ _memory_counts: dict[str, int] = defaultdict(int)
 
 def _memory_key(ip: str) -> str:
     return f"{ip}:{_today()}"
+
+def rate_limit_error(status: dict):
+    raise HTTPException(
+        status_code=429,
+        detail={
+            "error": "rate_limit_exceeded",
+            "message": (
+                f"You've reached the free limit of {status['limit']} "
+                "generations per day."
+            ),
+            "used": status["used"],
+            "limit": status["limit"],
+            "remaining": status["remaining"],
+            "reset_at": status["reset_at"],
+        },
+    )
 
 
 # ── Public API ────────────────────────────────────────────────────────────────
@@ -119,65 +135,6 @@ class RateLimiter:
             logger.error("increment DB error for ip=%s: %s", ip, exc)
             # Degrade gracefully — don't block the user
             _memory_counts[_memory_key(ip)] += 1
-
-    # ── analytics ────────────────────────────────────────────────────────────
-
-    def save_generation(
-        self, ip: str, original: str, improved: str, style: str
-    ) -> None:
-        """Persist a generation record for analytics (best-effort)."""
-        if not self._db:
-            return
-
-        try:
-            self._db.table("generations").insert(
-                {
-                    "ip": ip,
-                    "text_original": original,
-                    "text_improved": improved,
-                    "style": style,
-                }
-            ).execute()
-        except Exception as exc:
-            logger.warning("save_generation failed: %s", exc)
-
-    def get_stats(self) -> dict:
-        """Return aggregated daily and all-time stats."""
-        if not self._db:
-            return {"error": "Database not connected"}
-
-        today = _today()
-        try:
-            rate_rows = (
-                self._db.table("rate_limits")
-                .select("count")
-                .eq("date", today)
-                .execute()
-            )
-            rows = rate_rows.data or []
-            total_ips = len(rows)
-            total_requests = sum(r["count"] for r in rows)
-            at_limit = sum(1 for r in rows if r["count"] >= FREE_DAILY_LIMIT)
-
-            gen_resp = (
-                self._db.table("generations")
-                .select("id", count="exact")
-                .execute()
-            )
-            total_generations = gen_resp.count or 0
-
-            return {
-                "today": {
-                    "unique_ips": total_ips,
-                    "total_requests": total_requests,
-                    "ips_at_limit": at_limit,
-                },
-                "all_time": {"total_generations": total_generations},
-                "free_limit": FREE_DAILY_LIMIT,
-            }
-        except Exception as exc:
-            logger.error("get_stats error: %s", exc)
-            return {"error": str(exc)}
 
 
 # Module-level singleton
