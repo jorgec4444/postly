@@ -8,10 +8,10 @@ import logging
 from fastapi import HTTPException, Request
 
 from utils.http import get_client_ip
-from rate_limit.serivce import rate_limiter, rate_limit_error
+from rate_limit.service import rate_limiter, rate_limit_error
 from .schemas import TextRequest, TextResponse, TextVariation
 
-from app.config import get_openai_client, MODEL_NAME
+from config import get_openai_client, MODEL_NAME
 from prompts import IMPROVEMENT_PROMPTS, DEFAULT_STYLE
 
 logger = logging.getLogger(__name__)

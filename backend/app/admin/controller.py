@@ -1,43 +1,19 @@
-from backend.app.config import FREE_DAILY_LIMIT
-from backend.app.rate_limit.serivce import _today
+# Copyright © 2026 Jorge Vinagre
+# SPDX-License-Identifier: AGPL-3.0-only WITH Commons-Clause
+"""Admin-related API endpoints (protected by ADMIN_API_KEY)."""
+
 import logging
+
+from fastapi import APIRouter, HTTPException
+from config import ADMIN_API_KEY
+from .service import get_stats
 
 logger = logging.getLogger(__name__)
 
-def get_stats(self) -> dict:
-        """Return aggregated daily and all-time stats."""
-        if not self._db:
-            return {"error": "Database not connected"}
-
-        today = _today()
-        try:
-            rate_rows = (
-                self._db.table("rate_limits")
-                .select("count")
-                .eq("date", today)
-                .execute()
-            )
-            rows = rate_rows.data or []
-            total_ips = len(rows)
-            total_requests = sum(r["count"] for r in rows)
-            at_limit = sum(1 for r in rows if r["count"] >= FREE_DAILY_LIMIT)
-
-            gen_resp = (
-                self._db.table("generations")
-                .select("id", count="exact")
-                .execute()
-            )
-            total_generations = gen_resp.count or 0
-
-            return {
-                "today": {
-                    "unique_ips": total_ips,
-                    "total_requests": total_requests,
-                    "ips_at_limit": at_limit,
-                },
-                "all_time": {"total_generations": total_generations},
-                "free_limit": FREE_DAILY_LIMIT,
-            }
-        except Exception as exc:
-            logger.error("get_stats error: %s", exc)
-            return {"error": str(exc)}
+router = APIRouter()
+@router.get("/admin/stats", tags=["admin"])
+async def admin_stats(api_key: str | None = None):
+    """Aggregated usage statistics (protected by ADMIN_API_KEY)."""
+    if not ADMIN_API_KEY or api_key != ADMIN_API_KEY:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    return get_stats()
