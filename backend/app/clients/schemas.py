@@ -22,3 +22,4 @@ class ClientCreateRequest(BaseModel):
 class ClientUpdateRequest(BaseModel):
     client_name: str | None = Field(default=None, min_length=1, max_length=100)
     brand_voice: str | None = Field(default=None, max_length=1000)
+    platforms: list[str] | None = Field(default=None)

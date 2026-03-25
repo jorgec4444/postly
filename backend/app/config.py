@@ -39,6 +39,7 @@ def _parse_int_env(name: str, default: int) -> int:
 
 
 FREE_DAILY_LIMIT: int = _parse_int_env("MAX_FREE_GENERATIONS_PER_DAY", 5)
+LOGGED_DAILY_LIMIT: int = _parse_int_env("MAX_LOGGED_GENERATIONS_PER_DAY", 15)
 
 # ── Admin ─────────────────────────────────────────────────────────────────────
 ADMIN_API_KEY: Optional[str] = os.getenv("ADMIN_API_KEY")

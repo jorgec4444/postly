@@ -5,7 +5,11 @@
 import logging
 
 from app.database import get_supabase
+from app.text_generation.service import fetch_client_generations
 from datetime import datetime, timezone
+
+from app.text_generation.schemas import GenerationsResponse
+
 
 logger = logging.getLogger(__name__)
 
@@ -26,6 +30,32 @@ async def get_clients_by_user(user_id: str) -> list[dict]:
 
     return response.data or []
 
+async def get_client_by_id(client_id: int, user_id: str) -> dict | None:
+    """Return a specific client by ID, if it belongs to the user and is not deleted."""
+
+    db = get_supabase()
+
+    try:
+        response = (
+            db.table("clients")
+            .select("*")
+            .eq("id", client_id)
+            .eq("user_id", user_id)
+            .is_("deleted_at", "null")
+            .execute()
+        )
+    except Exception as exc:
+        logger.error(f"Error fetching client {client_id} for user {user_id}: {exc}")
+        return None
+
+    return response.data[0] if response.data else None
+
+
+async def get_client_generations(client_id: int, user_id: str) -> list[GenerationsResponse]:
+    """Return generations for a specific client."""
+
+    return await fetch_client_generations(client_id, user_id)
+
 
 async def create_client(user_id: str, client_name: str, brand_voice: str | None) -> dict:
     """Insert a new client row and return the created record."""
@@ -43,15 +73,20 @@ async def create_client(user_id: str, client_name: str, brand_voice: str | None)
 
 
 async def update_client(
-    client_id: int, user_id: str, client_name: str | None, brand_voice: str | None
+    client_id: int, user_id: str, client_name: str | None, brand_voice: str | None, platforms: list[str] | None
 ) -> dict | None:
     """Update a client's name/brand_voice. Returns None if not found or not owned."""
 
     payload = {}
     if client_name is not None:
         payload["client_name"] = client_name
-        
-    payload["brand_voice"] = brand_voice
+    
+    if brand_voice is not None:
+        payload["brand_voice"] = brand_voice
+
+    if platforms is not None:
+        payload["platforms"] = platforms
+    
     if not payload:
         return None
 

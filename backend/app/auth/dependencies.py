@@ -24,3 +24,20 @@ async def get_current_user(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid authentication credentials"
         )
+    
+async def get_optional_user(
+    cred: HTTPAuthorizationCredentials = Depends(HTTPBearer(auto_error=False))
+):
+    
+    if cred is None:
+        return None
+    
+    try:
+        db = get_supabase()
+        user = db.auth.get_user(cred.credentials)
+        return user.user
+    except Exception:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication credentials"
+        )

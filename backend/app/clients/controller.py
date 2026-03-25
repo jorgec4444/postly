@@ -5,6 +5,7 @@
 import logging
 
 from app.auth.dependencies import get_current_user
+from app.text_generation.schemas import GenerationsResponse
 from .schemas import ClientResponse, ClientCreateRequest, ClientUpdateRequest
 from . import service
 from fastapi import APIRouter, Depends, status, HTTPException
@@ -18,8 +19,25 @@ async def list_clients(user = Depends(get_current_user)):
     """Return all active clients for the authenticated user."""
 
     return await service.get_clients_by_user(user.id)
+
  
- 
+@router.get("/{client_id}", response_model=ClientResponse)
+async def get_client(client_id: int, user = Depends(get_current_user)):
+    """Return a specific client by ID, if it belongs to the authenticated user."""
+
+    client = await service.get_client_by_id(client_id=client_id, user_id=user.id)
+    if not client:
+        raise HTTPException(status_code=404, detail="Client not found")
+    return client
+
+
+@router.get("/{client_id}/generations", response_model=list[GenerationsResponse])
+async def get_client_generations(client_id: int, user = Depends(get_current_user)):
+    """Return generations for a specific client."""
+
+    return await service.get_client_generations(client_id=client_id, user_id=user.id)
+
+
 @router.post("/create", response_model=ClientResponse, status_code=status.HTTP_201_CREATED)
 async def create_client(body: ClientCreateRequest, user = Depends(get_current_user)):
     """Create a new client."""
@@ -42,6 +60,7 @@ async def update_client(
         user_id=user.id,
         client_name=body.client_name,
         brand_voice=body.brand_voice,
+        platforms=body.platforms,
     )
     if not updated:
         raise HTTPException(status_code=404, detail="Client not found")

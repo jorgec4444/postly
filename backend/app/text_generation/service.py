@@ -11,7 +11,7 @@ from app.ai.prompts import DEFAULT_STYLE, IMPROVEMENT_PROMPTS
 from app.config import MODEL_NAME, get_openai_client
 from app.database import get_supabase
 from app.rate_limit.service import rate_limiter, rate_limit_error
-from .schemas import SaveGenerationRequest, TextRequest, TextResponse, TextVariation
+from .schemas import GenerationsResponse, SaveGenerationRequest, TextRequest, TextResponse, TextVariation
 import asyncio
 
 logger = logging.getLogger(__name__)
@@ -64,11 +64,18 @@ async def improve_text_with_ai(text: str, style: str, brand_voice: str | None = 
         raise HTTPException(status_code=500, detail=f"Error with OpenAI API: {exc}") from exc
 
 
-async def improve_text(request: TextRequest, req: Request):
+async def improve_text(request: TextRequest, req: Request, user = None):
     """Return three AI-improved variations of the submitted text."""
 
-    ip = get_client_ip(req)
-    status = rate_limiter.check_limit(ip)
+    if user:
+        status = rate_limiter.check_limit_user(user.id)
+    else:
+        ip = get_client_ip(req)
+        status = rate_limiter.check_limit(ip)
+    
+    if not status["allowed"]:
+        rate_limit_error(status)
+
     db = get_supabase()
 
     if not status["allowed"]:
@@ -92,13 +99,17 @@ async def improve_text(request: TextRequest, req: Request):
         TextVariation(version="viral",        text=viral,        description="Optimized for engagement"),
     ]
 
-    rate_limiter.increment(ip)
+    if user:
+        rate_limiter.increment_user(user.id)
+    else:
+        rate_limiter.increment(ip)
 
     return TextResponse(original=request.text, variations=variations)
 
     
-def save_generation_handler(save_generation_request: SaveGenerationRequest, request: Request) -> None:
-    """Persist a generation record for analytics (best-effort)."""
+async def save_generation_handler(save_generation_request: SaveGenerationRequest, request: Request) -> None:
+    """Persist a generation record for tracking generations per client"""
+
     ip = get_client_ip(request)
     db = get_supabase()
 
@@ -110,7 +121,34 @@ def save_generation_handler(save_generation_request: SaveGenerationRequest, requ
                 "text_improved": save_generation_request.selected_text,
                 "style": save_generation_request.style,
                 "client_id": save_generation_request.client_id,
+                "platform": save_generation_request.platform,
             }
         ).execute()
     except Exception as exc:
         logger.warning("save_generation failed: %s", exc)
+
+    return {"status": "success"}
+
+async def fetch_client_generations(client_id: int, user_id: str) -> list[GenerationsResponse]:
+    """Return generations for a specific client."""
+
+    db = get_supabase()
+
+    try:
+        client = db.table("clients").select("id").eq("id", client_id).eq("user_id", user_id).single().execute()
+
+        if not client.data:
+            return []
+
+        response = (
+            db.table("generations")
+            .select("*")
+            .eq("client_id", client_id)
+            .order("created_at", desc=True)
+            .execute()
+        )
+    except Exception as exc:
+        logger.error(f"Error fetching generations for client {client_id}: {exc}")
+        return []
+    
+    return response.data or []

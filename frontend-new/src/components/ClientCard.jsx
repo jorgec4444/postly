@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Calendar, AlertCircle, CheckCircle2, Pencil, Trash2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function ClientCard({ client, onDeleted, onUpdated, apiFetch }) {
   const [editing, setEditing] = useState(false);
@@ -8,6 +9,7 @@ export default function ClientCard({ client, onDeleted, onUpdated, apiFetch }) {
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const initials = client.client_name
     .split(" ")
@@ -65,7 +67,9 @@ export default function ClientCard({ client, onDeleted, onUpdated, apiFetch }) {
   };
 
   return (
-    <div className="bg-white dark:bg-[var(--color-surface)] border border-gray-200 dark:border-[var(--color-border)] rounded-2xl p-5 flex flex-col gap-4 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer">
+    <div 
+    onClick={() => !editing && navigate(`/dashboard/clients/${client.id}`)}
+    className="bg-white dark:bg-[var(--color-surface)] border border-gray-200 dark:border-[var(--color-border)] rounded-2xl p-5 flex flex-col gap-4 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group cursor-pointer">
 
       {/* ── Header ── */}
       <div className="flex items-start justify-between gap-3">
