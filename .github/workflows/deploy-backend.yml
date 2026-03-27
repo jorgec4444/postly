@@ -26,7 +26,7 @@ jobs:
           service: mi-backend
           source: ./backend
           region: europe-west1
-          env_vars:
+          env_vars: |
             OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
             SUPABASE_URL=${{ secrets.SUPABASE_URL }}
             SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}
