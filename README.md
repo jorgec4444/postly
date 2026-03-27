@@ -363,15 +363,15 @@ wrangler deploy
 - [x] Auto-updating footer year
 
 ### 🚧 Phase 2 — Authentication & client management
-- [ ] Google OAuth login (Supabase Auth)
-- [ ] Client dashboard — manage all clients from one place
-- [ ] Brand kit per client — tone of voice, custom prompt, examples
-- [ ] Generation history per client
-- [ ] Personal account settings
+- [x] Google OAuth login (Supabase Auth)
+- [x] Client dashboard — manage all clients from one place
+- [x] Brand kit per client — tone of voice, custom prompt, examples
+- [x] Generation history per client
+- [x] Personal account settings
 
 ### 📝 Phase 3 — AI content features
-- [ ] Platform-specific generation — Instagram, LinkedIn, TikTok each get tailored output
-- [ ] Custom tones per client — brand voice used automatically in every generation
+- [x] Platform-specific generation — Instagram, LinkedIn, TikTok each get tailored output
+- [x] Custom tones per client — brand voice used automatically in every generation
 - [ ] Hashtag recommendations per post and platform
 - [ ] Content repurposing — paste a long text, get posts for every platform
 - [ ] Carousel generation — structured slide-by-slide content for Instagram
