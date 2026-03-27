@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+button, [role="button"], select {
+  cursor: pointer;
+}
+
+:root {
+  --color-primary: #0F6E56;
+  --color-primary-light: #1D9E75;
+  --color-accent: #5DCAA5;
+  --color-gold: #EF9F27;
+  --color-bg: #f0f7f4;
+  --color-muted: #6b6b80;
+}
+
+@theme inline {
+  --color-primary: var(--color-primary);
+  --color-primary-light: var(--color-primary-light);
+  --color-accent: var(--color-accent);
+  --color-gold: var(--color-gold);
+  --color-bg: var(--color-bg);
+  --color-muted: var(--color-muted);
+}

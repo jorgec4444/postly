@@ -1,11 +1,12 @@
 # Orkly
 
-**Publish faster. Manage better.**
+**Orchestrate your clients' social media.**
 
-Orkly is an open-source social media management tool for community managers and agencies. Create AI-powered content, schedule posts, and manage multiple client accounts — all in one place.
+Orkly is an open-source social media management tool built for community managers and agencies. Like a conductor with a single baton, Orkly lets you orchestrate content creation, scheduling and client management across all your accounts — all in one place.
 
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111-green.svg)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-18-61DAFB.svg)](https://react.dev/)
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o--mini-purple.svg)](https://openai.com/)
 [![License](https://img.shields.io/badge/License-AGPL--3.0%20%2B%20Commons%20Clause-red.svg)](#license)
 
@@ -13,18 +14,19 @@ Orkly is an open-source social media management tool for community managers and 
 
 ## ✨ Features
 
+- 🎼 **Client orchestration** — manage all your clients from a single dashboard
 - 🤖 **AI Content Generation** — GPT-4o-mini rewrites your draft in 3 styles: professional, casual and viral
-- 📸 **Image Generation** — capture your post as a shareable PNG directly in the browser (no server needed)
-- 🎨 **8 visual themes** — light, dark, gradient, sunset, ocean, forest, fire, midnight
+- 🎨 **Brand kit per client** — tone of voice and custom prompts per client
 - 🔒 **Rate limiting** — daily limit per IP with in-memory fallback if Supabase is unavailable
+- 🔐 **Google OAuth** — sign in with Google via Supabase Auth
 - 🧪 **Tests included** — unit tests, integration tests and mocks for OpenAI/Supabase
 
 ### Coming soon
 - 📅 **Post scheduling** — schedule content for a specific date, time or on a recurring basis
 - 📱 **Instagram publishing** — publish photos, carousels and reels via the Meta Graph API
 - 💼 **LinkedIn & Twitter/X** — multi-platform support
-- 👥 **Multiple accounts** — manage several client profiles from a single dashboard
-- 💳 **Stripe payments** — Free, Pro and Agency plans
+- 📊 **Analytics** — per-client performance tracking
+- 💳 **Stripe payments** — Free, Starter, Pro and Agency plans
 
 ---
 
@@ -39,7 +41,8 @@ cd orkly
 python -m venv venv
 source venv/bin/activate   # Windows: venv\Scripts\activate
 
-# 3. Install dependencies
+# 3. Install backend dependencies
+cd backend
 pip install -r requirements.txt
 
 # 4. Set up environment variables
@@ -47,13 +50,16 @@ cp .env.example .env
 # Edit .env with your credentials
 
 # 5. Start the backend
+cd backend
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
-# 6. Serve the frontend (in a second terminal)
-cd frontend && python -m http.server 3000
+# 6. Start the frontend (in a second terminal)
+cd frontend-new
+npm install
+npm run dev
 ```
 
-Open **http://localhost:3000** in your browser.
+Open **http://localhost:5173** in your browser.
 
 ---
 
@@ -61,23 +67,68 @@ Open **http://localhost:3000** in your browser.
 
 ```
 orkly/
-orkly/
 ├── backend/
 │   ├── app/
-│     ├── __init__.py
-│     ├── ai.py           # OpenAI calls
-│     ├── config.py       # Environment variables and clients
-│     ├── database.py     # Supabase client
-│     ├── feedback.py     # Feedback persistence
-│     ├── prompts.py      # AI improvement prompts
-│     ├── rate_limiter.py # Daily IP rate limiting + analytics
-│     └── schemas.py      # Pydantic models
-|   ├── main.py           # FastAPI entry point
+│   │   ├── admin/
+│   │   │   ├── controller.py     # Admin stats endpoint
+│   │   │   └── service.py        # Stats aggregation logic
+│   │   ├── ai/
+│   │   │   ├── service.py        # OpenAI calls
+│   │   │   └── prompts.py        # AI improvement prompts
+│   │   ├── auth/
+│   │   │   └── dependencies.py   # JWT verification via Supabase
+│   │   ├── clients/
+│   │   │   ├── controller.py     # Client CRUD endpoints
+│   │   │   ├── service.py        # Client business logic
+│   │   │   └── schemas.py        # Client Pydantic models
+│   │   ├── feedback/
+│   │   │   ├── controller.py     # Feedback endpoint
+│   │   │   ├── service.py        # Feedback persistence
+│   │   │   └── schemas.py        # Feedback Pydantic models
+│   │   ├── rate_limit/
+│   │   │   ├── controller.py     # Rate limit status endpoint
+│   │   │   └── service.py        # Per-IP daily rate limiting
+│   │   ├── text_generation/
+│   │   │   ├── controller.py     # Improve + save generation endpoints
+│   │   │   ├── service.py        # Generation persistence
+│   │   │   └── schemas.py        # Generation Pydantic models
+│   │   ├── utils/
+│   │   │   └── http.py           # Shared HTTP helpers (get_client_ip)
+│   │   ├── config.py             # Environment variables and clients
+│   │   └── database.py           # Supabase client
+│   ├── main.py                   # FastAPI entry point
 │   ├── requirements.txt
 │   └── Dockerfile
 ├── frontend/
-│   ├── index.html
-│   └── main.js
+│   ├── index.html                # Landing page (HTML + Vanilla JS)
+│   ├── main.js
+│   ├── privacy/
+│   │   └── index.html            # Privacy policy (GDPR compliant)
+│   └── terms/
+│       └── index.html            # Terms of service
+├── frontend-new/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── AuthModal.jsx     # Google OAuth modal
+│   │   │   ├── AuthListener.jsx  # Auth state listener
+│   │   │   ├── ClientCard.jsx    # Client card component
+│   │   │   └── Sidebar.jsx       # Dashboard sidebar
+│   │   ├── config/
+│   │   │   └── toastConfig.js    # Toast notification config
+│   │   ├── pages/
+│   │   │   ├── Landing.jsx       # Public landing page
+│   │   │   ├── Dashboard.jsx     # Dashboard layout
+│   │   │   └── clients/
+│   │   │       └── Clients.jsx   # Client management view
+│   │   ├── App.jsx               # Router configuration
+│   │   ├── main.jsx              # React entry point
+│   │   ├── index.css             # Global styles + Tailwind v4
+│   │   └── supabase.js           # Supabase client
+│   ├── public/
+│   │   ├── orkly_icon.svg
+│   │   ├── orkly_icon_sidebar.svg
+│   │   └── orkly_logo.svg
+│   └── package.json
 ├── tests/
 │   ├── conftest.py
 │   ├── test_ai.py
@@ -94,15 +145,17 @@ orkly/
 ## 💡 How it works
 
 ```
-User writes a draft
+User signs in with Google OAuth
+        ↓
+User creates clients and sets brand voice per client
         ↓
 POST /improve  →  OpenAI generates 3 variations in parallel
         ↓
-User picks their favourite
+User picks their favourite variation
         ↓
-html2canvas captures the styled card as PNG in the browser
+POST /save-generation  →  Saves original + selected variation to DB
         ↓
-User downloads or shares the image
+User publishes or schedules the content (coming soon)
 ```
 
 ---
@@ -114,10 +167,10 @@ User downloads or shares the image
 | Backend | FastAPI + Pydantic v2 |
 | AI | OpenAI GPT-4o-mini |
 | Database | Supabase (PostgreSQL) |
-| Image generation | html2canvas (browser-side) |
-| Frontend | HTML + CSS + Vanilla JS |
+| Auth | Supabase Auth + Google OAuth |
+| Frontend | React 18 + Vite + Tailwind CSS v4 |
 | Tests | pytest + pytest-asyncio |
-| Deploy | Railway (backend) · any static host (frontend) |
+| Deploy | Google Cloud Run (backend) · Cloudflare Workers (frontend) |
 
 ---
 
@@ -145,71 +198,74 @@ ADMIN_API_KEY=change-me
 Run this SQL in your Supabase **SQL Editor**:
 
 ```sql
--- WARNING: This schema is for context only and is not meant to be run.
--- Table order and constraints may not be valid for execution.
-
-CREATE TABLE public.clients (
-  id bigint NOT NULL DEFAULT nextval('clients_id_seq'::regclass),
-  user_id uuid NOT NULL,
-  client_name text NOT NULL,
-  created_at timestamp with time zone NOT NULL DEFAULT now(),
-  brand_voice text NULL,
-  CONSTRAINT clients_pkey PRIMARY KEY (id),
-  CONSTRAINT clients_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
-);
-CREATE TABLE public.feedback_logs (
-  id bigint NOT NULL DEFAULT nextval('feedback_logs_id_seq'::regclass),
-  ip text,
-  feedback_text text,
-  created_at timestamp with time zone DEFAULT now(),
-  user_id uuid,
-  CONSTRAINT feedback_logs_pkey PRIMARY KEY (id),
-  CONSTRAINT feedback_logs_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
-);
-CREATE TABLE public.generations (
-  id bigint NOT NULL DEFAULT nextval('generations_id_seq'::regclass),
-  ip text,
-  text_original text,
-  text_improved text,
-  style text,
-  created_at timestamp with time zone DEFAULT now(),
-  client_id bigint,
-  CONSTRAINT generations_pkey PRIMARY KEY (id),
-  CONSTRAINT generations_client_id_fkey FOREIGN KEY (client_id) REFERENCES public.clients(id)
-);
 CREATE TABLE public.profiles (
-  id bigint NOT NULL DEFAULT nextval('profiles_id_seq'::regclass),
+  id bigserial NOT NULL,
   user_id uuid NOT NULL,
-  current_plan USER-DEFINED NOT NULL DEFAULT 'free'::plan_type,
+  current_plan text NOT NULL DEFAULT 'free',
   created_at timestamp with time zone NOT NULL DEFAULT now(),
   CONSTRAINT profiles_pkey PRIMARY KEY (id),
   CONSTRAINT profiles_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
 );
-CREATE TABLE public.rate_limits (
-  id bigint NOT NULL DEFAULT nextval('rate_limits_id_seq'::regclass),
-  ip text NOT NULL,
-  date date NOT NULL,
-  count integer NOT NULL DEFAULT 1,
-  last_used_at timestamp with time zone,
-  created_at timestamp with time zone DEFAULT now(),
-  user_id uuid,
-  CONSTRAINT rate_limits_pkey PRIMARY KEY (id),
-  CONSTRAINT rate_limits_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
+
+CREATE TABLE public.clients (
+  id bigserial NOT NULL,
+  user_id uuid NOT NULL,
+  client_name text NOT NULL,
+  brand_voice text NULL,
+  deleted_at timestamp with time zone NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  CONSTRAINT clients_pkey PRIMARY KEY (id),
+  CONSTRAINT clients_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id)
 );
+
 CREATE TABLE public.social_accounts (
-  id bigint NOT NULL DEFAULT nextval('social_accounts_id_seq'::regclass),
-  platform USER-DEFINED NOT NULL,
+  id bigserial NOT NULL,
+  platform text NOT NULL,
   username text NOT NULL,
   access_token text NOT NULL,
   token_expires_at timestamp with time zone NOT NULL,
   client_id bigint NOT NULL,
-  status USER-DEFINED NOT NULL,
+  status text NOT NULL,
   account_id text NOT NULL,
+  deleted_at timestamp with time zone NULL,
   CONSTRAINT social_accounts_pkey PRIMARY KEY (id),
   CONSTRAINT social_accounts_client_id_fkey FOREIGN KEY (client_id) REFERENCES public.clients(id)
 );
+
+CREATE TABLE public.generations (
+  id bigserial NOT NULL,
+  ip text NULL,
+  text_original text NULL,
+  text_improved text NULL,
+  style text NULL,
+  created_at timestamp with time zone NULL DEFAULT now(),
+  client_id bigint NULL,
+  CONSTRAINT generations_pkey PRIMARY KEY (id),
+  CONSTRAINT generations_client_id_fkey FOREIGN KEY (client_id) REFERENCES clients(id)
+);
+
+CREATE TABLE public.rate_limits (
+  id bigserial NOT NULL,
+  ip text NOT NULL,
+  date date NOT NULL,
+  count integer NOT NULL DEFAULT 1,
+  last_used_at timestamp with time zone NULL,
+  created_at timestamp with time zone NULL DEFAULT now(),
+  user_id uuid NULL,
+  CONSTRAINT rate_limits_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE public.feedback_logs (
+  id bigserial NOT NULL,
+  ip text NULL,
+  feedback_text text NULL,
+  created_at timestamp with time zone NULL DEFAULT now(),
+  user_id uuid NULL,
+  CONSTRAINT feedback_logs_pkey PRIMARY KEY (id)
+);
 ```
-![Orkly database schema](assets/supabase-schema.svg)
+
+Enable RLS and add policies for `clients` and `social_accounts` so users can only access their own data.
 
 ---
 
@@ -232,14 +288,19 @@ Tests mock OpenAI and Supabase completely — no real credentials needed.
 
 ## 🌐 API endpoints
 
-| Method | Route | Description |
-|--------|-------|-------------|
-| `GET`  | `/` | API info |
-| `GET`  | `/health` | Health check |
-| `POST` | `/improve` | Improve a post (3 variations) |
-| `GET`  | `/rate-limit/status` | Current rate limit status |
-| `POST` | `/feedback` | Submit feedback |
-| `GET`  | `/admin/stats?api_key=` | Usage statistics (protected) |
+| Method | Route | Auth | Description |
+|--------|-------|------|-------------|
+| `GET`  | `/` | — | API info |
+| `GET`  | `/health` | — | Health check |
+| `POST` | `/improve` | — | Improve a post (3 variations) |
+| `POST` | `/save-generation` | — | Save selected generation to DB |
+| `GET`  | `/rate-limit/status` | — | Current rate limit status |
+| `POST` | `/feedback` | — | Submit feedback |
+| `GET`  | `/clients` | JWT | List user's clients |
+| `POST` | `/clients` | JWT | Create a client |
+| `PUT`  | `/clients/{id}` | JWT | Update a client |
+| `DELETE` | `/clients/{id}` | JWT | Soft delete a client |
+| `GET`  | `/admin/stats` | API Key | Usage statistics |
 
 Interactive docs available at `http://localhost:8000/docs`.
 
@@ -247,94 +308,44 @@ Interactive docs available at `http://localhost:8000/docs`.
 
 ## 🚢 Deploy
 
-The backend runs in **Google Cloud Run** and the frontend as **Cloudflare Worker** with CI/CD via GitHub Actions.
+The backend runs on **Google Cloud Run** and the frontend as a **Cloudflare Worker** with CI/CD via GitHub Actions.
 
----
+### Backend — Google Cloud Run
 
-### 🔧 Backend — Google Cloud Run
-
-#### Pre-requisites
-- [Google Cloud CLI](https://cloud.google.com/sdk/docs/install) installed and authenticated
-- Docker installed
-- GCP proyect created
-
-#### Environment variables
-
-| Variable | Description |
-|---|---|
-| `OPENAI_API_KEY` | Your OpenAI API key |
-
-#### Steps for deploying
 ```bash
-# 1. Authenticate in GCP
+# 1. Authenticate
 gcloud auth login
 gcloud config set project YOUR_PROJECT_ID
 
-# 2. Enable necessary services (only the first time)
+# 2. Enable services (first time only)
 gcloud services enable run.googleapis.com cloudbuild.googleapis.com
 
-# 3. Build and push the image
-gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/YOUR_SERVICE_NAME
+# 3. Build and push
+gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/orkly-backend
 
-# 4. Deploy in Cloud Run
-gcloud run deploy YOUR_SERVICE_NAME \
-  --image gcr.io/YOUR_PROJECT_ID/YOUR_SERVICE_NAME \
+# 4. Deploy
+gcloud run deploy orkly-backend \
+  --image gcr.io/YOUR_PROJECT_ID/orkly-backend \
   --platform managed \
-  --region YOUR_REGION \
-  --allow-unauthenticated \
-  --set-env-vars OPENAI_API_KEY=your_api_key_here
+  --region europe-west1 \
+  --allow-unauthenticated
 ```
 
-Once deployed, GCP will give you an URL like this one:
-`https://YOUR_SERVICE_NAME-xxxxxxxxxx-XX.a.run.app`
-
-Then, the deploy is done with **GitHub Actions** when pushing to `main` branch.
-To do that, you will need to access gcloud, IAM tab and create a user that will have pormisions to deploy the backend from github to gcloud.
-After creating it you will be able to generate a json as an access key for that user to do those actions. That json will be used for CI in github. 
-
-#### Secrets in GitHub Actions
-
-Ensure to have these secrets configured in **Settings → Secrets → Actions** of your repo:
+#### GitHub Actions secrets
 
 | Secret | Description |
-|---|---|
-| `GCP_CREDENTIALS` | GCP json generated when creating an IAM user in gcloud |
-| `OPENAI_API_KEY`  | Your OpenAI api key |
+|--------|-------------|
+| `GCP_CREDENTIALS` | GCP service account JSON |
+| `OPENAI_API_KEY` | Your OpenAI API key |
+| `SUPABASE_URL` | Supabase project URL |
+| `SUPABASE_KEY` | Supabase service_role key |
 
+### Frontend — Cloudflare Workers
 
----
-
-### 🌐 Frontend — Cloudflare Workers
-
-#### Connect wit the backend
-
-In main.js, update the backend URL provided by Cloud Run:
-```javascript
-const API_URL = "https://YOUR_SERVICE_NAME-xxxxxxxxxx-XX.a.run.app";
-```
-
-#### Deploy
-
-The deploy is automatic via **GitHub Actions** when pushing to `main` branch.
-
-to re-deploy manually:
 ```bash
-# Install Wrangler before
-npm install -g wrangler
-
-# Manual deploy
+cd frontend-new
+npm run build
 wrangler deploy
-```
-
----
-
-### 🔁 Complete flow
-```
-GitHub push → Actions build → wrangler deploy → Cloudflare Worker
-                                                        ↓
-                                              calls Cloud Run (backend)
-                                                        ↓
-                                                  OpenAI API
 ```
 
 ---
@@ -350,36 +361,36 @@ GitHub push → Actions build → wrangler deploy → Cloudflare Worker
 - [x] Unit and integration tests
 - [x] Light / dark mode frontend
 - [x] Auto-updating footer year
- 
+
 ### 🚧 Phase 2 — Authentication & client management
 - [ ] Google OAuth login (Supabase Auth)
 - [ ] Client dashboard — manage all clients from one place
 - [ ] Brand kit per client — tone of voice, custom prompt, examples
 - [ ] Generation history per client
 - [ ] Personal account settings
- 
+
 ### 📝 Phase 3 — AI content features
 - [ ] Platform-specific generation — Instagram, LinkedIn, TikTok each get tailored output
 - [ ] Custom tones per client — brand voice used automatically in every generation
 - [ ] Hashtag recommendations per post and platform
 - [ ] Content repurposing — paste a long text, get posts for every platform
 - [ ] Carousel generation — structured slide-by-slide content for Instagram
- 
+
 ### 📋 Phase 4 — Social publishing
 - [ ] Instagram publishing (Meta Graph API) — photos, carousels, reels
 - [ ] LinkedIn publishing
 - [ ] Twitter / X publishing
 - [ ] Multiple social accounts per client
- 
+
 ### 📅 Phase 5 — Scheduling & calendar
 - [ ] Schedule posts for a specific date and time
 - [ ] Recurring posts
 - [ ] AI-powered content calendar — suggest a full week of content per client
- 
+
 ### Based on competitor research
 
 #### Must-have for agencies
-- [ ] Cloud media library per client — store logos, images, videos and brand assets
+- [ ] Cloud media library per client — store logos, images, videos and brand assets (Cloudflare R2)
 - [ ] Approval workflow — review and approve content before it goes live
 - [ ] Post preview — show exactly how the post will look on each platform
 - [ ] Image auto-resize — automatically adapt images to each platform's specs
@@ -429,13 +440,13 @@ Licensed under **GNU AGPLv3 with Commons Clause**.
 
 For commercial licensing: [jorgecdev444@gmail.com](mailto:jorgecdev444@gmail.com)
 
-Full license text in [`LICENSE`](./LICENSE).
-
 ---
 
 ## ⚠️ Legal notice
 
 Orkly uses the OpenAI API. Users must comply with [OpenAI's usage policies](https://openai.com/policies). The author is not responsible for content generated by users.
+
+Privacy Policy and Terms of Service available at [orkly.app/privacy](https://orkly.app/privacy) and [orkly.app/terms](https://orkly.app/terms).
 
 ---
 
@@ -443,8 +454,7 @@ Orkly uses the OpenAI API. Users must comply with [OpenAI's usage policies](http
 
 - 📧 [jorgecdev444@gmail.com](mailto:jorgecdev444@gmail.com)
 - 🐦 [@vinagre444](https://x.com/vinagre444)
-- 💬 [Discord](https://discord.gg/fxJXWPF5)
 
 ---
 
-**Built for the creator and agency community ❤️**
+**Built for the community manager and agency community ❤️**

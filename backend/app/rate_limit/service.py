@@ -9,10 +9,10 @@ so the app stays usable during development or DB outages.
 import logging
 from collections import defaultdict
 from datetime import datetime
-from typing import Optional
+from fastapi import HTTPException
 
-from .config import FREE_DAILY_LIMIT
-from .database import get_supabase
+from app.config import FREE_DAILY_LIMIT, LOGGED_DAILY_LIMIT
+from app.database import get_supabase
 
 logger = logging.getLogger(__name__)
 
@@ -32,6 +32,22 @@ _memory_counts: dict[str, int] = defaultdict(int)
 def _memory_key(ip: str) -> str:
     return f"{ip}:{_today()}"
 
+def rate_limit_error(status: dict):
+    raise HTTPException(
+        status_code=429,
+        detail={
+            "error": "rate_limit_exceeded",
+            "message": (
+                f"You've reached the free limit of {status['limit']} "
+                "generations per day."
+            ),
+            "used": status["used"],
+            "limit": status["limit"],
+            "remaining": status["remaining"],
+            "reset_at": status["reset_at"],
+        },
+    )
+
 
 # ── Public API ────────────────────────────────────────────────────────────────
 
@@ -44,19 +60,19 @@ class RateLimiter:
     def _db(self):
         return get_supabase()
 
-    def _build_status(self, count: int) -> dict:
-        remaining = max(0, FREE_DAILY_LIMIT - count)
+    def _build_status(self, count: int, limit: int) -> dict:
+        remaining = max(0, limit - count)
         return {
-            "allowed": count < FREE_DAILY_LIMIT,
+            "allowed": count < limit,
             "used": count,
             "remaining": remaining,
-            "limit": FREE_DAILY_LIMIT,
+            "limit": limit,
             "reset_at": _reset_time(),
         }
 
     def _fallback_status(self) -> dict:
         """Return permissive status when DB is unavailable."""
-        return self._build_status(0)
+        return self._build_status(0, FREE_DAILY_LIMIT)
 
     # ── check ─────────────────────────────────────────────────────────────────
 
@@ -64,7 +80,7 @@ class RateLimiter:
         """Return rate-limit status for *ip*."""
         if not self._db:
             count = _memory_counts[_memory_key(ip)]
-            return self._build_status(count)
+            return self._build_status(count, FREE_DAILY_LIMIT)
 
         try:
             resp = (
@@ -75,11 +91,30 @@ class RateLimiter:
                 .execute()
             )
             count = resp.data[0]["count"] if resp.data else 0
-            return self._build_status(count)
+            return self._build_status(count, FREE_DAILY_LIMIT)
         except Exception as exc:
             logger.error("check_limit DB error for ip=%s: %s", ip, exc)
             return self._fallback_status()
+        
 
+    def check_limit_user(self, user_id: str) -> dict:
+        if not self._db:
+            count = _memory_counts[f"{user_id}:{_today()}"]
+            return self._build_status(count, LOGGED_DAILY_LIMIT)
+        try:
+            resp = (
+                self._db.table("rate_limits")
+                .select("count")
+                .eq("user_id", user_id)
+                .eq("date", _today())
+                .execute()
+            )
+            count = resp.data[0]["count"] if resp.data else 0
+            return self._build_status(count, LOGGED_DAILY_LIMIT)
+        except Exception as exc:
+            logger.error("check_limit_user DB error: %s", exc)
+            return self._build_status(0, LOGGED_DAILY_LIMIT)
+    
     # ── increment ─────────────────────────────────────────────────────────────
 
     def increment(self, ip: str) -> None:
@@ -120,64 +155,43 @@ class RateLimiter:
             # Degrade gracefully — don't block the user
             _memory_counts[_memory_key(ip)] += 1
 
-    # ── analytics ────────────────────────────────────────────────────────────
-
-    def save_generation(
-        self, ip: str, original: str, improved: str, style: str
-    ) -> None:
-        """Persist a generation record for analytics (best-effort)."""
+    def increment_user(self, user_id: str) -> None:
+        """Increment the usage counter for *user_id*."""
         if not self._db:
+            _memory_counts[_memory_key(user_id)] += 1
             return
 
-        try:
-            self._db.table("generations").insert(
-                {
-                    "ip": ip,
-                    "text_original": original,
-                    "text_improved": improved,
-                    "style": style,
-                }
-            ).execute()
-        except Exception as exc:
-            logger.warning("save_generation failed: %s", exc)
-
-    def get_stats(self) -> dict:
-        """Return aggregated daily and all-time stats."""
-        if not self._db:
-            return {"error": "Database not connected"}
-
         today = _today()
+        now = datetime.now().isoformat()
         try:
-            rate_rows = (
+            resp = (
                 self._db.table("rate_limits")
-                .select("count")
+                .select("id, count")
+                .eq("user_id", user_id)
                 .eq("date", today)
                 .execute()
             )
-            rows = rate_rows.data or []
-            total_ips = len(rows)
-            total_requests = sum(r["count"] for r in rows)
-            at_limit = sum(1 for r in rows if r["count"] >= FREE_DAILY_LIMIT)
 
-            gen_resp = (
-                self._db.table("generations")
-                .select("id", count="exact")
-                .execute()
-            )
-            total_generations = gen_resp.count or 0
-
-            return {
-                "today": {
-                    "unique_ips": total_ips,
-                    "total_requests": total_requests,
-                    "ips_at_limit": at_limit,
-                },
-                "all_time": {"total_generations": total_generations},
-                "free_limit": FREE_DAILY_LIMIT,
-            }
+            if resp.data:
+                row_id = resp.data[0]["id"]
+                new_count = resp.data[0]["count"] + 1
+                self._db.table("rate_limits").update(
+                    {"count": new_count, "last_used_at": now}
+                ).eq("id", row_id).execute()
+            else:
+                self._db.table("rate_limits").insert(
+                    {
+                        "user_id": user_id,
+                        "count": 1,
+                        "date": today,
+                        "last_used_at": now,
+                        "created_at": now,
+                    }
+                ).execute()
         except Exception as exc:
-            logger.error("get_stats error: %s", exc)
-            return {"error": str(exc)}
+            logger.error("increment DB error for user_id=%s: %s", user_id, exc)
+            # Degrade gracefully — don't block the user
+            _memory_counts[_memory_key(user_id)] += 1
 
 
 # Module-level singleton
