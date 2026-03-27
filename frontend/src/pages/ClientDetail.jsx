@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { supabase } from "../supabase";
 import { ArrowLeft, Pencil, Check, X, Plus, Folder, FolderOpen,Trash2} from "lucide-react";
-import toast from 'react-hot-toast';
+import toast from 'react-hot-toast'; 
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
