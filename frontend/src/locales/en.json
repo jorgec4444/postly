@@ -1,0 +1,216 @@
+{
+  "translation": {
+    "and": "and",
+    "saved": "Saved",
+    "nav": {
+      "signIn": "Sign in"
+    },
+    "dashboard": {
+      "signInRequired": "Please sign in to access the dashboard"
+    },
+    "hero": {
+      "badge": "AI content tool for community managers",
+      "title1": "Orchestrate your clients'",
+      "title2": "social media.",
+      "subtitle": "One dashboard for all your clients. For agencies and freelancers.",
+      "builtFor": "Built for"
+    },
+    "compose": {
+      "label": "Your draft",
+      "placeholder": "Write or paste your post here… (Ctrl+Enter to improve)",
+      "charLimit": "{{count}} / 500",
+      "improve": "Improve post →",
+      "generating": "Generating…"
+    },
+    "templates": {
+      "label": "templates →"
+    },
+    "loading": {
+      "generating": "Generating <strong>3 variations</strong> with AI…"
+    },
+    "variations": {
+      "label": "Generated variations",
+      "copy": "Copy",
+      "copied": "✓ Copied"
+    },
+    "cta": {
+      "title": "Save this for a client",
+      "subtitle": "Sign in to manage clients, brand voices and generation history.",
+      "button": "Sign in free →"
+    },
+    "auth": {
+      "welcome": "Welcome back, please sign in to continue.",
+      "subtitle": "Sign in to manage your clients and content.",
+      "google": "Continue with Google",
+      "terms": "By signing in you agree to our",
+      "termsLink": "Terms",
+      "privacyLink": "Privacy Policy"
+    },
+    "sidebar": {
+      "clients": "Clients",
+      "createContent": "Create content",
+      "settings": "Settings"
+    },
+    "clients": {
+      "title": "Clients",
+      "subtitle": "Orchestrate and organise all your clients in one place",
+      "newClient": "+ New client",
+      "searchPlaceholder": "Search clients...",
+      "sortAlphabetical": "Alphabetical",
+      "sortNewest": "Newest",
+      "sortOldest": "Oldest",
+      "totalClients": "Total clients",
+      "withBrandVoice": "With brand voice",
+      "addedThisMonth": "Added this month",
+      "loading": "Loading clients...",
+      "noClientsFound": "No clients found"
+    },
+    "clientCard": {
+      "brandVoice": "Brand voice",
+      "noBrandVoice": "No brand voice set",
+      "added": "Added {{date}}",
+      "voiceSet": "Voice set",
+      "noVoice": "No voice",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saved": "Saved",
+      "saving": "Saving…",
+      "deleted": "Client deleted",
+      "describeBrandVoice": "Describe the brand voice…",
+      "deleteConfirm": "Delete \"{{name}}\"? This cannot be undone."
+    },
+    "addClient": {
+      "title": "New client",
+      "clientName": "Client name",
+      "clientNamePlaceholder": "Acme Corp",
+      "brandVoice": "Brand voice",
+      "brandVoiceOptional": "(optional)",
+      "brandVoicePlaceholder": "e.g. Friendly and direct. Short sentences. No jargon.",
+      "cancel": "Cancel",
+      "create": "Create client",
+      "creating": "Creating…",
+      "success": "Client created"
+    },
+    "clientDetail": {
+      "back": "Back to clients",
+      "loading":"Loading client...",
+      "brandVoice": "Brand voice",
+      "noBrandVoice": "No brand voice defined yet.",
+      "brandVoiceTooltip": "The AI will write in this client's tone automatically.",
+      "addedOn": "Added on",
+      "generateContent": "Generate content",
+      "editClient": "Edit client",
+      "deleteClient": "Delete client",
+      "deleteConfirm": "Delete \"{{name}}\"? This cannot be undone.",
+      "saveChanges": "Save changes",
+      "saving": "Saving…",
+      "save": "Save",
+      "cancel": "Cancel",
+      "clientName": "Client name",
+      "brandVoiceLabel": "Brand voice",
+      "brandVoiceOptional": "(optional)",
+      "brandVoicePlaceholder": "e.g. Friendly and direct. Short sentences. No jargon.",
+      "editBrandVoice": "Edit brand voice",
+      "platforms": "Platforms",
+      "allPlatforms": "All platforms",
+      "platformsUpdated": "Platforms updated",
+      "folders": "Folders",
+      "newFolder": "New folder",
+      "folderNamePlaceholder": "Folder name",
+      "deleteFolderConfirm": "Delete folder \"{{name}}\"? This cannot be undone.",
+      "generationHistory": "Generation history",
+      "noGenerations": "No generations yet. Generate content to see it here.",
+      "noGenerationsForPlatform": "No generations for {{platform}} yet. Generate content to see it here.",
+      "totalGenerations": "Total generations",
+      "original": "Original text",
+      "deleted": "Client deleted"
+    },
+    "createContent": {
+      "title": "Create content",
+      "subtitle": "Generate AI-powered content tailored to your client's brand voice",
+      "step1": "1 · Client & platform",
+      "step2": "2 · Your draft",
+      "step3": "3 · Pick your variation",
+      "selectClient": "Select a client…",
+      "noClient": "No client (generic)",
+      "voiceSet": "Voice set",
+      "brandVoiceActive": "Brand voice active",
+      "brandVoiceTooltip": "The AI will write in this client's tone automatically.",
+      "templatesLabel": "templates →",
+      "placeholder": "Write or paste your draft here… (Ctrl+Enter to generate)",
+      "charLimit": "{{count}} / 500",
+      "creativityLabel": "Creativity level",
+      "generate": "Generate content →",
+      "generating": "Generating 3 variations…",
+      "selectPlatformWarning": "Select a platform to generate",
+      "startOver": "↩ Start over",
+      "savedToHistory": "Saved to {{name}}'s generation history",
+      "copy": "Copy",
+      "copied": "✓ Copied",
+      "saveThis": "Save this",
+      "savedVariation": "✓ Saved",
+      "couldNotSave": "Could not save to history",
+      "savedSuccess": "Saved to history",
+      "copiedSuccess": "Copied to clipboard",
+      "templateLabels": {
+        "launch": "🚀 Launch",
+        "milestone": "🎯 Milestone",
+        "lesson": "💡 Lesson",
+        "announcement": "📢 Announcement",
+        "question": "❓ Question"
+      },
+      "creativity": {
+        "precise": { "label": "Precise", "desc": "Faithful to your original" },
+        "balanced": { "label": "Balanced", "desc": "The sweet spot" },
+        "creative": { "label": "Creative", "desc": "Bold and unexpected" }
+      },
+      "styleMeta": {
+        "professional": { "label": "Professional", "desc": "LinkedIn · clear and direct" },
+        "casual": { "label": "Casual", "desc": "Friendly · with emojis" },
+        "viral": { "label": "Viral", "desc": "Max engagement" }
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Manage your account and preferences",
+      "account": "Account",
+      "signOut": "Sign out",
+      "plan": "Plan",
+      "freePlan": "Free plan",
+      "freeLimit": "15 generations per day",
+      "free": "Free",
+      "legal": "Legal",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy",
+      "dangerZone": "Danger zone",
+      "deleteAccount": "Delete account",
+      "deleteAccountDesc": "Permanently delete your account and all data",
+      "delete": "Delete",
+      "deleteAccountUnavailable": "Account deletion is not available yet. Please contact jorgecdev444@gmail.com",
+      "signedOut": "Signed out successfully",
+      "language": "Language"
+    },
+    "footer": {
+      "feedback": "Send us your feedback",
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "contact": "Contact"
+    },
+    "feedback": {
+      "title": "Leave feedback",
+      "subtitle": "What would you improve? What's missing?",
+      "placeholder": "Write here…",
+      "cancel": "Cancel",
+      "send": "Send",
+      "sending": "Sending…",
+      "thanks": "✓ Thanks for your feedback!"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Español",
+      "ca": "Català",
+      "fr": "Français",
+      "zh": "中文"
+    }
+  }
+}

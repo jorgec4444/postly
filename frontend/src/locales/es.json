@@ -1,0 +1,216 @@
+{
+  "translation": {
+    "and": "y",
+    "saved": "Guardado",
+    "nav": {
+      "signIn": "Iniciar sesión"
+    },
+    "dashboard": {
+      "signInRequired": "Por favor inicia sesión para acceder al panel de control de clientes"
+    },
+    "hero": {
+      "badge": "Herramienta de contenido IA para community managers",
+      "title1": "Orquesta las redes sociales",
+      "title2": "de tus clientes.",
+      "subtitle": "Un panel para todos tus clientes. Para agencias y freelancers.",
+      "builtFor": "Disponible para"
+    },
+    "compose": {
+      "label": "Tu borrador",
+      "placeholder": "Escribe o pega tu publicación aquí… (Ctrl+Enter para mejorar)",
+      "charLimit": "{{count}} / 500",
+      "improve": "Mejorar publicación →",
+      "generating": "Generando…"
+    },
+    "templates": {
+      "label": "plantillas →"
+    },
+    "loading": {
+      "generating": "Generando <strong>3 variaciones</strong> con IA…"
+    },
+    "variations": {
+      "label": "Variaciones generadas",
+      "copy": "Copiar",
+      "copied": "✓ Copiado"
+    },
+    "cta": {
+      "title": "Guarda esto para un cliente",
+      "subtitle": "Inicia sesión para gestionar clientes, voces de marca e historial.",
+      "button": "Regístrate gratis →"
+    },
+    "auth": {
+      "welcome": "Bienvenido, inicia sesión para continuar.",
+      "subtitle": "Inicia sesión para gestionar tus clientes y contenido.",
+      "google": "Continuar con Google",
+      "terms": "Al iniciar sesión aceptas nuestros",
+      "termsLink": "Términos",
+      "privacyLink": "Política de privacidad"
+    },
+    "sidebar": {
+      "clients": "Clientes",
+      "createContent": "Crear contenido",
+      "settings": "Ajustes"
+    },
+    "clients": {
+      "title": "Clientes",
+      "subtitle": "Orquesta y organiza todos tus clientes en un solo lugar",
+      "newClient": "+ Nuevo cliente",
+      "searchPlaceholder": "Buscar clientes...",
+      "sortAlphabetical": "Alfabético",
+      "sortNewest": "Más recientes",
+      "sortOldest": "Más antiguos",
+      "totalClients": "Total clientes",
+      "withBrandVoice": "Con voz de marca",
+      "addedThisMonth": "Añadidos este mes",
+      "loading": "Cargando clientes...",
+      "noClientsFound": "No se encontraron clientes"
+    },
+    "clientCard": {
+      "brandVoice": "Voz de marca",
+      "noBrandVoice": "Sin voz de marca definida",
+      "added": "Añadido {{date}}",
+      "voiceSet": "Voz definida",
+      "noVoice": "Sin voz",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saved": "Guardado",
+      "saving": "Guardando…",
+      "deleted": "Cliente eliminado",
+      "describeBrandVoice": "Describe la voz de marca…",
+      "deleteConfirm": "¿Eliminar \"{{name}}\"? Esta acción no se puede deshacer."
+    },
+    "addClient": {
+      "title": "Nuevo cliente",
+      "clientName": "Nombre del cliente",
+      "clientNamePlaceholder": "Acme Corp",
+      "brandVoice": "Voz de marca",
+      "brandVoiceOptional": "(opcional)",
+      "brandVoicePlaceholder": "p.ej. Amigable y directo. Frases cortas. Sin tecnicismos.",
+      "cancel": "Cancelar",
+      "create": "Crear cliente",
+      "creating": "Creando…",
+      "success": "Cliente creado"
+    },
+    "clientDetail": {
+      "back": "Volver a clientes",
+      "loading":"Cargando cliente...",
+      "brandVoice": "Voz de marca",
+      "noBrandVoice": "Aún no hay voz de marca definida.",
+      "brandVoiceTooltip": "La IA escribirá en el tono de este cliente automáticamente.",
+      "addedOn": "Añadido el",
+      "generateContent": "Generar contenido",
+      "editClient": "Editar cliente",
+      "deleteClient": "Eliminar cliente",
+      "deleteConfirm": "¿Eliminar \"{{name}}\"? Esta acción no se puede deshacer.",
+      "saveChanges": "Guardar cambios",
+      "saving": "Guardando…",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "clientName": "Nombre del cliente",
+      "brandVoiceLabel": "Voz de marca",
+      "brandVoiceOptional": "(opcional)",
+      "brandVoicePlaceholder": "p.ej. Amigable y directo. Frases cortas. Sin tecnicismos.",
+      "editBrandVoice": "Editar voz de marca",
+      "platforms": "Plataformas",
+      "allPlatforms": "Todas las plataformas",
+      "platformsUpdated": "Plataformas actualizadas",
+      "folders": "Carpetas",
+      "newFolder": "Nueva carpeta",
+      "folderNamePlaceholder": "Nombre de la carpeta",
+      "deleteFolderConfirm": "¿Eliminar la carpeta \"{{name}}\"? Esta acción no se puede deshacer.",
+      "generationHistory": "Historial de generaciones",
+      "noGenerations": "Aún no hay generaciones. Genera contenido para verlo aquí.",
+      "noGenerationsForPlatform": "Aún no hay generaciones para {{platform}}. Genera contenido para verlo aquí.",
+      "totalGenerations": "Total de generaciones",
+      "original": "Texto original",
+      "deleted": "Cliente eliminado"
+    },
+    "createContent": {
+      "title": "Crear contenido",
+      "subtitle": "Generar contenido con IA adaptado a la voz de marca de tu cliente y a la plataforma de redes sociales.",
+      "step1": "1 · Cliente y plataforma",
+      "step2": "2 · Tu borrador",
+      "step3": "3 · Elige tu variación",
+      "selectClient": "Selecciona un cliente…",
+      "noClient": "No cliente (genérico)",
+      "voiceSet": "Voz definida",
+      "brandVoiceActive": "Voz de marca activa",
+      "brandVoiceTooltip": "La IA escribirá en el tono de este cliente automáticamente.",
+      "templatesLabel": "plantillas →",
+      "placeholder": "Escribe o pega tu borrador aquí… (Ctrl+Enter para generar)",
+      "charLimit": "{{count}} / 500",
+      "creativityLabel": "Nivel de creatividad",
+      "generate": "Generar contenido →",
+      "generating": "Generando 3 variaciones…",
+      "selectPlatformWarning": "Selecciona una plataforma para generar",
+      "startOver": "↩ Vuelve a comenzar",
+      "savedToHistory": "Guardado en el historial de generación de {{name}}",
+      "copy": "Copiar",
+      "copied": "✓ Copiado",
+      "saveThis": "Guardar esto",
+      "savedVariation": "✓ Guardado",
+      "couldNotSave": "No se pudo guardar en el historial",
+      "savedSuccess": "Guardado en el historial",
+      "copiedSuccess": "Copiado al porta-retalls",
+      "templateLabels": {
+        "launch": "🚀 Lanzamiento",
+        "milestone": "🎯 Punto de control",
+        "lesson": "💡 Lección",
+        "announcement": "📢 Anuncio",
+        "question": "❓ Pregunta"
+      },
+      "creativity": {
+        "precise": { "label": "Preciso", "desc": "Fiel a la original" },
+        "balanced": { "label": "Equilibrado", "desc": "En el punto medio" },
+        "creative": { "label": "Creativo", "desc": "Maximo engagement" }
+      },
+      "styleMeta": {
+        "professional": { "label": "Profesional", "desc": "LinkedIn · claro y directo" },
+        "casual": { "label": "Casual", "desc": "Amigable · con emojis" },
+        "viral": { "label": "Viral", "desc": "Maximiza el engagement" }
+      }
+    },
+    "settings": {
+      "title": "Ajustes",
+      "subtitle": "Gestiona tu cuenta y preferencias",
+      "account": "Cuenta",
+      "signOut": "Cerrar sesión",
+      "plan": "Plan",
+      "freePlan": "Plan gratuito",
+      "freeLimit": "15 generaciones por día",
+      "free": "Gratis",
+      "legal": "Legal",
+      "termsOfService": "Términos de servicio",
+      "privacyPolicy": "Política de privacidad",
+      "dangerZone": "Zona de peligro",
+      "deleteAccount": "Eliminar cuenta",
+      "deleteAccountDesc": "Elimina permanentemente tu cuenta y todos los datos",
+      "delete": "Eliminar",
+      "deleteAccountUnavailable": "La eliminación de cuenta no está disponible aún. Contacta a jorgecdev444@gmail.com",
+      "signedOut": "Sesión cerrada correctamente",
+      "language": "Idioma"
+    },
+    "footer": {
+      "feedback": "Envíanos tu opinión",
+      "terms": "Términos",
+      "privacy": "Privacidad",
+      "contact": "Contacto"
+    },
+    "feedback": {
+      "title": "Deja tu opinión",
+      "subtitle": "¿Qué mejorarías? ¿Qué falta?",
+      "placeholder": "Escribe aquí…",
+      "cancel": "Cancelar",
+      "send": "Enviar",
+      "sending": "Enviando…",
+      "thanks": "✓ ¡Gracias por tu opinión!"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Español",
+      "ca": "Català",
+      "fr": "Français",
+      "zh": "中文"
+    }
+  }
+}

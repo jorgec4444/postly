@@ -3,6 +3,8 @@ import { supabase } from "../supabase";
 import { useNavigate } from "react-router-dom";
 import AuthModal from "../components/AuthModal";
 import Footer from "../components/Footer";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "../components/LanguageSelector";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
@@ -42,6 +44,7 @@ export default function Landing() {
   const [selected, setSelected] = useState(null);
   const [copied, setCopied] = useState(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -84,18 +87,21 @@ export default function Landing() {
 
       {/* ── Navbar ── */}
       <nav className="sticky top-0 z-40 bg-bg/80 backdrop-blur-md border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-6 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <img src="/orkly_icon_sidebar.svg" alt="Orkly" className="w-7 h-7" />
-            <span className="font-bold text-gray-900 tracking-tight">Orkly</span>
-          </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+        <div className="flex items-center gap-2.5 flex-shrink-0">
+          <img src="/favicon.svg" alt="Orkly" className="w-9 h-9" />
+          <span className="font-bold text-gray-900 tracking-tight">Orkly</span>
+        </div>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <LanguageSelector variant="light" />
           <button
             onClick={() => setIsAuthModalOpen(true)}
-            className="px-4 py-1.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors"
+            className="px-3 sm:px-4 py-1.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors whitespace-nowrap"
           >
-            Sign in
+            {t('nav.signIn')}
           </button>
         </div>
+      </div>
       </nav>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
@@ -104,17 +110,17 @@ export default function Landing() {
         <section className="pt-16 pb-14 text-center">
           <div className="inline-flex items-center gap-2 text-xs font-medium text-primary bg-primary/8 px-3.5 py-1.5 rounded-full mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            AI content tool for community managers
+            {t('hero.badge')}
           </div>
-          <h1 className="text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-4">
-            Orchestrate your clients'<br />
-            <span className="text-primary">social media.</span>
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight mb-4">
+            {t('hero.title1')}<br />
+            <span className="text-primary">{t('hero.title2')}</span>
           </h1>
           <p className="text-lg text-gray-500 max-w-md mx-auto mb-8 leading-relaxed">
-            One dashboard for all your clients. For agencies and freelancers.
+            {t('hero.subtitle')}
           </p>
-          <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
-            <span>Built for</span>
+          <div className="flex items-center justify-center gap-2 text-xs text-gray-400 flex-wrap">
+            <span>{t('hero.builtFor')}</span>
             {["Instagram", "Twitter / X", "LinkedIn"].map((p) => (
               <span key={p} className="px-2.5 py-1 rounded-full border border-gray-200 bg-white text-gray-600">
                 {p}
@@ -126,21 +132,21 @@ export default function Landing() {
         {/* ── Compose ── */}
         <div className="mb-2">
           <p className="text-xs font-medium text-gray-400 uppercase tracking-widest mb-3">
-            Your draft
+            {t('compose.label')}
           </p>
           <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
               onKeyDown={(e) => (e.ctrlKey || e.metaKey) && e.key === "Enter" && handleImprove()}
-              placeholder="Write or paste your post here… (Ctrl+Enter to improve)"
+              placeholder={t('compose.placeholder')}
               maxLength={600}
               rows={5}
               className="w-full bg-transparent resize-none outline-none text-gray-900 placeholder-gray-400 text-[15px] leading-relaxed"
             />
             <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
               <span className={`text-xs font-mono ${charOver ? "text-red-500" : charWarn ? "text-amber-500" : "text-gray-400"}`}>
-                {charCount} / 500
+                {t('compose.charLimit', { count: charCount })}
               </span>
               <button
                 onClick={handleImprove}
@@ -150,10 +156,10 @@ export default function Landing() {
                 {loading ? (
                   <>
                     <span className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                    Generating…
+                    {t('compose.generating')}
                   </>
                 ) : (
-                  <>Improve post →</>
+                  t('compose.improve')
                 )}
               </button>
             </div>
@@ -162,7 +168,7 @@ export default function Landing() {
 
         {/* ── Templates ── */}
         <div className="flex items-center gap-2 flex-wrap mb-10">
-          <span className="text-xs font-mono text-gray-400 mr-1">templates →</span>
+          <span className="text-xs font-mono text-gray-400 mr-1">{t('templates.label')}</span>
           {Object.entries(TEMPLATE_LABELS).map(([key, label]) => (
             <button
               key={key}
@@ -178,7 +184,7 @@ export default function Landing() {
         {loading && (
           <div className="flex items-center gap-4 py-8 text-gray-500 text-sm">
             <span className="w-5 h-5 border-2 border-gray-200 border-t-primary rounded-full animate-spin flex-shrink-0" />
-            Generating <strong className="text-gray-700">3 variations</strong> with AI…
+            <span dangerouslySetInnerHTML={{ __html: t('loading.generating') }} />
           </div>
         )}
 
@@ -187,7 +193,7 @@ export default function Landing() {
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between mb-1">
               <p className="text-xs font-medium text-gray-400 uppercase tracking-widest">
-                Generated variations
+                {t('variations.label')}
               </p>
               {variations.original && (
                 <p className="text-xs text-gray-400 truncate max-w-xs">
@@ -223,7 +229,7 @@ export default function Landing() {
                     onClick={(e) => { e.stopPropagation(); handleCopy(version, varText); }}
                     className="self-end text-xs text-gray-400 hover:text-primary transition-colors"
                   >
-                    {copied === version ? "✓ Copied" : "Copy"}
+                    {copied === version ? t('variations.copied') : t('variations.copy')}
                   </button>
                 </div>
               ))}
@@ -232,14 +238,14 @@ export default function Landing() {
             {/* CTA to sign in */}
             <div className="mt-6 mb-10 bg-gradient-to-r from-primary/8 to-accent/10 border border-primary/20 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-semibold text-gray-900">Save this for a client</p>
-                <p className="text-xs text-gray-500 mt-0.5">Sign in to manage clients, brand voices and generation history.</p>
+                <p className="text-sm font-semibold text-gray-900">{t('cta.title')}</p>
+                <p className="text-xs text-gray-500 mt-0.5">{t('cta.subtitle')}</p>
               </div>
               <button
                 onClick={() => setIsAuthModalOpen(true)}
                 className="w-full sm:w-auto flex-shrink-0 px-4 py-2 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors"
               >
-                Sign in free →
+                {t('cta.button')}
               </button>
             </div>
           </div>

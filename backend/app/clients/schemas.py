@@ -12,6 +12,7 @@ class ClientResponse(BaseModel):
     client_name: str
     created_at: datetime
     brand_voice: Optional[str] | None
+    platforms: Optional[list[str]] | None
 
     model_config = {"from_attributes": True}
 

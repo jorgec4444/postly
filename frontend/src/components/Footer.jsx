@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
@@ -6,6 +7,7 @@ function FeedbackModal({ onClose }) {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const { t } = useTranslation();
 
   const handleSubmit = async () => {
     if (!text.trim()) return;
@@ -34,19 +36,18 @@ function FeedbackModal({ onClose }) {
         <div className="h-1 w-full bg-gradient-to-r from-primary to-accent" />
         <div className="p-6 flex flex-col gap-4">
           <div>
-            <h2 className="text-base font-bold text-gray-900">Leave feedback</h2>
-            <p className="text-sm text-gray-500 mt-0.5">What would you improve? What's missing?</p>
+            <h2 className="text-base font-bold text-gray-900">{t('feedback.title')}</h2>
+            <p className="text-sm text-gray-500 mt-0.5">{t('feedback.subtitle')}</p>
           </div>
-
           {sent ? (
-            <p className="text-sm text-primary font-medium py-4 text-center">✓ Thanks for your feedback!</p>
+            <p className="text-sm text-primary font-medium py-4 text-center">{t('feedback.thanks')}</p>
           ) : (
             <>
               <textarea
                 autoFocus
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                placeholder="Write here…"
+                placeholder={t('feedback.placeholder')}
                 rows={4}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition resize-none"
               />
@@ -55,14 +56,14 @@ function FeedbackModal({ onClose }) {
                   onClick={onClose}
                   className="px-4 py-2 rounded-xl text-sm font-medium text-gray-500 hover:bg-gray-100 transition"
                 >
-                  Cancel
+                  {t('feedback.cancel')}
                 </button>
                 <button
                   onClick={handleSubmit}
                   disabled={!text.trim() || loading}
                   className="px-5 py-2 rounded-xl text-sm font-semibold bg-primary text-white hover:opacity-90 disabled:opacity-40 transition"
                 >
-                  {loading ? "Sending…" : "Send"}
+                  {loading ? t('feedback.sending') : t('feedback.send')}
                 </button>
               </div>
             </>
@@ -75,34 +76,35 @@ function FeedbackModal({ onClose }) {
 
 export default function Footer() {
   const [showFeedback, setShowFeedback] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
-      <footer className="border-t border-gray-200 bg-white">
-        <div className="max-w-4xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="border-t border-gray-200 bg-white mt-auto">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           {/* Left — brand */}
-          <div className="flex items-center gap-2">
-            <img src="/orkly_icon.svg" alt="Orkly" className="w-5 h-5" />
-            <span className="text-sm text-gray-400">
-              © {new Date().getFullYear()} Orkly · Jorge Vinagre
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <img src="/favicon.svg" alt="Orkly" className="w-8 h-8" />
+            <span className="text-sm text-gray-400 whitespace-nowrap">
+              {"© "}{new Date().getFullYear()}{" Orkly · Jorge Vinagre"}
             </span>
           </div>
 
           {/* Right — links */}
-          <div className="flex items-center gap-5 text-sm text-gray-400">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-5 gap-y-2 text-sm text-gray-400">
             <button
               onClick={() => setShowFeedback(true)}
-              className="hover:text-primary transition-colors"
+              className="hover:text-primary transition-colors whitespace-nowrap"
             >
-              Send us your feedback
+              {t('footer.feedback')}
             </button>
-            <a href="/terms" className="hover:text-primary transition-colors">Terms</a>
-            <a href="/privacy" className="hover:text-primary transition-colors">Privacy</a>
+            <a href="/terms" className="hover:text-primary transition-colors">{t('footer.terms')}</a>
+            <a href="/privacy" className="hover:text-primary transition-colors">{t('footer.privacy')}</a>
             <a
               href="mailto:jorgecdev444@gmail.com"
               className="hover:text-primary transition-colors"
             >
-              Contact
+              {t('footer.contact')}
             </a>
             <a
               href="https://x.com/jorgecdev444"

@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { supabase } from "../supabase";
-import { ArrowLeft, Pencil, Check, X, Plus, Folder, FolderOpen,Trash2} from "lucide-react";
-import toast from 'react-hot-toast'; 
+import { ArrowLeft, Pencil, Check, X, Plus, Folder, FolderOpen, Trash2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import toast from 'react-hot-toast';
+import FilterSelect from "../components/FilterSelect";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
@@ -19,7 +21,11 @@ async function apiFetch(path, options = {}) {
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error(err.detail || `HTTP ${res.status}`);
+    const detail = err.detail;
+    const message = typeof detail === 'string' 
+      ? detail 
+      : detail?.message || `HTTP ${res.status}`;
+    throw new Error(message);
   }
   return res.status === 204 ? null : res.json();
 }
@@ -45,57 +51,48 @@ function ClientDetail() {
   const { id } = useParams();
   const { clients, setClients } = useOutletContext();
   const [deleting, setDeleting] = useState(false);
-
   const [client, setClient] = useState(null);
   const [generations, setGenerations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // Brand voice editing
   const [editingVoice, setEditingVoice] = useState(false);
   const [voiceDraft, setVoiceDraft] = useState("");
   const [savingVoice, setSavingVoice] = useState(false);
-
-  // Platforms
   const [activePlatforms, setActivePlatforms] = useState([]);
   const [savingPlatforms, setSavingPlatforms] = useState(false);
-
-  // Folders
   const [folders, setFolders] = useState([]);
   const [openFolder, setOpenFolder] = useState(null);
   const [newFolderName, setNewFolderName] = useState("");
   const [addingFolder, setAddingFolder] = useState(false);
-
-  // Generations filter
   const [platformFilter, setPlatformFilter] = useState("all");
-
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     (async () => {
       try {
-          const cached = clients.find(c => c.id === parseInt(id));
-          if (cached) {
-            setClient(cached);
-            setVoiceDraft(cached.brand_voice || "");
-            setActivePlatforms(cached.platforms || []);
-            setFolders(cached.folders || DEFAULT_FOLDERS);
-          } else {
-            const clientData = await apiFetch(`/client/${id}`);
-            setClient(clientData);
-            setVoiceDraft(clientData.brand_voice || "");
-            setActivePlatforms(clientData.platforms || []);
-            setFolders(clientData.folders || DEFAULT_FOLDERS);
-          }
-          const generationsData = await apiFetch(`/client/${id}/generations`);
-          setGenerations(generationsData);
-        } catch (e) {
-          setError(e.message);
-        } finally {
-          setLoading(false);
+        const cached = clients.find(c => c.id === parseInt(id));
+        if (cached) {
+          setClient(cached);
+          setVoiceDraft(cached.brand_voice || "");
+          setActivePlatforms(cached.platforms || []);
+          setFolders(cached.folders || DEFAULT_FOLDERS);
+        } else {
+          const clientData = await apiFetch(`/client/${id}`);
+          setClient(clientData);
+          setVoiceDraft(clientData.brand_voice || "");
+          setActivePlatforms(clientData.platforms || []);
+          setFolders(clientData.folders || DEFAULT_FOLDERS);
         }
-      })();
-    }, [id]);
+        const generationsData = await apiFetch(`/client/${id}/generations`);
+        setGenerations(generationsData);
+      } catch (e) {
+        setError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [id]);
 
   const handleSaveVoice = async () => {
     setSavingVoice(true);
@@ -110,7 +107,7 @@ function ClientDetail() {
       setClient(updated);
       setClients(prev => prev.map(c => c.id === updated.id ? updated : c));
       setEditingVoice(false);
-      toast.success('Brand voice updated');
+      toast.success(t('clientDetail.brandVoiceUpdated'));
     } catch (e) {
       toast.error(e.message);
     } finally {
@@ -125,11 +122,13 @@ function ClientDetail() {
     setActivePlatforms(updated);
     setSavingPlatforms(true);
     try {
-      await apiFetch(`/client/${id}`, {
+      const result = await apiFetch(`/client/${id}`, {
         method: "PUT",
         body: JSON.stringify({ platforms: updated }),
       });
-      toast.success('Platforms updated');
+      setClient(result);
+      setClients(prev => prev.map(c => c.id === result.id ? result : c));
+      toast.success(t('clientDetail.platformsUpdated'));
     } catch (e) {
       toast.error(e.message);
     } finally {
@@ -145,24 +144,24 @@ function ClientDetail() {
   };
 
   const handleDeleteFolder = (folder) => {
-    if (!window.confirm(`Delete folder "${folder}"?`)) return;
+    if (!window.confirm(t('clientDetail.deleteFolderConfirm', { name: folder }))) return;
     setFolders((prev) => prev.filter((f) => f !== folder));
     if (openFolder === folder) setOpenFolder(null);
   };
 
   const handleDeleteClient = async () => {
-    if (!window.confirm(`Delete "${client.client_name}"? This cannot be undone.`)) return;
-      setDeleting(true);
-      try {
-        await apiFetch(`/client/${client.id}`, { method: "DELETE" });
-        setClients(prev => prev.filter(c => c.id !== parseInt(id)));
-        navigate("/dashboard/clients", { replace: true });
-        toast.success('Client deleted');
-      } catch (e) {
-        toast.error(e.message);
-        setDeleting(false);
-      }
-    };
+    if (!window.confirm(t('clientDetail.deleteConfirm', { name: client.client_name }))) return;
+    setDeleting(true);
+    try {
+      await apiFetch(`/client/${client.id}`, { method: "DELETE" });
+      setClients(prev => prev.filter(c => c.id !== parseInt(id)));
+      navigate("/dashboard/clients", { replace: true });
+      toast.success(t('clientDetail.deleted'));
+    } catch (e) {
+      toast.error(e.message);
+      setDeleting(false);
+    }
+  };
 
   const filteredGenerations = generations.filter((g) =>
     platformFilter === "all" ? true : g.platform === platformFilter
@@ -175,7 +174,7 @@ function ClientDetail() {
 
   if (loading) return (
     <div className="flex items-center justify-center py-20 text-gray-400 text-sm">
-      Loading client…
+      {t('clientDetail.loading')}
     </div>
   );
 
@@ -194,26 +193,27 @@ function ClientDetail() {
         className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-primary transition-colors mb-6"
       >
         <ArrowLeft className="w-4 h-4" />
-        All clients
+        {t('clientDetail.back')}
       </button>
 
       {/* ── Header ── */}
-      <div className="flex items-center justify-between gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg shadow-sm flex-shrink-0">
             {initials}
           </div>
           <div>
             <h1 className="text-2xl font-bold text-gray-900">{client.client_name}</h1>
-            <p className="text-sm text-gray-400">Added {formattedDate(client.created_at)}</p>
+            <p className="text-sm text-gray-400">{t('clientDetail.addedOn')} {formattedDate(client.created_at)}</p>
           </div>
         </div>
         <button
           onClick={handleDeleteClient}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-red-400 border border-red-200 hover:bg-red-50 transition"
+          disabled={deleting}
+          className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-red-400 border border-red-200 hover:bg-red-50 transition disabled:opacity-40"
         >
           <Trash2 className="w-4 h-4" />
-          Delete client
+          {t('clientDetail.deleteClient')}
         </button>
       </div>
 
@@ -223,11 +223,11 @@ function ClientDetail() {
         <section className="bg-white border border-gray-200 rounded-2xl p-5">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-1.5">
-              <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Brand voice</h2>
+              <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">{t('clientDetail.brandVoice')}</h2>
               <div className="relative group/tooltip">
                 <span className="text-xs text-gray-400 cursor-help">ⓘ</span>
                 <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 w-56 px-3 py-2 bg-gray-800 text-white text-xs rounded-xl opacity-0 group-hover/tooltip:opacity-95 transition-opacity pointer-events-none z-10 leading-relaxed">
-                  Used by AI to match your client's tone when generating content. i.e "friendly and professional", "witty and casual", "inspirational and viral", etc.
+                  {t('clientDetail.brandVoiceTooltip')}
                 </div>
               </div>
             </div>
@@ -236,7 +236,7 @@ function ClientDetail() {
                 onClick={() => setEditingVoice(true)}
                 className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-primary transition-colors"
               >
-                <Pencil className="w-3.5 h-3.5" /> Edit
+                <Pencil className="w-3.5 h-3.5" /> {t('clientDetail.editBrandVoice')}
               </button>
             )}
           </div>
@@ -249,7 +249,7 @@ function ClientDetail() {
                 onChange={(e) => setVoiceDraft(e.target.value)}
                 rows={4}
                 maxLength={1000}
-                placeholder="Describe the brand voice…"
+                placeholder={t('clientDetail.brandVoicePlaceholder')}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition resize-none"
               />
               <div className="flex gap-2 justify-end">
@@ -257,21 +257,21 @@ function ClientDetail() {
                   onClick={() => { setVoiceDraft(client.brand_voice || ""); setEditingVoice(false); }}
                   className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs text-gray-500 hover:bg-gray-100 transition"
                 >
-                  <X className="w-3.5 h-3.5" /> Cancel
+                  <X className="w-3.5 h-3.5" /> {t('clientDetail.cancel')}
                 </button>
                 <button
                   onClick={handleSaveVoice}
                   disabled={savingVoice}
                   className="flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-semibold bg-primary text-white hover:opacity-90 disabled:opacity-40 transition"
                 >
-                  <Check className="w-3.5 h-3.5" /> {savingVoice ? "Saving…" : "Save"}
+                  <Check className="w-3.5 h-3.5" /> {savingVoice ? t('clientDetail.saving') : t('clientDetail.save')}
                 </button>
               </div>
             </div>
           ) : (
             <p className="text-sm text-gray-600 leading-relaxed">
               {client.brand_voice || (
-                <span className="text-gray-400 italic">No brand voice set — click Edit to add one</span>
+                <span className="text-gray-400 italic">{t('clientDetail.noBrandVoice')}</span>
               )}
             </p>
           )}
@@ -280,8 +280,8 @@ function ClientDetail() {
         {/* ── Platforms ── */}
         <section className="bg-white border border-gray-200 rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Platforms</h2>
-            {savingPlatforms && <span className="text-xs text-gray-400">Saving…</span>}
+            <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">{t('clientDetail.platforms')}</h2>
+            {savingPlatforms && <span className="text-xs text-gray-400">{t('clientDetail.saving')}</span>}
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {PLATFORMS.map(({ id: pid, label, emoji, color, bg }) => {
@@ -308,21 +308,19 @@ function ClientDetail() {
         {/* ── Folders ── */}
         <section className="bg-white border border-gray-200 rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">Folders</h2>
+            <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">{t('clientDetail.folders')}</h2>
             <button
               onClick={() => setAddingFolder(true)}
               className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-primary transition-colors"
             >
-              <Plus className="w-3.5 h-3.5" /> New folder
+              <Plus className="w-3.5 h-3.5" /> {t('clientDetail.newFolder')}
             </button>
           </div>
 
           <div className="flex flex-col gap-1">
             {folders.map((folder) => (
               <div key={folder}>
-                <div
-                  className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-50 transition-colors group"
-                >
+                <div className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-50 transition-colors group">
                   <button
                     onClick={() => setOpenFolder(openFolder === folder ? null : folder)}
                     className="flex items-center gap-2.5 text-sm text-gray-700 flex-1 text-left"
@@ -342,7 +340,7 @@ function ClientDetail() {
                 </div>
                 {openFolder === folder && (
                   <div className="ml-9 mt-1 mb-2 px-3 py-3 bg-gray-50 rounded-xl text-xs text-gray-400 italic">
-                    File upload coming soon
+                    {t('clientDetail.fileUploadSoon')}
                   </div>
                 )}
               </div>
@@ -359,7 +357,7 @@ function ClientDetail() {
                     if (e.key === "Enter") handleAddFolder();
                     if (e.key === "Escape") { setAddingFolder(false); setNewFolderName(""); }
                   }}
-                  placeholder="Folder name…"
+                  placeholder={t('clientDetail.folderNamePlaceholder')}
                   className="flex-1 text-sm bg-transparent outline-none text-gray-700 placeholder-gray-400"
                 />
                 <button onClick={handleAddFolder} className="text-primary hover:opacity-70 transition">
@@ -377,28 +375,26 @@ function ClientDetail() {
         <section className="bg-white border border-gray-200 rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-              Generation history
+              {t('clientDetail.generationHistory')}
               <span className="ml-2 text-xs font-normal text-gray-400 normal-case">
-               total {generations.length}
+                {t('clientDetail.totalGenerations')} {generations.length}
               </span>
             </h2>
-
-            {/* Platform filter*/}
-            <select
+            <FilterSelect
               value={platformFilter}
-              onChange={(e) => setPlatformFilter(e.target.value)}
-              className="text-xs border border-gray-200 rounded-lg px-2.5 py-1.5 text-gray-600 focus:outline-none focus:ring-2 focus:ring-primary transition"
-            >
-              <option value="all">All platforms</option>
-              {PLATFORMS.map((p) => (
-                <option key={p.id} value={p.id}>{p.label}</option>
-              ))}
-            </select>
+              onChange={setPlatformFilter}
+              options={[
+                { value: 'all', label: t('clientDetail.allPlatforms') },
+                ...PLATFORMS.map(p => ({ value: p.id, label: p.label, emoji: p.emoji }))
+              ]}
+            />
           </div>
 
           {filteredGenerations.length === 0 ? (
             <p className="text-sm text-gray-400 italic py-4 text-center">
-              {platformFilter === "all" ? "No generations yet" : `No generations for ${platformFilter} yet`}
+              {platformFilter === "all"
+                ? t('clientDetail.noGenerations')
+                : t('clientDetail.noGenerationsForPlatform', { platform: platformFilter })}
             </p>
           ) : (
             <div className="flex flex-col gap-3">
@@ -417,7 +413,7 @@ function ClientDetail() {
                   </div>
                   {g.text_original && (
                     <p className="text-xs text-gray-400 line-clamp-1">
-                      <span className="font-medium">Original:</span> {g.text_original}
+                      <span className="font-medium">{t('clientDetail.original')}:</span> {g.text_original}
                     </p>
                   )}
                   <p className="text-sm text-gray-700 leading-relaxed">{g.text_improved}</p>
@@ -432,4 +428,4 @@ function ClientDetail() {
   );
 }
 
-export default ClientDetail
+export default ClientDetail;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { X, Building2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import toast from 'react-hot-toast';
 
 export default function AddClientModal({ onClose, onCreated, apiFetch }) {
@@ -7,8 +8,8 @@ export default function AddClientModal({ onClose, onCreated, apiFetch }) {
   const [brandVoice, setBrandVoice] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { t } = useTranslation();
 
-  // Cerrar con Escape
   useEffect(() => {
     const handleKey = (e) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", handleKey);
@@ -27,7 +28,7 @@ export default function AddClientModal({ onClose, onCreated, apiFetch }) {
           brand_voice: brandVoice.trim() || null,
         }),
       });
-      toast.success('Client created');
+      toast.success(t('addClient.success'));
       onCreated(newClient);
       onClose();
     } catch (e) {
@@ -38,7 +39,6 @@ export default function AddClientModal({ onClose, onCreated, apiFetch }) {
   };
 
   return (
-    // Backdrop — clic fuera cierra el modal
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
       onClick={(e) => e.target === e.currentTarget && onClose()}
@@ -51,7 +51,7 @@ export default function AddClientModal({ onClose, onCreated, apiFetch }) {
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
               <Building2 className="w-4 h-4 text-white" />
             </div>
-            <h2 className="text-base font-semibold text-gray-900">New client</h2>
+            <h2 className="text-base font-semibold text-gray-900">{t('addClient.title')}</h2>
           </div>
           <button
             onClick={onClose}
@@ -65,7 +65,7 @@ export default function AddClientModal({ onClose, onCreated, apiFetch }) {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-medium text-gray-700">
-              Client name <span className="text-red-400">*</span>
+              {t('addClient.clientName')} <span className="text-red-400">*</span>
             </label>
             <input
               autoFocus
@@ -73,7 +73,7 @@ export default function AddClientModal({ onClose, onCreated, apiFetch }) {
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-              placeholder="Acme Corp"
+              placeholder={t('addClient.clientNamePlaceholder')}
               maxLength={100}
               className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition"
             />
@@ -81,13 +81,13 @@ export default function AddClientModal({ onClose, onCreated, apiFetch }) {
 
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-medium text-gray-700">
-              Brand voice{" "}
-              <span className="text-gray-400 font-normal">(optional)</span>
+              {t('addClient.brandVoice')}{" "}
+              <span className="text-gray-400 font-normal">{t('addClient.brandVoiceOptional')}</span>
             </label>
             <textarea
               value={brandVoice}
               onChange={(e) => setBrandVoice(e.target.value)}
-              placeholder="e.g. Friendly and direct. Short sentences. No jargon."
+              placeholder={t('addClient.brandVoicePlaceholder')}
               maxLength={1000}
               rows={3}
               className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition resize-none"
@@ -111,14 +111,14 @@ export default function AddClientModal({ onClose, onCreated, apiFetch }) {
             onClick={onClose}
             className="px-4 py-2 rounded-xl text-sm font-medium text-gray-500 hover:bg-gray-100 transition"
           >
-            Cancel
+            {t('addClient.cancel')}
           </button>
           <button
             onClick={handleSubmit}
             disabled={!clientName.trim() || loading}
             className="px-5 py-2 rounded-xl text-sm font-semibold bg-gradient-to-br from-primary to-accent text-white hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition shadow-sm"
           >
-            {loading ? "Creating…" : "Create client"}
+            {loading ? t('addClient.creating') : t('addClient.create')}
           </button>
         </div>
       </div>

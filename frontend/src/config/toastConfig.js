@@ -1,13 +1,20 @@
+import { AlignCenter } from "lucide-react";
+
 export const toastConfig = {
   position: 'bottom-center',
   reverseOrder: false,
   toastOptions: {
-    duration: 3000,
+    duration: 4000,
     style: {
       borderRadius: '12px',
       fontSize: '14px',
       fontWeight: '500',
       padding: '12px 16px',
+      textAlign: 'center',
+    },
+     iconTheme: {
+      primary: '#0F6E56',
+      secondary: '#ffffff',
     },
     success: {
       style: {

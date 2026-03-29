@@ -163,6 +163,7 @@ class RateLimiter:
 
         today = _today()
         now = datetime.now().isoformat()
+        ip = None  # Not used for logged-in users, but DB schema requires it
         try:
             resp = (
                 self._db.table("rate_limits")
@@ -182,6 +183,7 @@ class RateLimiter:
                 self._db.table("rate_limits").insert(
                     {
                         "user_id": user_id,
+                        "ip": ip,  # Store IP as null for logged-in users
                         "count": 1,
                         "date": today,
                         "last_used_at": now,

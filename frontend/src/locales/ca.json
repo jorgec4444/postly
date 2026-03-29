@@ -1,0 +1,216 @@
+{
+  "translation": {
+    "and": "i",
+    "saved": "Desat",
+    "nav": {
+      "signIn": "Inicia sessió"
+    },
+    "dashboard": {
+      "signInRequired": "Per favor inicia sessió per accedir al panell de control de clients"
+    },
+    "hero": {
+      "badge": "Eina de contingut IA per a community managers",
+      "title1": "Orquestra les xarxes socials",
+      "title2": "dels teus clients.",
+      "subtitle": "Un tauler per a tots els teus clients. Per a agències i freelancers.",
+      "builtFor": "Disponible per a"
+    },
+    "compose": {
+      "label": "El teu esborrany",
+      "placeholder": "Escriu o enganxa la teva publicació aquí… (Ctrl+Enter per millorar)",
+      "charLimit": "{{count}} / 500",
+      "improve": "Millorar publicació →",
+      "generating": "Generant…"
+    },
+    "templates": {
+      "label": "plantilles →"
+    },
+    "loading": {
+      "generating": "Generant <strong>3 variacions</strong> amb IA…"
+    },
+    "variations": {
+      "label": "Variacions generades",
+      "copy": "Copiar",
+      "copied": "✓ Copiat"
+    },
+    "cta": {
+      "title": "Desa això per a un client",
+      "subtitle": "Inicia sessió per gestionar clients, veus de marca i historial.",
+      "button": "Registra't gratis →"
+    },
+    "auth": {
+      "welcome": "Benvingut, inicia sessió per continuar.",
+      "subtitle": "Inicia sessió per gestionar els teus clients i contingut.",
+      "google": "Continua amb Google",
+      "terms": "En iniciar sessió acceptes els nostres",
+      "termsLink": "Termes",
+      "privacyLink": "Política de privacitat"
+    },
+    "sidebar": {
+      "clients": "Clients",
+      "createContent": "Crear contingut",
+      "settings": "Configuració"
+    },
+    "clients": {
+      "title": "Clients",
+      "subtitle": "Orquestra i organitza tots els teus clients en un sol lloc",
+      "newClient": "+ Nou client",
+      "searchPlaceholder": "Cercar clients...",
+      "sortAlphabetical": "Alfabètic",
+      "sortNewest": "Més recents",
+      "sortOldest": "Més antics",
+      "totalClients": "Total clients",
+      "withBrandVoice": "Amb veu de marca",
+      "addedThisMonth": "Afegits aquest mes",
+      "loading": "Carregant clients...",
+      "noClientsFound": "No s'han trobat clients"
+    },
+    "clientCard": {
+      "brandVoice": "Veu de marca",
+      "noBrandVoice": "Sense veu de marca definida",
+      "added": "Afegit {{date}}",
+      "voiceSet": "Veu definida",
+      "noVoice": "Sense veu",
+      "cancel": "Cancel·lar",
+      "save": "Desar",
+      "saved": "Desat",
+      "saving": "Desant…",
+      "deleted": "Client eliminat",
+      "describeBrandVoice": "Descriu la veu de marca…",
+      "deleteConfirm": "Eliminar \"{{name}}\"? Aquesta acció no es pot desfer."
+    },
+    "addClient": {
+      "title": "Nou client",
+      "clientName": "Nom del client",
+      "clientNamePlaceholder": "Acme Corp",
+      "brandVoice": "Veu de marca",
+      "brandVoiceOptional": "(opcional)",
+      "brandVoicePlaceholder": "p.ex. Amigable i directe. Frases curtes. Sense tecnicismes.",
+      "cancel": "Cancel·lar",
+      "create": "Crear client",
+      "creating": "Creant…",
+      "success": "Client creat"
+    },
+    "clientDetail": {
+      "back": "Tornar a clients",
+      "loading":"Carregant clients...",
+      "brandVoice": "Veu de marca",
+      "noBrandVoice": "Encara no hi ha veu de marca definida.",
+      "brandVoiceTooltip": "L'IA escriurà en el to d'aquest client automàticament.",
+      "addedOn": "Afegit el",
+      "generateContent": "Generar contingut",
+      "editClient": "Editar client",
+      "deleteClient": "Eliminar client",
+      "deleteConfirm": "Eliminar \"{{name}}\"? Aquesta acció no es pot desfer.",
+      "saveChanges": "Desar canvis",
+      "saving": "Desant…",
+      "save": "Desar",
+      "cancel": "Cancel·lar",
+      "clientName": "Nom del client",
+      "brandVoiceLabel": "Veu de marca",
+      "brandVoiceOptional": "(opcional)",
+      "brandVoicePlaceholder": "p.ex. Amigable i directe. Frases curtes. Sense tecnicismes.",
+      "editBrandVoice": "Editar veu de marca",
+      "platforms": "Plataformes",
+      "allPlatforms": "Totes les plataformes",
+      "platformsUpdated": "Plataformes actualitzades",
+      "folders": "Carpetes",
+      "newFolder": "Nova carpeta",
+      "folderNamePlaceholder": "Nom de la carpeta",
+      "deleteFolderConfirm": "Eliminar la carpeta \"{{name}}\"? Aquesta acció no es pot desfer.",
+      "generationHistory": "Historial de generació",
+      "noGenerations": "Encara no hi ha generacions. Genera contingut per veure-ho aquí.",
+      "noGenerationsForPlatform": "No hi ha generacions per a {{platform}} encara. Genera contingut per veure-ho aquí.",
+      "totalGenerations": "Total de generacions",
+      "original": "Text original",
+      "deleted": "Client eliminat"
+    },
+    "createContent": {
+      "title": "Crear contingut",
+      "subtitle": "Generar contingut amb IA adaptat a la veu de marca del teu client i a la plataforma de xarxes socials.",
+      "step1": "1 · Client i plataforma",
+      "step2": "2 · El teu esborrany",
+      "step3": "3 · Tria la teva variació",
+      "selectClient": "Selecciona un client…",
+      "noClient": "No client (genèric)",
+      "voiceSet": "Veu definida",
+      "brandVoiceActive": "Veu de marca activa",
+      "brandVoiceTooltip": "L'IA escriurà en el to d'aquest client automàticament.",
+      "templatesLabel": "plantilles →",
+      "placeholder": "Escriu o enganxa el teu esborrany aquí… (Ctrl+Enter per generar)",
+      "charLimit": "{{count}} / 500",
+      "creativityLabel": "Nivell de creativitat",
+      "generate": "Generar contingut →",
+      "generating": "Generant 3 variacions…",
+      "selectPlatformWarning": "Selecciona una plataforma per generar",
+      "startOver": "↩ Tornar a començar",
+      "savedToHistory": "Desat a l'historial de generació de {{name}}",
+      "copy": "Copiar",
+      "copied": "✓ Copiat",
+      "saveThis": "Desar aquest",
+      "savedVariation": "✓ Desat",
+      "couldNotSave": "No s'ha pogut desar a l'historial",
+      "savedSuccess": "Desat a l'historial",
+      "copiedSuccess": "Copiat al porta-retalls",
+      "templateLabels": {
+        "launch": "🚀 Llançament",
+        "milestone": "🎯 Punt de control",
+        "lesson": "💡 Lliçó",
+        "announcement": "📢 Anunci",
+        "question": "❓ Pregunta"
+      },
+      "creativity": {
+        "precise": { "label": "Precis", "desc": "Fidelist a la teva original" },
+        "balanced": { "label": "Equilibrat", "desc": "La zona dolça" },
+        "creative": { "label": "Creatiu", "desc": "Audacioso i inesperat" }
+      },
+      "styleMeta": {
+        "professional": { "label": "Professional", "desc": "LinkedIn · clar i directe" },
+        "casual": { "label": "Casual", "desc": "Amigable · amb emojis" },
+        "viral": { "label": "Viral", "desc": "Maximiza l'engagement" }
+      }
+    },
+    "settings": {
+      "title": "Configuració",
+      "subtitle": "Gestiona el teu compte i preferències",
+      "account": "Compte",
+      "signOut": "Tancar sessió",
+      "plan": "Pla",
+      "freePlan": "Pla gratuït",
+      "freeLimit": "15 generacions per dia",
+      "free": "Gratis",
+      "legal": "Legal",
+      "termsOfService": "Termes de servei",
+      "privacyPolicy": "Política de privacitat",
+      "dangerZone": "Zona de perill",
+      "deleteAccount": "Eliminar compte",
+      "deleteAccountDesc": "Elimina permanentment el teu compte i totes les dades",
+      "delete": "Eliminar",
+      "deleteAccountUnavailable": "L'eliminació de compte no està disponible encara. Contacta a jorgecdev444@gmail.com",
+      "signedOut": "Sessió tancada correctament",
+      "language": "Idioma"
+    },
+    "footer": {
+      "feedback": "Envia'ns la teva opinió",
+      "terms": "Termes",
+      "privacy": "Privacitat",
+      "contact": "Contacte"
+    },
+    "feedback": {
+      "title": "Deixa la teva opinió",
+      "subtitle": "Què milloraries? Què falta?",
+      "placeholder": "Escriu aquí…",
+      "cancel": "Cancel·lar",
+      "send": "Enviar",
+      "sending": "Enviant…",
+      "thanks": "✓ Gràcies per la teva opinió!"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Español",
+      "ca": "Català",
+      "fr": "Français",
+      "zh": "中文"
+    }
+  }
+}

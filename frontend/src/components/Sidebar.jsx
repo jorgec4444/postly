@@ -1,9 +1,12 @@
 import { NavLink } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { supabase } from "../supabase"
+import { useTranslation } from "react-i18next"
+import LanguageSelector from "./LanguageSelector"
 
 function Sidebar({ isOpen, onClose }) {
     const [user, setUser] = useState(null)
+    const { t } = useTranslation()
 
     useEffect(() => {
         async function getUserFromSession() {
@@ -22,12 +25,12 @@ function Sidebar({ isOpen, onClose }) {
         `}>
             <div className="px-4 py-5 border-b border-white/10">
                 <div className="flex items-center gap-2">
-                    <NavLink 
-                        to="/" 
+                    <NavLink
+                        to="/"
                         className="flex items-center gap-3 px-2 py-1 rounded-lg text-white/80 hover:bg-white/10 transition-colors"
                         onClick={onClose}
                     >
-                        <img src="/orkly_icon_sidebar.svg" alt="Orkly Icon" className="w-11 h-11" />
+                        <img src="/favicon.svg" alt="Orkly Icon" className="w-11 h-11" />
                     </NavLink>
                     <span className="text-white font-bold text-xl">Orkly</span>
                 </div>
@@ -45,7 +48,7 @@ function Sidebar({ isOpen, onClose }) {
                                 }`
                             }
                         >
-                            Clients
+                            {t('sidebar.clients')}
                         </NavLink>
                     </li>
                     <li>
@@ -58,7 +61,7 @@ function Sidebar({ isOpen, onClose }) {
                                 }`
                             }
                         >
-                            Create content
+                            {t('sidebar.createContent')}
                         </NavLink>
                     </li>
                     <li>
@@ -71,17 +74,18 @@ function Sidebar({ isOpen, onClose }) {
                                 }`
                             }
                         >
-                            Settings
+                            {t('sidebar.settings')}
                         </NavLink>
                     </li>
                 </ul>
             </nav>
 
-            <div className="p-4 border-t border-white/10">
+            <div className="p-4 border-t border-white/10 flex flex-col gap-3">
+                <LanguageSelector variant="dark" />
                 <span className="text-white/60 text-sm">{user?.email}</span>
             </div>
         </aside>
     )
 }
 
-export default Sidebar;
+export default Sidebar

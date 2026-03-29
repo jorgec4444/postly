@@ -1,21 +1,24 @@
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { supabase } from "../supabase";
 import { LogOut, Trash2, ExternalLink } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
+import LanguageSelector from "../components/LanguageSelector";
 
 export default function Settings() {
   const { user } = useOutletContext();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    toast.success("Signed out successfully");
+    toast.success(t('settings.signedOut'));
     navigate("/");
   };
 
   const handleDeleteAccount = async () => {
-    if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) return;
-    toast.error("Account deletion is not available yet. Please contact jorgecdev444@gmail.com");
+    if (!window.confirm(t('settings.deleteAccountDesc'))) return;
+    toast.error(t('settings.deleteAccountUnavailable'));
   };
 
   return (
@@ -23,15 +26,15 @@ export default function Settings() {
 
       {/* ── Header ── */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Settings</h1>
-        <p className="text-sm text-gray-500 mt-1">Manage your account and preferences</p>
+        <h1 className="text-2xl font-bold text-gray-900">{t('settings.title')}</h1>
+        <p className="text-sm text-gray-500 mt-1">{t('settings.subtitle')}</p>
       </div>
 
       <div className="flex flex-col gap-5">
 
         {/* ── Account ── */}
         <section className="bg-white border border-gray-200 rounded-2xl p-5">
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">Account</h2>
+          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">{t('settings.account')}</h2>
 
           <div className="flex items-center gap-4">
             {user?.user_metadata?.avatar_url ? (
@@ -59,32 +62,38 @@ export default function Settings() {
               className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
             >
               <LogOut className="w-4 h-4" />
-              Sign out
+              {t('settings.signOut')}
             </button>
           </div>
         </section>
 
+        {/* ── Language ── */}
+        <section className="bg-white border border-gray-200 rounded-2xl p-5">
+          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">{t('settings.language')}</h2>
+          <LanguageSelector variant="light" />
+        </section>
+
         {/* ── Plan ── */}
         <section className="bg-white border border-gray-200 rounded-2xl p-5">
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">Plan</h2>
+          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">{t('settings.plan')}</h2>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-semibold text-gray-900">Free plan</p>
-              <p className="text-xs text-gray-400 mt-0.5">15 generations per day</p>
+              <p className="text-sm font-semibold text-gray-900">{t('settings.freePlan')}</p>
+              <p className="text-xs text-gray-400 mt-0.5">{t('settings.freeLimit')}</p>
             </div>
             <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-500">
-              Free
+              {t('settings.free')}
             </span>
           </div>
         </section>
 
         {/* ── Legal ── */}
         <section className="bg-white border border-gray-200 rounded-2xl p-5">
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">Legal</h2>
+          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">{t('settings.legal')}</h2>
           <div className="flex flex-col gap-2">
             {[
-              { label: "Terms of Service", href: "/terms" },
-              { label: "Privacy Policy", href: "/privacy" },
+              { label: t('settings.termsOfService'), href: "/terms" },
+              { label: t('settings.privacyPolicy'), href: "/privacy" },
             ].map(({ label, href }) => (
               <a
                 key={href}
@@ -102,18 +111,18 @@ export default function Settings() {
 
         {/* ── Danger zone ── */}
         <section className="bg-white border border-red-100 rounded-2xl p-5">
-          <h2 className="text-xs font-semibold text-red-400 uppercase tracking-wide mb-4">Danger zone</h2>
+          <h2 className="text-xs font-semibold text-red-400 uppercase tracking-wide mb-4">{t('settings.dangerZone')}</h2>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-semibold text-gray-900">Delete account</p>
-              <p className="text-xs text-gray-400 mt-0.5">Permanently delete your account and all data</p>
+              <p className="text-sm font-semibold text-gray-900">{t('settings.deleteAccount')}</p>
+              <p className="text-xs text-gray-400 mt-0.5">{t('settings.deleteAccountDesc')}</p>
             </div>
             <button
               onClick={handleDeleteAccount}
               className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-red-400 border border-red-200 hover:bg-red-50 transition"
             >
               <Trash2 className="w-4 h-4" />
-              Delete
+              {t('settings.delete')}
             </button>
           </div>
         </section>

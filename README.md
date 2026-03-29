@@ -54,7 +54,7 @@ cd backend
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 # 6. Start the frontend (in a second terminal)
-cd frontend-new
+cd frontend
 npm install
 npm run dev
 ```
@@ -100,13 +100,6 @@ orkly/
 │   ├── requirements.txt
 │   └── Dockerfile
 ├── frontend/
-│   ├── index.html                # Landing page (HTML + Vanilla JS)
-│   ├── main.js
-│   ├── privacy/
-│   │   └── index.html            # Privacy policy (GDPR compliant)
-│   └── terms/
-│       └── index.html            # Terms of service
-├── frontend-new/
 │   ├── src/
 │   │   ├── components/
 │   │   │   ├── AuthModal.jsx     # Google OAuth modal
@@ -343,7 +336,7 @@ gcloud run deploy orkly-backend \
 ### Frontend — Cloudflare Workers
 
 ```bash
-cd frontend-new
+cd frontend
 npm run build
 wrangler deploy
 ```

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabase";
 import { useNavigate, Outlet } from "react-router-dom";
-import { toast } from 'react-hot-toast'
+import { toast } from 'react-hot-toast';
+import { useTranslation } from "react-i18next";
 import Sidebar from "../components/Sidebar";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
@@ -13,12 +14,13 @@ function Dashboard() {
     const [clientsLoading, setClientsLoading] = useState(true);
     const [user, setUser] = useState(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         async function checkSession() {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
-                toast('Please sign in to access the dashboard')
+                toast(t('dashboard.signInRequired'))
                 navigate("/");
                 return;
             }
@@ -38,9 +40,8 @@ function Dashboard() {
 
     return (
         <div className="flex min-h-screen bg-bg">
-            {/* Overlay móvil */}
             {sidebarOpen && (
-                <div 
+                <div
                     className="fixed inset-0 bg-black/50 z-20 lg:hidden"
                     onClick={() => setSidebarOpen(false)}
                 />

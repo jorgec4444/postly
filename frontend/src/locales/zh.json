@@ -1,0 +1,216 @@
+{
+  "translation": {
+    "and": "和",
+    "saved": "已保存",
+    "nav": {
+      "signIn": "登录"
+    },
+    "dashboard": {
+      "signInRequired": "请登录以访问仪表板"
+    },
+    "hero": {
+      "badge": "面向社区管理者的AI内容工具",
+      "title1": "统筹管理客户的",
+      "title2": "社交媒体。",
+      "subtitle": "一个平台管理所有客户。适合机构和自由职业者",
+      "builtFor": "支持平台"
+    },
+    "compose": {
+      "label": "您的草稿",
+      "placeholder": "在此输入或粘贴您的帖子…（Ctrl+Enter 以改进）",
+      "charLimit": "{{count}} / 500",
+      "improve": "改进帖子 →",
+      "generating": "生成中…"
+    },
+    "templates": {
+      "label": "模板 →"
+    },
+    "loading": {
+      "generating": "正在用AI生成 <strong>3个变体</strong>…"
+    },
+    "variations": {
+      "label": "生成的变体",
+      "copy": "复制",
+      "copied": "✓ 已复制"
+    },
+    "cta": {
+      "title": "为客户保存此内容",
+      "subtitle": "登录以管理客户、品牌声音和生成历史。",
+      "button": "免费注册 →"
+    },
+    "auth": {
+      "welcome": "欢迎回来，请登录以继续。",
+      "subtitle": "登录以管理您的客户和内容。",
+      "google": "使用 Google 继续",
+      "terms": "登录即表示您同意我们的",
+      "termsLink": "服务条款",
+      "privacyLink": "隐私政策"
+    },
+    "sidebar": {
+      "clients": "客户",
+      "createContent": "创建内容",
+      "settings": "设置"
+    },
+    "clients": {
+      "title": "客户",
+      "subtitle": "在一个地方统筹管理所有客户",
+      "newClient": "+ 新客户",
+      "searchPlaceholder": "搜索客户...",
+      "sortAlphabetical": "按字母排序",
+      "sortNewest": "最新",
+      "sortOldest": "最旧",
+      "totalClients": "客户总数",
+      "withBrandVoice": "已设品牌声音",
+      "addedThisMonth": "本月新增",
+      "loading": "正在加载客户...",
+      "noClientsFound": "未找到客户"
+    },
+    "clientCard": {
+      "brandVoice": "品牌声音",
+      "noBrandVoice": "未设置品牌声音",
+      "added": "添加于 {{date}}",
+      "voiceSet": "已设置声音",
+      "noVoice": "无声音",
+      "cancel": "取消",
+      "save": "保存",
+      "saved": "已保存",
+      "saving": "保存中…",
+      "deleted": "客户已删除",
+      "describeBrandVoice": "描述品牌声音…",
+      "deleteConfirm": "删除\"{{name}}\"？此操作无法撤销。"
+    },
+    "addClient": {
+      "title": "新客户",
+      "clientName": "客户名称",
+      "clientNamePlaceholder": "Acme Corp",
+      "brandVoice": "品牌声音",
+      "brandVoiceOptional": "（可选）",
+      "brandVoicePlaceholder": "例如：友好直接。短句。无行话。",
+      "cancel": "取消",
+      "create": "创建客户",
+      "creating": "创建中…",
+      "success": "客户已创建"
+    },
+    "clientDetail": {
+      "back": "返回客户列表",
+      "loading":"正在加载客户...",
+      "brandVoice": "品牌声音",
+      "noBrandVoice": "尚未定义品牌声音。",
+      "brandVoiceTooltip": "AI将自动以该客户的语气进行写作。",
+      "addedOn": "添加于",
+      "generateContent": "生成内容",
+      "editClient": "编辑客户",
+      "deleteClient": "删除客户",
+      "deleteConfirm": "删除\"{{name}}\"？此操作无法撤销。",
+      "saveChanges": "保存更改",
+      "saving": "保存中…",
+      "save": "保存",
+      "cancel": "取消",
+      "clientName": "客户名称",
+      "brandVoiceLabel": "品牌声音",
+      "brandVoiceOptional": "（可选）",
+      "brandVoicePlaceholder": "例如：友好直接。短句。无行话。",
+      "editBrandVoice": "编辑品牌声音",
+      "platforms": "平台",
+      "allPlatforms": "所有平台",
+      "platformsUpdated": "平台已更新",
+      "folders": "文件夹",
+      "newFolder": "新文件夹",
+      "folderNamePlaceholder": "文件夹名称",
+      "deleteFolderConfirm": "删除文件夹\"{{name}}\"？此操作无法撤销。",
+      "generationHistory": "生成历史",
+      "noGenerations": "暂无生成内容。生成内容以在此查看。",
+      "noGenerationsForPlatform": "暂无 {{platform }} 的生成内容。生成内容以在此查看。",
+      "totalGenerations": "生成总数",
+      "original": "原始文本",
+      "deleted": "客户已删除"
+    },
+    "createContent": {
+      "title": "创建内容",
+      "subtitle": "生成符合客户品牌声音的AI内容",
+      "step1": "1 · 客户与平台",
+      "step2": "2 · 您的草稿",
+      "step3": "3 · 选择变体",
+      "selectClient": "选择客户…",
+      "noClient": "无客户（通用）",
+      "voiceSet": "已设置声音",
+      "brandVoiceActive": "品牌声音已激活",
+      "brandVoiceTooltip": "AI将自动以该客户的语气进行写作。",
+      "templatesLabel": "模板 →",
+      "placeholder": "在此输入或粘贴您的草稿…（Ctrl+Enter 生成）",
+      "charLimit": "{{count}} / 500",
+      "creativityLabel": "创意级别",
+      "generate": "生成内容 →",
+      "generating": "正在生成3个变体…",
+      "selectPlatformWarning": "请选择平台以生成内容",
+      "startOver": "↩ 重新开始",
+      "savedToHistory": "已保存至{{name}}的生成历史",
+      "copy": "复制",
+      "copied": "✓ 已复制",
+      "saveThis": "保存此内容",
+      "savedVariation": "✓ 已保存",
+      "couldNotSave": "无法保存至历史记录",
+      "savedSuccess": "已保存至历史记录",
+      "copiedSuccess": "已复制到剪贴板",
+      "templateLabels": {
+        "launch": "🚀 发布",
+        "milestone": "🎯 里程碑",
+        "lesson": "💡 经验",
+        "announcement": "📢 公告",
+        "question": "❓ 问题"
+      },
+      "creativity": {
+        "precise": { "label": "精准", "desc": "忠实于您的原文" },
+        "balanced": { "label": "均衡", "desc": "最佳平衡点" },
+        "creative": { "label": "创意", "desc": "大胆而出人意料" }
+      },
+      "styleMeta": {
+        "professional": { "label": "专业", "desc": "LinkedIn · 清晰直接" },
+        "casual": { "label": "轻松", "desc": "友好 · 带表情符号" },
+        "viral": { "label": "病毒式", "desc": "最大互动量" }
+      }
+    },
+    "settings": {
+      "title": "设置",
+      "subtitle": "管理您的账户和偏好",
+      "account": "账户",
+      "signOut": "退出登录",
+      "plan": "套餐",
+      "freePlan": "免费套餐",
+      "freeLimit": "每天15次生成",
+      "free": "免费",
+      "legal": "法律",
+      "termsOfService": "服务条款",
+      "privacyPolicy": "隐私政策",
+      "dangerZone": "危险区域",
+      "deleteAccount": "删除账户",
+      "deleteAccountDesc": "永久删除您的账户和所有数据",
+      "delete": "删除",
+      "deleteAccountUnavailable": "账户删除功能暂不可用。请联系 jorgecdev444@gmail.com",
+      "signedOut": "已成功退出登录",
+      "language": "语言"
+    },
+    "footer": {
+      "feedback": "发送反馈",
+      "terms": "条款",
+      "privacy": "隐私",
+      "contact": "联系我们"
+    },
+    "feedback": {
+      "title": "留下反馈",
+      "subtitle": "您会改进什么？缺少什么？",
+      "placeholder": "在此输入…",
+      "cancel": "取消",
+      "send": "发送",
+      "sending": "发送中…",
+      "thanks": "✓ 感谢您的反馈！"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Español",
+      "ca": "Català",
+      "fr": "Français",
+      "zh": "中文"
+    }
+  }
+}

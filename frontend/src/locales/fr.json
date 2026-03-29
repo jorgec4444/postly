@@ -1,0 +1,216 @@
+{
+  "translation": {
+    "and": "et",
+    "saved": "Enregistré",
+    "nav": {
+      "signIn": "Se connecter"
+    },
+    "dashboard": {
+      "signInRequired": "Veuillez vous connecter pour accéder au tableau de bord"
+    },
+    "hero": {
+      "badge": "Outil de contenu IA pour les community managers",
+      "title1": "Orchestrez les réseaux sociaux",
+      "title2": "de vos clients.",
+      "subtitle": "Un tableau de bord pour tous vos clients. Pour les agences et les freelances.",
+      "builtFor": "Disponible pour"
+    },
+    "compose": {
+      "label": "Votre brouillon",
+      "placeholder": "Écrivez ou collez votre publication ici… (Ctrl+Entrée pour améliorer)",
+      "charLimit": "{{count}} / 500",
+      "improve": "Améliorer la publication →",
+      "generating": "Génération…"
+    },
+    "templates": {
+      "label": "modèles →"
+    },
+    "loading": {
+      "generating": "Génération de <strong>3 variations</strong> avec l'IA…"
+    },
+    "variations": {
+      "label": "Variations générées",
+      "copy": "Copier",
+      "copied": "✓ Copié"
+    },
+    "cta": {
+      "title": "Enregistrez ceci pour un client",
+      "subtitle": "Connectez-vous pour gérer les clients, les voix de marque et l'historique.",
+      "button": "S'inscrire gratuitement →"
+    },
+    "auth": {
+      "welcome": "Bienvenue, connectez-vous pour continuer.",
+      "subtitle": "Connectez-vous pour gérer vos clients et votre contenu.",
+      "google": "Continuer avec Google",
+      "terms": "En vous connectant, vous acceptez nos",
+      "termsLink": "Conditions",
+      "privacyLink": "Politique de confidentialité"
+    },
+    "sidebar": {
+      "clients": "Clients",
+      "createContent": "Créer du contenu",
+      "settings": "Paramètres"
+    },
+    "clients": {
+      "title": "Clients",
+      "subtitle": "Orchestrez et organisez tous vos clients en un seul endroit",
+      "newClient": "+ Nouveau client",
+      "searchPlaceholder": "Rechercher des clients...",
+      "sortAlphabetical": "Alphabétique",
+      "sortNewest": "Plus récents",
+      "sortOldest": "Plus anciens",
+      "totalClients": "Total clients",
+      "withBrandVoice": "Avec voix de marque",
+      "addedThisMonth": "Ajoutés ce mois",
+      "loading": "Chargement des clients...",
+      "noClientsFound": "Aucun client trouvé"
+    },
+    "clientCard": {
+      "brandVoice": "Voix de marque",
+      "noBrandVoice": "Aucune voix de marque définie",
+      "added": "Ajouté {{date}}",
+      "voiceSet": "Voix définie",
+      "noVoice": "Sans voix",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saved": "Enregistré",
+      "saving": "Enregistrement…",
+      "deleted": "Client supprimé",
+      "describeBrandVoice": "Décrivez la voix de marque…",
+      "deleteConfirm": "Supprimer \"{{name}}\" ? Cette action est irréversible."
+    },
+    "addClient": {
+      "title": "Nouveau client",
+      "clientName": "Nom du client",
+      "clientNamePlaceholder": "Acme Corp",
+      "brandVoice": "Voix de marque",
+      "brandVoiceOptional": "(facultatif)",
+      "brandVoicePlaceholder": "ex. Amical et direct. Phrases courtes. Sans jargon.",
+      "cancel": "Annuler",
+      "create": "Créer le client",
+      "creating": "Création…",
+      "success": "Client créé"
+    },
+    "clientDetail": {
+      "back": "Retour aux clients",
+      "loading":"Chargement du client...",
+      "brandVoice": "Voix de marque",
+      "noBrandVoice": "Aucune voix de marque définie pour l'instant.",
+      "brandVoiceTooltip": "L'IA écrira automatiquement dans le ton de ce client.",
+      "addedOn": "Ajouté le",
+      "generateContent": "Générer du contenu",
+      "editClient": "Modifier le client",
+      "deleteClient": "Supprimer le client",
+      "deleteConfirm": "Supprimer \"{{name}}\" ? Cette action est irréversible.",
+      "saveChanges": "Enregistrer les modifications",
+      "saving": "Enregistrement…",
+      "save": "Enregistrer",
+      "cancel": "Annuler",
+      "clientName": "Nom du client",
+      "brandVoiceLabel": "Voix de marque",
+      "brandVoiceOptional": "(facultatif)",
+      "brandVoicePlaceholder": "ex. Amical et direct. Phrases courtes. Sans jargon.",
+      "editBrandVoice": "Modifier la voix de marque",
+      "platforms": "Plateformes",
+      "allPlatforms": "Toutes les plateformes",
+      "platformsUpdated": "Plateformes mises à jour",
+      "folders": "Dossiers",
+      "newFolder": "Nouveau dossier",
+      "folderNamePlaceholder": "Nom du dossier",
+      "deleteFolderConfirm": "Supprimer le dossier \"{{name}}\" ? Cette action est irréversible.",
+      "generationHistory": "Historique de génération",
+      "noGenerations": "Aucune génération pour l'instant. Générez du contenu pour le voir ici.",
+      "noGenerationsForPlatform": "Aucune génération pour {{platform}} pour l'instant. Générez du contenu pour le voir ici.",
+      "totalGenerations": "Total des générations",
+      "original": "Texte original",
+      "deleted": "Client supprimé"
+    },
+    "createContent": {
+      "title": "Créer du contenu",
+      "subtitle": "Générez des publications pour les réseaux sociaux de vos clients en quelques secondes.",
+      "step1": "1 · Choisissez un client",
+      "step2": "2 · Rédigez votre brouillon",
+      "step3": "3 · Sélectionnez votre variante",
+      "selectClient": "Sélectionnez un client…",
+      "noClient": "Aucun client (générique)",
+      "voiceSet": "Voix définie",
+      "brandVoiceActive": "Voix de marque active",
+      "brandVoiceTooltip": "L'IA écrira automatiquement dans le ton de ce client.",
+      "templatesLabel": "Modèles →",
+      "placeholder": "Écrivez ou collez votre brouillon ici… (Ctrl+Enter pour générer)",
+      "charLimit": "{{count}} / 500",
+      "creativityLabel": "Niveau de créativité",
+      "generate": "Générer du contenu →",
+      "generating": "Génération de 3 variantes…",
+      "selectPlatformWarning": "Sélectionnez une plateforme pour générer",
+      "startOver": "↩ Repartir de zéro",
+      "savedToHistory": "Enregistré dans l'historique de génération de {{name}}",
+      "copy": "Copier",
+      "copied": "✓ Copié",
+      "saveThis": "Enregistrer ceci",
+      "savedVariation": "✓ Enregistré",
+      "couldNotSave": "Impossible de sauvegarder dans l'historique",
+      "savedSuccess": "Sauvegardé dans l'historique",
+      "copiedSuccess": "Copié dans le presse-papiers",
+      "templateLabels": {
+        "launch": "🚀 Lancement",
+        "milestone": "🎯 Point de contrôle",
+        "lesson": "💡 Leçon",
+        "announcement": "📢 Annonce",
+        "question": "❓ Question"
+      },
+      "creativity": {
+        "precise": { "label": "Précis", "desc": "Fidelist a la teva original" },
+        "balanced": { "label": "Équilibré", "desc": "La zona dolça" },
+        "creative": { "label": "Créatif", "desc": "Audacioso i inesperat" }
+      },
+      "styleMeta": {
+        "professional": { "label": "Professionnel", "desc": "LinkedIn · clair et direct" },
+        "casual": { "label": "Casual", "desc": "Amical · avec emojis" },
+        "viral": { "label": "Viral", "desc": "Maximise l'engagement" }
+      }
+    },
+    "settings": {
+      "title": "Paramètres",
+      "subtitle": "Gérez votre compte et vos préférences",
+      "account": "Compte",
+      "signOut": "Se déconnecter",
+      "plan": "Abonnement",
+      "freePlan": "Plan gratuit",
+      "freeLimit": "15 générations par jour",
+      "free": "Gratuit",
+      "legal": "Mentions légales",
+      "termsOfService": "Conditions d'utilisation",
+      "privacyPolicy": "Politique de confidentialité",
+      "dangerZone": "Zone dangereuse",
+      "deleteAccount": "Supprimer le compte",
+      "deleteAccountDesc": "Supprimez définitivement votre compte et toutes les données",
+      "delete": "Supprimer",
+      "deleteAccountUnavailable": "La suppression de compte n'est pas encore disponible. Contactez jorgecdev444@gmail.com",
+      "signedOut": "Déconnexion réussie",
+      "language": "Langue"
+    },
+    "footer": {
+      "feedback": "Envoyez-nous vos commentaires",
+      "terms": "Conditions",
+      "privacy": "Confidentialité",
+      "contact": "Contact"
+    },
+    "feedback": {
+      "title": "Laisser un commentaire",
+      "subtitle": "Qu'amélioreriez-vous ? Qu'est-ce qui manque ?",
+      "placeholder": "Écrivez ici…",
+      "cancel": "Annuler",
+      "send": "Envoyer",
+      "sending": "Envoi…",
+      "thanks": "✓ Merci pour votre commentaire !"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Español",
+      "ca": "Català",
+      "fr": "Français",
+      "zh": "中文"
+    }
+  }
+}

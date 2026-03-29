@@ -77,6 +77,7 @@ async def update_client(
 ) -> dict | None:
     """Update a client's name/brand_voice. Returns None if not found or not owned."""
 
+    client = await get_client_by_id(client_id, user_id)
     payload = {}
     if client_name is not None:
         payload["client_name"] = client_name
@@ -101,7 +102,7 @@ async def update_client(
         .execute()
     )
 
-    logger.info(f"Updated client {client_name} for user {user_id}")
+    logger.info(f"Updated client {client_id} for user {user_id}")
 
     return response.data[0] if response.data else None
 
