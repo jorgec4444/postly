@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import { supabase } from "../supabase";
 import { ChevronDown, Check } from "lucide-react";
@@ -36,8 +36,8 @@ async function apiFetch(path, options = {}) {
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     const detail = err.detail;
-    const message = typeof detail === 'string' 
-      ? detail 
+    const message = typeof detail === 'string'
+      ? detail
       : detail?.message || `HTTP ${res.status}`;
     throw new Error(message);
   }
@@ -156,11 +156,12 @@ function VariationCard({ variation, selected, onSelect, onCopy, copied }) {
 
 export default function CreateContent() {
   const { clients } = useOutletContext();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const [selectedClientId, setSelectedClientId] = useState(null);
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [text, setText] = useState("");
+  const [activeTemplate, setActiveTemplate] = useState(null);
   const [creativity, setCreativity] = useState("balanced");
   const [loading, setLoading] = useState(false);
   const [variations, setVariations] = useState(null);
@@ -169,23 +170,35 @@ export default function CreateContent() {
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState(null);
 
-  const charCount = text.length;
-  const charOver = charCount > 500;
-  const charWarn = charCount > 400 && !charOver;
+  const TEMPLATES = useMemo(() => ({
+    launch: t('templates.launch'),
+    milestone: t('templates.milestone'),
+    lesson: t('templates.lesson'),
+    announcement: t('templates.announcement'),
+    question: t('templates.question'),
+  }), [t]);
 
-  const CREATIVITY_LEVELS = [
+  const CREATIVITY_LEVELS = useMemo(() => [
     { id: "precise",  emoji: "🎯", ...t('createContent.creativity.precise',  { returnObjects: true }), temperature: 0.4 },
     { id: "balanced", emoji: "⚡", ...t('createContent.creativity.balanced', { returnObjects: true }), temperature: 0.7 },
     { id: "creative", emoji: "🔥", ...t('createContent.creativity.creative', { returnObjects: true }), temperature: 1.0 },
-  ];
+  ], [t]);
 
-  const TEMPLATES = {
-    launch:       "After [X months] of work, today we launch [product name]. [Brief description]. I am [emotion] to share this.",
-    milestone:    "🎯 Milestone: [number/achievement]. [Time] ago we started with [situation]. Today we celebrate [achievement].",
-    lesson:       "💡 Lesson learned [where]: [main lesson]. Before I thought [old belief]. Now I understand [new perspective].",
-    announcement: "📢 [What you are announcing]. Starting [when], [what changes]. This means [benefit]. [Call to action].",
-    question:     "Question for the community: [specific question]? In my experience [context]. How do you do it?",
-  };
+  useEffect(() => {
+    if (activeTemplate) {
+      setText(TEMPLATES[activeTemplate]);
+    } else {
+      setText("");
+      setVariations(null);
+      setSelected(null);
+      setSaved(false);
+      setError(null);
+    }
+  }, [i18n.language]);
+
+  const charCount = text.length;
+  const charOver = charCount > 500;
+  const charWarn = charCount > 400 && !charOver;
 
   const selectedCreativity = CREATIVITY_LEVELS.find(c => c.id === creativity);
   const canGenerate = text.trim() && !charOver && selectedPlatform;
@@ -249,6 +262,7 @@ export default function CreateContent() {
 
   const handleReset = () => {
     setText("");
+    setActiveTemplate(null);
     setVariations(null);
     setSelected(null);
     setSaved(false);
@@ -324,8 +338,15 @@ export default function CreateContent() {
             {Object.entries(t('createContent.templateLabels', { returnObjects: true })).map(([key, label]) => (
               <button
                 key={key}
-                onClick={() => setText(TEMPLATES[key])}
-                className="text-xs font-mono px-2.5 py-1 rounded-full border border-gray-200 bg-gray-50 text-gray-500 hover:border-primary hover:text-primary transition-colors"
+                onClick={() => {
+                  setActiveTemplate(key);
+                  setText(TEMPLATES[key]);
+                }}
+                className={`text-xs font-mono px-2.5 py-1 rounded-full border transition-colors ${
+                  activeTemplate === key
+                    ? 'border-primary text-primary bg-primary/5'
+                    : 'border-gray-200 bg-gray-50 text-gray-500 hover:border-primary hover:text-primary'
+                }`}
               >
                 {label}
               </button>
@@ -337,7 +358,10 @@ export default function CreateContent() {
           }`}>
             <textarea
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => {
+                setText(e.target.value);
+                setActiveTemplate(null);
+              }}
               onKeyDown={(e) => (e.ctrlKey || e.metaKey) && e.key === "Enter" && handleGenerate()}
               placeholder={t('createContent.placeholder')}
               rows={5}

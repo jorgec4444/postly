@@ -23,7 +23,12 @@
       "generating": "Génération…"
     },
     "templates": {
-      "label": "modèles →"
+      "label": "modèles →",
+      "launch": "Après [X mois] de travail, nous lançons aujourd'hui [nom du produit]. [Brève description]. Je suis [émotion] de partager cela.",
+      "milestone": "🎯 Étape franchie : [nombre/réalisation]. Il y a [temps] nous avons commencé avec [situation]. Aujourd'hui nous célébrons [réalisation].",
+      "lesson": "💡 Leçon apprise [où] : [leçon principale]. Avant je pensais [ancienne croyance]. Maintenant je comprends [nouvelle perspective].",
+      "announcement": "📢 [Ce que vous annoncez]. À partir de [quand], [ce qui change]. Cela signifie [bénéfice]. [Appel à l'action].",
+      "question": "Question pour la communauté : [question spécifique] ? Dans mon expérience [contexte]. Comment faites-vous ?"
     },
     "loading": {
       "generating": "Génération de <strong>3 variations</strong> avec l'IA…"

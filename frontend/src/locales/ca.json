@@ -23,7 +23,12 @@
       "generating": "Generant…"
     },
     "templates": {
-      "label": "plantilles →"
+      "label": "plantilles →",
+      "launch": "Després de [X mesos] de feina, avui llancem [nom del producte]. [Breu descripció]. Estic [emoció] de compartir-ho.",
+      "milestone": "🎯 Fita aconseguida: [número/assoliment]. Fa [temps] vam començar amb [situació]. Avui celebrem [assoliment].",
+      "lesson": "💡 Lliçó apresa [on]: [lliçó principal]. Abans pensava [creença antiga]. Ara entenc [nova perspectiva].",
+      "announcement": "📢 [El que anuncieu]. A partir de [quan], [què canvia]. Això significa [benefici]. [Crida a l'acció].",
+      "question": "Pregunta per a la comunitat: [pregunta específica]? En la meva experiència [context]. Com ho feu vosaltres?"
     },
     "loading": {
       "generating": "Generant <strong>3 variacions</strong> amb IA…"

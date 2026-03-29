@@ -23,7 +23,11 @@
       "generating": "Generando…"
     },
     "templates": {
-      "label": "plantillas →"
+      "launch": "Después de [X meses] de trabajo, hoy lanzamos [nombre del producto]. [Breve descripción]. Estoy [emoción] de compartirlo.",
+      "milestone": "🎯 Hito conseguido: [número/logro]. Hace [tiempo] empezamos con [situación]. Hoy celebramos [logro].",
+      "lesson": "💡 Lección aprendida [dónde]: [lección principal]. Antes pensaba [creencia antigua]. Ahora entiendo [nueva perspectiva].",
+      "announcement": "📢 [Lo que anuncias]. A partir de [cuándo], [qué cambia]. Esto significa [beneficio]. [Llamada a la acción].",
+      "question": "Pregunta para la comunidad: [pregunta específica]? En mi experiencia [contexto]. ¿Cómo lo hacéis vosotros?"
     },
     "loading": {
       "generating": "Generando <strong>3 variaciones</strong> con IA…"

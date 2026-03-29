@@ -23,7 +23,12 @@
       "generating": "Generating…"
     },
     "templates": {
-      "label": "templates →"
+      "label": "templates →",
+      "launch": "After [X months] of work, today we launch [product name]. [Brief description]. I am [emotion] to share this.",
+      "milestone": "🎯 Milestone: [number/achievement]. [Time] ago we started with [situation]. Today we celebrate [achievement].",
+      "lesson": "💡 Lesson learned [where]: [main lesson]. Before I thought [old belief]. Now I understand [new perspective].",
+      "announcement": "📢 [What you are announcing]. Starting [when], [what changes]. This means [benefit]. [Call to action].",
+      "question": "Question for the community: [specific question]? In my experience [context]. How do you do it?"
     },
     "loading": {
       "generating": "Generating <strong>3 variations</strong> with AI…"

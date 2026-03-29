@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { supabase } from "../supabase";
 import { useNavigate } from "react-router-dom";
 import AuthModal from "../components/AuthModal";
@@ -7,28 +7,6 @@ import { useTranslation } from "react-i18next";
 import LanguageSelector from "../components/LanguageSelector";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
-
-const TEMPLATES = {
-  launch: "After [X months] of work, today we launch [product name]. [Brief description of what it does]. I am [emotion] to share this with everyone.",
-  milestone: "🎯 Milestone achieved: [number/achievement]. [Time] ago we started with [initial situation]. Today we celebrate [specific achievement]. Thanks to [who/what helped].",
-  lesson: "💡 Lesson I learned [where/when]: [main lesson]. Before I thought [old belief]. Now I understand that [new perspective]. [Actionable advice].",
-  announcement: "📢 Important announcement: [what you are announcing]. Starting from [when], [what changes]. This means [benefit for the audience]. [Call to action].",
-  question: "Question for the community: [specific question]? In my experience [your context]. How do you do it? [Relevant emoji]",
-};
-
-const TEMPLATE_LABELS = {
-  launch: "🚀 Launch",
-  milestone: "🎯 Milestone",
-  lesson: "💡 Lesson",
-  announcement: "📢 Announcement",
-  question: "❓ Question",
-};
-
-const STYLE_META = {
-  professional: { label: "Professional", desc: "LinkedIn · clear and direct" },
-  casual: { label: "Casual", desc: "Friendly · with emojis" },
-  viral: { label: "Viral", desc: "Max engagement" },
-};
 
 const STYLE_COLORS = {
   professional: "bg-blue-50 text-blue-700 border-blue-200",
@@ -39,18 +17,51 @@ const STYLE_COLORS = {
 export default function Landing() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [text, setText] = useState("");
+  const [activeTemplate, setActiveTemplate] = useState(null);
   const [loading, setLoading] = useState(false);
   const [variations, setVariations] = useState(null);
   const [selected, setSelected] = useState(null);
   const [copied, setCopied] = useState(null);
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) navigate("/dashboard");
     });
   }, []);
+
+  const TEMPLATES = useMemo(() => ({
+    launch: t('templates.launch'),
+    milestone: t('templates.milestone'),
+    lesson: t('templates.lesson'),
+    announcement: t('templates.announcement'),
+    question: t('templates.question'),
+  }), [t]);
+
+  const TEMPLATE_LABELS = useMemo(() => ({
+    launch: t('createContent.templateLabels.launch'),
+    milestone: t('createContent.templateLabels.milestone'),
+    lesson: t('createContent.templateLabels.lesson'),
+    announcement: t('createContent.templateLabels.announcement'),
+    question: t('createContent.templateLabels.question'),
+  }), [t]);
+
+  const STYLE_META = useMemo(() => ({
+    professional: { label: t('createContent.styleMeta.professional.label'), desc: t('createContent.styleMeta.professional.desc') },
+    casual: { label: t('createContent.styleMeta.casual.label'), desc: t('createContent.styleMeta.casual.desc') },
+    viral: { label: t('createContent.styleMeta.viral.label'), desc: t('createContent.styleMeta.viral.desc') },
+  }), [t]);
+
+  useEffect(() => {
+    if (activeTemplate) {
+      setText(TEMPLATES[activeTemplate]);
+    } else {
+      setText("");
+      setVariations(null);
+      setSelected(null);
+    }
+  }, [i18n.language]);
 
   const charCount = text.length;
   const charOver = charCount > 500;
@@ -88,20 +99,20 @@ export default function Landing() {
       {/* ── Navbar ── */}
       <nav className="sticky top-0 z-40 bg-bg/80 backdrop-blur-md border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-        <div className="flex items-center gap-2.5 flex-shrink-0">
-          <img src="/favicon.svg" alt="Orkly" className="w-9 h-9" />
-          <span className="font-bold text-gray-900 tracking-tight">Orkly</span>
+          <div className="flex items-center gap-2.5 flex-shrink-0">
+            <img src="/favicon.svg" alt="Orkly" className="w-9 h-9" />
+            <span className="font-bold text-gray-900 tracking-tight">Orkly</span>
+          </div>
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <LanguageSelector variant="light" />
+            <button
+              onClick={() => setIsAuthModalOpen(true)}
+              className="px-3 sm:px-4 py-1.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors whitespace-nowrap"
+            >
+              {t('nav.signIn')}
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <LanguageSelector variant="light" />
-          <button
-            onClick={() => setIsAuthModalOpen(true)}
-            className="px-3 sm:px-4 py-1.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors whitespace-nowrap"
-          >
-            {t('nav.signIn')}
-          </button>
-        </div>
-      </div>
       </nav>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
@@ -137,7 +148,10 @@ export default function Landing() {
           <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
             <textarea
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => {
+                setText(e.target.value);
+                setActiveTemplate(null);
+              }}
               onKeyDown={(e) => (e.ctrlKey || e.metaKey) && e.key === "Enter" && handleImprove()}
               placeholder={t('compose.placeholder')}
               maxLength={600}
@@ -172,8 +186,15 @@ export default function Landing() {
           {Object.entries(TEMPLATE_LABELS).map(([key, label]) => (
             <button
               key={key}
-              onClick={() => setText(TEMPLATES[key])}
-              className="text-xs font-mono px-3 py-1.5 rounded-full border border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary transition-colors"
+              onClick={() => {
+                setActiveTemplate(key);
+                setText(TEMPLATES[key]);
+              }}
+              className={`text-xs font-mono px-3 py-1.5 rounded-full border transition-colors ${
+                activeTemplate === key
+                  ? 'border-primary text-primary bg-primary/5'
+                  : 'border-gray-200 bg-white text-gray-600 hover:border-primary hover:text-primary'
+              }`}
             >
               {label}
             </button>
