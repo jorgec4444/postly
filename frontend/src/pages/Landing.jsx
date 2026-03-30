@@ -131,7 +131,7 @@ export default function Landing() {
             {t('hero.subtitle')}
           </p>
           <div className="flex items-center justify-center gap-2 text-xs text-gray-500 flex-wrap">
-            <span>{t('hero.builtFor')}</span>
+            <span className="text-gray-600">{t('hero.builtFor')}</span>
             {["Instagram", "Twitter / X", "LinkedIn"].map((p) => (
               <span key={p} className="px-2.5 py-1 rounded-full border border-gray-200 bg-white text-gray-600">
                 {p}
@@ -142,7 +142,7 @@ export default function Landing() {
 
         {/* ── Compose ── */}
         <div className="mb-2">
-          <p className="text-xs font-medium text-gray-500 uppercase tracking-widest mb-3">
+          <p className="text-xs font-medium text-gray-600 uppercase tracking-widest mb-3">
             {t('compose.label')}
           </p>
           <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all">
@@ -182,7 +182,7 @@ export default function Landing() {
 
         {/* ── Templates ── */}
         <div className="flex items-center gap-2 flex-wrap mb-10">
-          <span className="text-xs font-mono text-gray-500 mr-1">{t('templates.label')}</span>
+          <span className="text-xs font-mono text-gray-600 mr-1">{t('templates.label')}</span>
           {Object.entries(TEMPLATE_LABELS).map(([key, label]) => (
             <button
               key={key}
