@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { supabase } from "../supabase";
 import { useTranslation } from "react-i18next";
@@ -15,6 +15,12 @@ async function signInWithGoogle() {
 
 export default function AuthModal({ isOpen, onClose }) {
   const { t } = useTranslation();
+  const [mode, setMode] = useState("login"); // "login" | "register" | "magic"
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [magicSent, setMagicSent] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -22,6 +28,62 @@ export default function AuthModal({ isOpen, onClose }) {
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [isOpen, onClose]);
+
+  // Reset al cerrar
+  useEffect(() => {
+    if (!isOpen) {
+      setEmail("");
+      setPassword("");
+      setError(null);
+      setMagicSent(false);
+      setMode("login");
+    }
+  }, [isOpen]);
+
+  const handleEmailAuth = async () => {
+    if (!email.trim() || !password.trim()) return;
+    setLoading(true);
+    setError(null);
+    try {
+      if (mode === "register") {
+        const { error } = await supabase.auth.signUp({ email, password });
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+      }
+      onClose();
+      window.location.href = "/dashboard";
+    } catch (e) {
+      if (e.message.includes("Invalid login credentials")) {
+        setError(t('auth.errorInvalidCredentials'));
+      } else if (e.message.includes("already registered") || e.message.includes("already been registered")) {
+        setError(t('auth.errorEmailTaken'));
+      } else {
+        setError(t('auth.errorGeneric'));
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleMagicLink = async () => {
+    if (!email.trim()) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: window.location.origin + "/dashboard" },
+      });
+      if (error) throw error;
+      setMagicSent(true);
+    } catch (e) {
+      setError(t('auth.errorGeneric'));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -35,7 +97,8 @@ export default function AuthModal({ isOpen, onClose }) {
         {/* Top accent bar */}
         <div className="h-1 w-full bg-gradient-to-r from-primary to-accent" />
 
-        <div className="p-7 flex flex-col gap-6">
+        <div className="p-7 flex flex-col gap-5">
+
           {/* Header */}
           <div className="flex items-start justify-between">
             <div className="flex flex-col gap-1">
@@ -71,6 +134,112 @@ export default function AuthModal({ isOpen, onClose }) {
             </svg>
             {t('auth.google')}
           </button>
+
+          {/* Separador */}
+          <div className="flex items-center gap-3">
+            <div className="flex-1 h-px bg-gray-200" />
+            <span className="text-xs text-gray-500">{t('auth.orEmail')}</span>
+            <div className="flex-1 h-px bg-gray-200" />
+          </div>
+
+          {/* Magic link enviado */}
+          {magicSent ? (
+            <div className="text-center py-4 flex flex-col gap-2">
+              <span className="text-3xl">📬</span>
+              <p className="text-sm text-gray-700 font-medium">{t('auth.magicLinkSent')}</p>
+            </div>
+          ) : (
+            <>
+              {/* Email */}
+              <div className="flex flex-col gap-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && !loading && handleEmailAuth()}
+                  placeholder={t('auth.emailPlaceholder')}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition"
+                />
+
+                {/* Password — solo en login y register */}
+                {mode !== "magic" && (
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && !loading && handleEmailAuth()}
+                    placeholder={t('auth.passwordPlaceholder')}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition"
+                  />
+                )}
+              </div>
+
+              {/* Error */}
+              {error && (
+                <p className="text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2">
+                  {error}
+                </p>
+              )}
+
+              {/* Botón principal */}
+              {mode === "magic" ? (
+                <button
+                  onClick={handleMagicLink}
+                  disabled={!email.trim() || loading}
+                  className="w-full py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                >
+                  {loading ? t('auth.sendingMagicLink') : t('auth.magicLink')}
+                </button>
+              ) : (
+                <button
+                  onClick={handleEmailAuth}
+                  disabled={!email.trim() || !password.trim() || loading}
+                  className="w-full py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
+                >
+                  {loading
+                    ? mode === "register" ? t('auth.registering') : t('auth.loggingIn')
+                    : mode === "register" ? t('auth.register') : t('auth.login')
+                  }
+                </button>
+              )}
+
+              {/* Switch login/register/magic */}
+              <div className="flex flex-col gap-1 text-center">
+                {mode === "login" && (
+                  <>
+                    <p className="text-xs text-gray-500">
+                      {t('auth.noAccount')}{" "}
+                      <button onClick={() => { setMode("register"); setError(null); }} className="text-primary font-medium hover:underline">
+                        {t('auth.switchToRegister')}
+                      </button>
+                    </p>
+                    <button
+                      onClick={() => { setMode("magic"); setError(null); }}
+                      className="text-xs text-gray-400 hover:text-primary transition-colors"
+                    >
+                      {t('auth.magicLink')} →
+                    </button>
+                  </>
+                )}
+                {mode === "register" && (
+                  <p className="text-xs text-gray-500">
+                    {t('auth.hasAccount')}{" "}
+                    <button onClick={() => { setMode("login"); setError(null); }} className="text-primary font-medium hover:underline">
+                      {t('auth.switchToLogin')}
+                    </button>
+                  </p>
+                )}
+                {mode === "magic" && (
+                  <button
+                    onClick={() => { setMode("login"); setError(null); }}
+                    className="text-xs text-gray-400 hover:text-primary transition-colors"
+                  >
+                    ← {t('auth.switchToLogin')}
+                  </button>
+                )}
+              </div>
+            </>
+          )}
 
           {/* Footer note */}
           <p className="text-xs text-center text-gray-500 leading-relaxed">
