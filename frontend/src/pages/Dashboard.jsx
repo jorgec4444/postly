@@ -9,7 +9,7 @@ const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
 function Dashboard() {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
+    const [sessionChecked, setSessionChecked] = useState(false);
     const [clients, setClients] = useState([]);
     const [clientsLoading, setClientsLoading] = useState(true);
     const [user, setUser] = useState(null);
@@ -20,23 +20,30 @@ function Dashboard() {
         async function checkSession() {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
-                toast(t('dashboard.signInRequired'))
+                toast(t('dashboard.signInRequired'));
                 navigate("/");
                 return;
             }
-            const data = await fetch(`${API_BASE}/client/list`, {
-                headers: { Authorization: `Bearer ${session.access_token}` }
-            });
-            const json = await data.json();
             setUser(session.user);
-            setClients(json);
-            setClientsLoading(false);
-            setLoading(false);
+            setSessionChecked(true);
+
+            try {
+                const data = await fetch(`${API_BASE}/client/list`, {
+                    headers: { Authorization: `Bearer ${session.access_token}` }
+                });
+                const json = await data.json();
+                setClients(Array.isArray(json) ? json : []);
+            } catch (e) {
+                console.error("Error loading clients:", e);
+                setClients([]);
+            } finally {
+                setClientsLoading(false);
+            }
         }
         checkSession();
     }, []);
 
-    if (loading) return null;
+    if (!sessionChecked) return null;
 
     return (
         <div className="flex min-h-screen bg-bg">
