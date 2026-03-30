@@ -6,7 +6,8 @@
       "signIn": "登录"
     },
     "dashboard": {
-      "signInRequired": "请登录以访问仪表板"
+      "signInRequired": "请登录以访问仪表板",
+      "loadClientsError": "加载客户时出错。请重试。"
     },
     "hero": {
       "badge": "面向社区管理者的AI内容工具",
@@ -56,7 +57,7 @@
       "login": "登录",
       "register": "创建账户",
       "loggingIn": "登录中…",
-      "registering": "创建账户中…",
+      "sendingVerification": "发送验证邮件…",
       "hasAccount": "已有账户？",
       "noAccount": "没有账户？",
       "switchToLogin": "登录",
@@ -68,7 +69,20 @@
       "errorEmailTaken": "该邮箱已被注册。",
       "errorGeneric": "出了点问题，请重试。",
       "emailPlaceholder": "you@example.com",
-      "passwordPlaceholder": "您的密码"
+      "passwordPlaceholder": "您的密码",
+      "welcomeToast": "欢迎来到Orkly! 🎉 一切就绪。",
+      "displayName": "全名",
+      "displayNamePlaceholder": "您的姓名（可选）",
+      "sendVerification": "发送验证邮件",
+      "registerSuccess": "您几乎准备好了。请检查您的邮箱以验证您的账户。",
+      "logginSuccess": "登录成功",
+      "errorGoogleSignIn": "使用 Google 登录时出错。请重试。",
+      "errorPasswordLength": "密码必须至少有8个字符",
+      "errorPasswordUppercase": "必须包含至少一个大写字母",
+      "errorPasswordNumber": "必须包含至少一个数字",
+      "ruleLength": "至少8个字符",
+      "ruleUppercase": "至少一个大写字母",
+      "ruleNumber": "至少一个数字"
     },
     "sidebar": {
       "clients": "客户",
@@ -147,7 +161,9 @@
       "noGenerationsForPlatform": "暂无 {{platform }} 的生成内容。生成内容以在此查看。",
       "totalGenerations": "生成总数",
       "original": "原始文本",
-      "deleted": "客户已删除"
+      "deleted": "客户已删除",
+      "brandVoiceUpdated": "品牌声音已更新",
+      "fileUploadSoon": "文件上传即将推出"
     },
     "createContent": {
       "title": "创建内容",
@@ -212,7 +228,14 @@
       "delete": "删除",
       "deleteAccountUnavailable": "账户删除功能暂不可用。请联系 jorgecdev444@gmail.com",
       "signedOut": "已成功退出登录",
-      "language": "语言"
+      "language": "语言",
+      "editName": "编辑显示名称",
+      "nameSaved": "名称已更新",
+      "nameError": "无法更新名称",
+      "save": "保存",
+      "saving": "保存中…",
+      "cancel": "取消",
+      "noName": "未设置名称"
     },
     "footer": {
       "feedback": "发送反馈",

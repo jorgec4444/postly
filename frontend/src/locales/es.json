@@ -6,7 +6,8 @@
       "signIn": "Iniciar sesión"
     },
     "dashboard": {
-      "signInRequired": "Por favor inicia sesión para acceder al panel de control de clientes"
+      "signInRequired": "Por favor inicia sesión para acceder al panel de control de clientes",
+      "loadClientsError": "Error cargando clientes. Por favor, inténtalo de nuevo."
     },
     "hero": {
       "badge": "Herramienta de contenido IA para community managers",
@@ -55,7 +56,7 @@
       "login": "Iniciar sesión",
       "register": "Crear cuenta",
       "loggingIn": "Iniciando sesión…",
-      "registering": "Creando cuenta…",
+      "sendingVerification": "Enviando email de verificación…",
       "hasAccount": "¿Ya tienes cuenta?",
       "noAccount": "¿No tienes cuenta?",
       "switchToLogin": "Inicia sesión",
@@ -67,7 +68,20 @@
       "errorEmailTaken": "Este email ya está registrado.",
       "errorGeneric": "Algo salió mal. Inténtalo de nuevo.",
       "emailPlaceholder": "tu@ejemplo.com",
-      "passwordPlaceholder": "Tu contraseña"
+      "passwordPlaceholder": "Tu contraseña",
+      "welcomeToast": "¡Bienvenido a Orkly! 🎉 Ya puedes empezar.",
+      "displayName": "Nombre completo",
+      "displayNamePlaceholder": "Tu nombre (opcional)",
+      "sendVerification": "Enviar mail de verificación",
+      "registerSuccess": "Casi estas listo. Revisa tu email para verificar tu cuenta.",
+      "logginSuccess": "Sessión iniciada correctamente",
+      "errorGoogleSignIn": "Error iniciando sesión con Google. Por favor, inténtalo de nuevo.",
+      "errorPasswordLength": "La contraseña debe tener al menos 8 caracteres",
+      "errorPasswordUppercase": "Debe contener al menos una letra mayúscula",
+      "errorPasswordNumber": "Debe contener al menos un número",
+      "ruleLength": "Mínimo 8 caracteres",
+      "ruleUppercase": "Una letra mayúscula",
+      "ruleNumber": "Un número"
     },
     "sidebar": {
       "clients": "Clientes",
@@ -146,7 +160,9 @@
       "noGenerationsForPlatform": "Aún no hay generaciones para {{platform}}. Genera contenido para verlo aquí.",
       "totalGenerations": "Total de generaciones",
       "original": "Texto original",
-      "deleted": "Cliente eliminado"
+      "deleted": "Cliente eliminado",
+      "brandVoiceUpdated": "Voz de marca actualizada",
+      "fileUploadSoon": "Carga de archivos próximamente"
     },
     "createContent": {
       "title": "Crear contenido",
@@ -211,7 +227,14 @@
       "delete": "Eliminar",
       "deleteAccountUnavailable": "La eliminación de cuenta no está disponible aún. Contacta a jorgecdev444@gmail.com",
       "signedOut": "Sesión cerrada correctamente",
-      "language": "Idioma"
+      "language": "Idioma",
+      "editName": "Editar nombre",
+      "nameSaved": "Nombre actualizado",
+      "nameError": "No se pudo actualizar el nombre",
+      "save": "Guardar",
+      "saving": "Guardando…",
+      "cancel": "Cancelar",
+      "noName": "Sin nombre"
     },
     "footer": {
       "feedback": "Envíanos tu opinión",

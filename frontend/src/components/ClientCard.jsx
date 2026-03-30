@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Calendar, AlertCircle, CheckCircle2, Pencil, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -13,6 +13,11 @@ export default function ClientCard({ client, onDeleted, onUpdated, apiFetch }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    setEditName(client.client_name);
+    setEditVoice(client.brand_voice || "");
+  }, [client]);
 
   const initials = client.client_name
     .split(" ")
@@ -42,6 +47,8 @@ export default function ClientCard({ client, onDeleted, onUpdated, apiFetch }) {
         }),
       });
       onUpdated(updated);
+      setEditName(updated.client_name);
+      setEditVoice(updated.brand_voice || "");
       toast.success(t('clientCard.saved'));
       setEditing(false);
     } catch (e) {

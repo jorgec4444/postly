@@ -6,7 +6,8 @@
       "signIn": "Inicia sessió"
     },
     "dashboard": {
-      "signInRequired": "Per favor inicia sessió per accedir al panell de control de clients"
+      "signInRequired": "Per favor inicia sessió per accedir al panell de control de clients",
+      "loadClientsError": "Error carregant clients. Si us plau, torna-ho a provar."
     },
     "hero": {
       "badge": "Eina de contingut IA per a community managers",
@@ -56,7 +57,7 @@
       "login": "Inicia sessió",
       "register": "Crea un compte",
       "loggingIn": "Iniciant sessió…",
-      "registering": "Creant compte…",
+      "sendingVerification": "Enviant email de verificació…",
       "hasAccount": "Ja tens compte?",
       "noAccount": "No tens compte?",
       "switchToLogin": "Inicia sessió",
@@ -66,9 +67,22 @@
       "magicLinkSent": "Revisa el teu email! T'hem enviat un enllaç màgic per iniciar sessió.",
       "errorInvalidCredentials": "Email o contrasenya incorrectes.",
       "errorEmailTaken": "Aquest email ja està registrat.",
-      "errorGeneric": "Alguna cosa ha anat malament. Torna-ho a intentar.",
+      "errorGeneric": "Alguna cosa ha anat malament. Torna-ho a provar.",
       "emailPlaceholder": "tu@exemple.com",
-      "passwordPlaceholder": "La teva contrasenya"
+      "passwordPlaceholder": "La teva contrasenya",
+      "welcomeToast": "Benvingut a Orkly! 🎉 Ja pots començar.",
+      "displayName": "Nom complet", 
+      "displayNamePlaceholder": "El teu nom (opcional)",
+      "sendVerification": "Enviar mail de verificació",
+      "registerSuccess": "Quasi estàs llest. Revisa el teu email per verificar el compte.",
+      "logginSuccess": "Sessió iniciada correctament",
+      "errorGoogleSignIn": "Error iniciant sessió con Google. Si us plau, torna-ho a provar.",
+      "errorPasswordLength": "La contrasenya ha de tenir almenys 8 caràcters",
+      "errorPasswordUppercase": "Ha de contenir almenys una lletra majúscula",
+      "errorPasswordNumber": "Ha de contenir almenys un número",
+      "ruleLength": "Mínim 8 caràcters",
+      "ruleUppercase": "Una lletra majúscula",
+      "ruleNumber": "Un número"
     },
     "sidebar": {
       "clients": "Clients",
@@ -147,7 +161,9 @@
       "noGenerationsForPlatform": "No hi ha generacions per a {{platform}} encara. Genera contingut per veure-ho aquí.",
       "totalGenerations": "Total de generacions",
       "original": "Text original",
-      "deleted": "Client eliminat"
+      "deleted": "Client eliminat",
+      "brandVoiceUpdated": "Veu de marca actualitzada",
+      "fileUploadSoon": "Càrrega de fitxers a proximament"
     },
     "createContent": {
       "title": "Crear contingut",
@@ -212,7 +228,14 @@
       "delete": "Eliminar",
       "deleteAccountUnavailable": "L'eliminació de compte no està disponible encara. Contacta a jorgecdev444@gmail.com",
       "signedOut": "Sessió tancada correctament",
-      "language": "Idioma"
+      "language": "Idioma",
+      "editName": "Editar nom",
+      "nameSaved": "Nom actualitzat",
+      "nameError": "No s'ha pogut actualitzar el nom",
+      "save": "Desar",
+      "saving": "Desant…",
+      "cancel": "Cancel·lar",
+      "noName": "Sense nom"
     },
     "footer": {
       "feedback": "Envia'ns la teva opinió",

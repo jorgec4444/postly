@@ -1,9 +1,77 @@
 import { useOutletContext, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { supabase } from "../supabase";
 import { LogOut, Trash2, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 import LanguageSelector from "../components/LanguageSelector";
+
+function EditDisplayName({ user, t }) {
+  const [editing, setEditing] = useState(false);
+  const [name, setName] = useState(user?.user_metadata?.full_name || "");
+  const [saving, setSaving] = useState(false);
+
+  const handleSave = async () => {
+    setSaving(true);
+    const { error } = await supabase.auth.updateUser({
+      data: { full_name: name.trim() || null }
+    });
+    if (!error) {
+      toast.success(t('settings.nameSaved'));
+      setEditing(false);
+      await supabase.auth.refreshSession();
+    } else {
+      toast.error(t('settings.nameError'));
+    }
+    setSaving(false);
+  };
+
+  if (editing) {
+    return (
+      <div className="flex items-center gap-2 mb-1">
+        <input
+          autoFocus
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSave();
+            if (e.key === "Escape") setEditing(false);
+          }}
+          placeholder={t('auth.displayNamePlaceholder')}
+          className="flex-1 px-2.5 py-1 rounded-lg bg-gray-50 border border-gray-200 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary transition"
+        />
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="px-2.5 py-1 rounded-lg bg-primary text-white text-xs font-medium hover:opacity-90 disabled:opacity-40 transition"
+        >
+          {saving ? t('settings.saving') : t('settings.save')}
+        </button>
+        <button
+          onClick={() => setEditing(false)}
+          className="px-2.5 py-1 rounded-lg text-xs text-gray-500 hover:bg-gray-100 transition"
+        >
+          {t('settings.cancel')}
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center justify-between gap-2 mb-1">
+      <p className="font-semibold text-gray-900 truncate">
+        {user?.user_metadata?.full_name || t('settings.noName') }
+      </p>
+      <button
+        onClick={() => setEditing(true)}
+        className="flex-shrink-0 text-xs text-gray-400 hover:text-primary transition-colors"
+      >
+        ✏️ {t('settings.editName')}
+      </button>
+    </div>
+  );
+}
 
 export default function Settings() {
   const { user } = useOutletContext();
@@ -23,7 +91,6 @@ export default function Settings() {
 
   return (
     <div className="max-w-2xl mx-auto">
-
       {/* ── Header ── */}
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-gray-900">{t('settings.title')}</h1>
@@ -34,7 +101,7 @@ export default function Settings() {
 
         {/* ── Account ── */}
         <section className="bg-white border border-gray-200 rounded-2xl p-5">
-          <h2 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-4">{t('settings.account')}</h2>
+          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">{t('settings.account')}</h2>
 
           <div className="flex items-center gap-4">
             {user?.user_metadata?.avatar_url ? (
@@ -48,18 +115,18 @@ export default function Settings() {
                 {user?.email?.[0].toUpperCase()}
               </div>
             )}
-            <div className="min-w-0">
-              <p className="font-semibold text-gray-900 truncate">
-                {user?.user_metadata?.full_name || "Orkly User"}
-              </p>
-              <p className="text-sm text-gray-500 truncate">{user?.email}</p>
+
+            {/* Editar nombre */}
+            <div className="min-w-0 flex-1">
+              <EditDisplayName user={user} t={t} />
+              <p className="text-sm text-gray-400 truncate">{user?.email}</p>
             </div>
           </div>
 
           <div className="mt-4 pt-4 border-t border-gray-100">
             <button
               onClick={handleSignOut}
-              className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-700 transition-colors"
+              className="flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
             >
               <LogOut className="w-4 h-4" />
               {t('settings.signOut')}

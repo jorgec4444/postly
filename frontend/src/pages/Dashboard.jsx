@@ -34,13 +34,19 @@ function Dashboard() {
                 const json = await data.json();
                 setClients(Array.isArray(json) ? json : []);
             } catch (e) {
-                console.error("Error loading clients:", e);
+                toast.error(t('dashboard.loadClientsError'));
                 setClients([]);
             } finally {
                 setClientsLoading(false);
             }
         }
         checkSession();
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+            if (session?.user) {
+                setUser(session.user);
+            }
+        });
+        return () => subscription.unsubscribe();
     }, []);
 
     if (!sessionChecked) return null;

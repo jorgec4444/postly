@@ -81,7 +81,7 @@ export default function Landing() {
       const data = await res.json();
       setVariations(data);
     } catch (e) {
-      console.error(e);
+      toast.error(e.message);
     } finally {
       setLoading(false);
     }

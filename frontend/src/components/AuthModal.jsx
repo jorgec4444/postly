@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { supabase } from "../supabase";
 import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
 async function signInWithGoogle() {
   const { error } = await supabase.auth.signInWithOAuth({
@@ -21,6 +22,7 @@ export default function AuthModal({ isOpen, onClose }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [magicSent, setMagicSent] = useState(false);
+  const [displayName, setDisplayName] = useState("");
 
   useEffect(() => {
     if (!isOpen) return;
@@ -37,23 +39,43 @@ export default function AuthModal({ isOpen, onClose }) {
       setError(null);
       setMagicSent(false);
       setMode("login");
+      setDisplayName("");
     }
   }, [isOpen]);
 
   const handleEmailAuth = async () => {
     if (!email.trim() || !password.trim()) return;
+    if (mode === "register") {
+      const pwdError = validatePassword(password);
+      if (pwdError) {
+        setError(pwdError);
+        return;
+      }
+    }
     setLoading(true);
     setError(null);
+
     try {
       if (mode === "register") {
-        const { error } = await supabase.auth.signUp({ email, password });
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            data: {
+              full_name: displayName.trim() || null,
+            }
+          }
+        });
         if (error) throw error;
+        onClose();
+        toast.success(t('auth.registerSuccess'), { duration: 6000, icon: '📬' });
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
+        onClose();
+        toast.success(t('auth.loginSuccess'), { duration: 4000, icon: '🎉' });
+        window.location.href = "/dashboard";
       }
-      onClose();
-      window.location.href = "/dashboard";
     } catch (e) {
       if (e.message.includes("Invalid login credentials")) {
         setError(t('auth.errorInvalidCredentials'));
@@ -84,6 +106,22 @@ export default function AuthModal({ isOpen, onClose }) {
       setLoading(false);
     }
   };
+
+  const validatePassword = (pwd) => {
+    if (pwd.length < 8) return t('auth.errorPasswordLength');
+    if (!/[A-Z]/.test(pwd)) return t('auth.errorPasswordUppercase');
+    if (!/[0-9]/.test(pwd)) return t('auth.errorPasswordNumber');
+    return null;
+  };
+
+  function PasswordRule({ ok, label }) {
+    return (
+      <div className={`flex items-center gap-1.5 text-xs transition-colors ${ok ? "text-primary" : "text-gray-400"}`}>
+        <span>{ok ? "✓" : "○"}</span>
+        <span>{label}</span>
+      </div>
+    );
+  }
 
   if (!isOpen) return null;
 
@@ -160,7 +198,15 @@ export default function AuthModal({ isOpen, onClose }) {
                   placeholder={t('auth.emailPlaceholder')}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition"
                 />
-
+                {mode === "register" && (
+                  <input
+                    type="text"
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    placeholder={t('auth.displayNamePlaceholder')}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition"
+                  />
+                )}
                 {/* Password — solo en login y register */}
                 {mode !== "magic" && (
                   <input
@@ -172,8 +218,16 @@ export default function AuthModal({ isOpen, onClose }) {
                     className="w-full px-3.5 py-2.5 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition"
                   />
                 )}
-              </div>
 
+                {mode === "register" && password.length > 0 && (
+                <div className="flex flex-col gap-1.5 px-1">
+                  <PasswordRule ok={password.length >= 8}      label={t('auth.ruleLength')} />
+                  <PasswordRule ok={/[A-Z]/.test(password)}    label={t('auth.ruleUppercase')} />
+                  <PasswordRule ok={/[0-9]/.test(password)}    label={t('auth.ruleNumber')} />
+                </div>
+              )}
+              
+              </div>
               {/* Error */}
               {error && (
                 <p className="text-xs text-red-500 bg-red-50 rounded-xl px-3 py-2">
@@ -197,8 +251,8 @@ export default function AuthModal({ isOpen, onClose }) {
                   className="w-full py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
                 >
                   {loading
-                    ? mode === "register" ? t('auth.registering') : t('auth.loggingIn')
-                    : mode === "register" ? t('auth.register') : t('auth.login')
+                    ? mode === "register" ? t('auth.sendingVerification') : t('auth.loggingIn')
+                    : mode === "register" ? t('auth.sendVerification') : t('auth.login')
                   }
                 </button>
               )}

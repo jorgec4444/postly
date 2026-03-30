@@ -77,13 +77,11 @@ async def update_client(
 ) -> dict | None:
     """Update a client's name/brand_voice. Returns None if not found or not owned."""
 
-    client = await get_client_by_id(client_id, user_id)
     payload = {}
     if client_name is not None:
         payload["client_name"] = client_name
     
-    if brand_voice is not None:
-        payload["brand_voice"] = brand_voice
+    payload["brand_voice"] = brand_voice
 
     if platforms is not None:
         payload["platforms"] = platforms

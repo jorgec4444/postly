@@ -21,7 +21,7 @@ function FeedbackModal({ onClose }) {
       setSent(true);
       setTimeout(onClose, 1500);
     } catch (e) {
-      console.error(e);
+      toast.error(e);
     } finally {
       setLoading(false);
     }

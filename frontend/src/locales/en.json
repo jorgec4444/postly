@@ -6,7 +6,8 @@
       "signIn": "Sign in"
     },
     "dashboard": {
-      "signInRequired": "Please sign in to access the dashboard"
+      "signInRequired": "Please sign in to access the dashboard",
+      "loadClientsError": "Error loading clients. Please try again."
     },
     "hero": {
       "badge": "AI content tool for community managers",
@@ -56,7 +57,7 @@
       "login": "Sign in",
       "register": "Create account",
       "loggingIn": "Signing in…",
-      "registering": "Creating account…",
+      "sendingVerification": "Sending verification email…",
       "hasAccount": "Already have an account?",
       "noAccount": "Don't have an account?",
       "switchToLogin": "Sign in",
@@ -68,7 +69,20 @@
       "errorEmailTaken": "This email is already registered.",
       "errorGeneric": "Something went wrong. Please try again.",
       "emailPlaceholder": "you@example.com",
-      "passwordPlaceholder": "Your password"
+      "passwordPlaceholder": "Your password",
+      "welcomeToast": "Welcome to Orkly! 🎉 You're all set.",
+      "displayName": "Full name",
+      "displayNamePlaceholder": "Your name (optional)",
+      "sendVerification": "Send verification email",
+      "registerSuccess": "You're almost ready. Check your email to verify your account.",
+      "logginSuccess": "Login successful",
+      "errorGoogleSignIn": "Error signing in with Google. Please try again.",
+      "errorPasswordLength": "The password must have at least 8 characters",
+      "errorPasswordUppercase": "Must contain at least one uppercase letter",
+      "errorPasswordNumber": "Must contain at least one number",
+      "ruleLength": "Minimum 8 characters",
+      "ruleUppercase": "One uppercase letter",
+      "ruleNumber": "One number"
     },
     "sidebar": {
       "clients": "Clients",
@@ -147,7 +161,9 @@
       "noGenerationsForPlatform": "No generations for {{platform}} yet. Generate content to see it here.",
       "totalGenerations": "Total generations",
       "original": "Original text",
-      "deleted": "Client deleted"
+      "deleted": "Client deleted",
+      "brandVoiceUpdated": "Brand voice updated",
+      "fileUploadSoon": "File upload coming soon "
     },
     "createContent": {
       "title": "Create content",
@@ -212,7 +228,14 @@
       "delete": "Delete",
       "deleteAccountUnavailable": "Account deletion is not available yet. Please contact jorgecdev444@gmail.com",
       "signedOut": "Signed out successfully",
-      "language": "Language"
+      "language": "Language",
+      "editName": "Edit display name",
+      "nameSaved": "Name updated",
+      "nameError": "Could not update name",
+      "save": "Save",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "noName": "No name set"
     },
     "footer": {
       "feedback": "Send us your feedback",
