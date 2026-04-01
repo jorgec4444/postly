@@ -183,11 +183,12 @@
       "generate": "Generar contingut →",
       "generating": "Generant 3 variacions…",
       "selectPlatformWarning": "Selecciona una plataforma per generar",
+      "selectClientWarning": "Selecciona un client per generar",
       "startOver": "↩ Tornar a començar",
       "savedToHistory": "Desat a l'historial de generació de {{name}}",
       "copy": "Copiar",
       "copied": "✓ Copiat",
-      "saveThis": "Desar aquest",
+      "saveThis": "Desar",
       "savedVariation": "✓ Desat",
       "couldNotSave": "No s'ha pogut desar a l'historial",
       "savedSuccess": "Desat a l'historial",
@@ -205,7 +206,7 @@
         "creative": { "label": "Creatiu", "desc": "Audacioso i inesperat" }
       },
       "styleMeta": {
-        "professional": { "label": "Professional", "desc": "LinkedIn · clar i directe" },
+        "professional": { "label": "Professional", "desc": "Concis · clar i directe" },
         "casual": { "label": "Casual", "desc": "Amigable · amb emojis" },
         "viral": { "label": "Viral", "desc": "Maximiza l'engagement" }
       }

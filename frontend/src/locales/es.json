@@ -182,11 +182,12 @@
       "generate": "Generar contenido →",
       "generating": "Generando 3 variaciones…",
       "selectPlatformWarning": "Selecciona una plataforma para generar",
+      "selectClientWarning": "Selecciona un cliente para generar",
       "startOver": "↩ Vuelve a comenzar",
       "savedToHistory": "Guardado en el historial de generación de {{name}}",
       "copy": "Copiar",
       "copied": "✓ Copiado",
-      "saveThis": "Guardar esto",
+      "saveThis": "Guardar",
       "savedVariation": "✓ Guardado",
       "couldNotSave": "No se pudo guardar en el historial",
       "savedSuccess": "Guardado en el historial",
@@ -204,7 +205,7 @@
         "creative": { "label": "Creativo", "desc": "Maximo engagement" }
       },
       "styleMeta": {
-        "professional": { "label": "Profesional", "desc": "LinkedIn · claro y directo" },
+        "professional": { "label": "Profesional", "desc": "Conciso · claro y directo" },
         "casual": { "label": "Casual", "desc": "Amigable · con emojis" },
         "viral": { "label": "Viral", "desc": "Maximiza el engagement" }
       }

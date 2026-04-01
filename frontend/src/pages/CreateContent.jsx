@@ -201,7 +201,7 @@ export default function CreateContent() {
   const charWarn = charCount > 400 && !charOver;
 
   const selectedCreativity = CREATIVITY_LEVELS.find(c => c.id === creativity);
-  const canGenerate = text.trim() && !charOver && selectedPlatform;
+  const canGenerate = text.trim() && !charOver && selectedPlatform && selectedClientId;
 
   const selectedClient = useMemo(
     () => clients.find(c => c.id === selectedClientId) || null,
@@ -221,6 +221,7 @@ export default function CreateContent() {
         body: JSON.stringify({
           text: text.trim(),
           client_id: selectedClientId || null,
+          platform: selectedPlatform,
           temperature: selectedCreativity.temperature,
         }),
       });
@@ -270,7 +271,7 @@ export default function CreateContent() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-5xl mx-auto">
 
       {/* ── Header ── */}
       <div className="mb-8">
@@ -418,6 +419,11 @@ export default function CreateContent() {
           {!selectedPlatform && text.trim() && (
             <p className="text-xs text-amber-500 text-center -mt-2">
               {t('createContent.selectPlatformWarning')}
+            </p>
+          )}
+          {!selectedClientId && text.trim() && (
+            <p className="text-xs text-amber-500 text-center -mt-2">
+              {t('createContent.selectClientWarning')}
             </p>
           )}
         </section>

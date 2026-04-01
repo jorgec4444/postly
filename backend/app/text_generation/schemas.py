@@ -10,6 +10,7 @@ class TextRequest(BaseModel):
     style: Optional[str] = Field("professional", description="Improvement style")
     client_id: int | None = Field(None, description="Optional client ID for brand voice context")
     temperature: float = Field(0.8, ge=0.0, le=1.0, description="Creativity level (0.0-1.0)")
+    platform: Optional[str] = Field(None, description="Target platform for content adaptation")
 
     @field_validator("text")
     @classmethod

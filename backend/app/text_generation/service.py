@@ -7,7 +7,7 @@ import logging
 from fastapi import HTTPException, Request
 
 from app.utils.http import get_client_ip
-from app.ai.prompts import DEFAULT_STYLE, IMPROVEMENT_PROMPTS
+from app.ai.prompts import build_prompt
 from app.config import MODEL_NAME, get_openai_client
 from app.database import get_supabase
 from app.rate_limit.service import rate_limiter, rate_limit_error
@@ -17,7 +17,13 @@ import asyncio
 logger = logging.getLogger(__name__)
 
 
-async def improve_text_with_ai(text: str, style: str, brand_voice: str | None = None, temperature: float = 0.8) -> str:
+async def improve_text_with_ai(
+        text: str, 
+        style: str, 
+        brand_voice: str | None = None, 
+        platform: str | None = None, 
+        temperature: float = 0.8
+        ) -> str:
     """Use OpenAI to improve *text* according to *style*.
 
     Raises:
@@ -35,7 +41,7 @@ async def improve_text_with_ai(text: str, style: str, brand_voice: str | None = 
             ),
         )
 
-    prompt_template = IMPROVEMENT_PROMPTS.get(style, IMPROVEMENT_PROMPTS[DEFAULT_STYLE])
+    prompt_template = build_prompt(text, style, platform)
     prompt = prompt_template.format(text=text)
 
     try:
@@ -95,9 +101,9 @@ async def improve_text(request: TextRequest, req: Request, user = None):
 
     # Run all three styles in parallel
     professional, casual, viral = await asyncio.gather(
-        improve_text_with_ai(request.text, "professional", brand_voice, request.temperature),
-        improve_text_with_ai(request.text, "casual", brand_voice, request.temperature),
-        improve_text_with_ai(request.text, "viral", brand_voice, request.temperature),
+        improve_text_with_ai(request.text, "professional", brand_voice, request.platform, request.temperature),
+        improve_text_with_ai(request.text, "casual", brand_voice, request.platform, request.temperature),
+        improve_text_with_ai(request.text, "viral", brand_voice, request.platform, request.temperature),
     )
 
     variations = [

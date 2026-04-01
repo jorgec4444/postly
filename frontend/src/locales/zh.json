@@ -183,11 +183,12 @@
       "generate": "生成内容 →",
       "generating": "正在生成3个变体…",
       "selectPlatformWarning": "请选择平台以生成内容",
+      "selectClientWarning": "请选择客户以生成内容",
       "startOver": "↩ 重新开始",
       "savedToHistory": "已保存至{{name}}的生成历史",
       "copy": "复制",
       "copied": "✓ 已复制",
-      "saveThis": "保存此内容",
+      "saveThis": "保存",
       "savedVariation": "✓ 已保存",
       "couldNotSave": "无法保存至历史记录",
       "savedSuccess": "已保存至历史记录",
@@ -205,7 +206,7 @@
         "creative": { "label": "创意", "desc": "大胆而出人意料" }
       },
       "styleMeta": {
-        "professional": { "label": "专业", "desc": "LinkedIn · 清晰直接" },
+        "professional": { "label": "专业", "desc": "简洁 · 清晰直接" },
         "casual": { "label": "轻松", "desc": "友好 · 带表情符号" },
         "viral": { "label": "病毒式", "desc": "最大互动量" }
       }
