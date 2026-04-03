@@ -25,6 +25,15 @@ MODEL_NAME: str = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 SUPABASE_URL: Optional[str] = os.getenv("SUPABASE_URL")
 SUPABASE_KEY: Optional[str] = os.getenv("SUPABASE_KEY")
 
+# ── R2 Storage (Cloudflare) ─────────────────────────────────────────────────
+R2_ACCESS_KEY_ID: Optional[str] = os.getenv("R2_ACCESS_KEY_ID")
+R2_SECRET_ACCESS_KEY: Optional[str] = os.getenv("R2_SECRET_ACCESS_KEY")
+R2_BUCKET_NAME: Optional[str] = os.getenv("R2_BUCKET_NAME")
+R2_ENDPOINT: Optional[str] = os.getenv("R2_ENDPOINT")
+
+# ── Admin ─────────────────────────────────────────────────────────────────────
+ADMIN_API_KEY: Optional[str] = os.getenv("ADMIN_API_KEY")
+
 # ── Rate limiting ─────────────────────────────────────────────────────────────
 def _parse_int_env(name: str, default: int) -> int:
     """Parse an integer env-var safely; fall back to *default* instead of crashing."""
@@ -37,16 +46,11 @@ def _parse_int_env(name: str, default: int) -> int:
         print(f"[config] WARNING: {name}={raw!r} is not a valid integer — using default {default}")
         return default
 
-
 FREE_DAILY_LIMIT: int = _parse_int_env("MAX_FREE_GENERATIONS_PER_DAY", 5)
 LOGGED_DAILY_LIMIT: int = _parse_int_env("MAX_LOGGED_GENERATIONS_PER_DAY", 15)
 
-# ── Admin ─────────────────────────────────────────────────────────────────────
-ADMIN_API_KEY: Optional[str] = os.getenv("ADMIN_API_KEY")
-
 # ── OpenAI client (module-level singleton) ────────────────────────────────────
 _openai_client = None
-
 
 def init_openai_client():
     """Initialise and cache the OpenAI client. Safe to call multiple times."""
@@ -71,3 +75,35 @@ def init_openai_client():
 def get_openai_client():
     """Return the cached OpenAI client, or None if unavailable."""
     return _openai_client
+
+# ── R2 client (module-level singleton) ────────────────────────────────────
+_r2_client = None
+
+def init_r2_client():
+    """Initialise and cache the R2 client. Safe to call multiple times."""
+    global _r2_client
+    if _r2_client is not None:
+        return _r2_client
+    
+    if not all([R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_ENDPOINT, R2_BUCKET_NAME]):
+        print("[config] R2 client NOT initialised — missing one or more R2_* env vars.")
+        return None
+    try:
+        import boto3
+        _r2_client = boto3.client(
+            "s3",
+            endpoint_url=R2_ENDPOINT,
+            aws_access_key_id=R2_ACCESS_KEY_ID,
+            aws_secret_access_key=R2_SECRET_ACCESS_KEY,
+            region_name="auto",  # R2 ignores region but boto3 requires it
+        )
+        print(f"[config] R2 client initialised (bucket={R2_BUCKET_NAME}).")
+        return _r2_client
+    except Exception as exc:
+        print(f"[config] ERROR initialising R2 client: {exc}")
+        return None
+
+
+def get_r2_client():
+    """Return the cached R2 client, or None if unavailable."""
+    return _r2_client

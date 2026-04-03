@@ -9,7 +9,7 @@ from datetime import datetime
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.config import init_openai_client
+from app.config import init_openai_client, init_r2_client
 from app.database import init_supabase
 from app.text_generation.controller import router as text_generation_router
 from app.rate_limit.controller import router as rate_limit_router
@@ -28,6 +28,7 @@ async def lifespan(app: FastAPI):  # noqa: ARG001
     logger.info("Starting Orkly`…")
     init_supabase()
     init_openai_client()
+    init_r2_client()
     logger.info("Startup complete.")
     yield
     logger.info("Shutting down.")
