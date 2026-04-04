@@ -108,7 +108,6 @@ function ClientDetail() {
       const updated = await apiFetch(`/client/${id}`, {
         method: "PUT",
         body: JSON.stringify({
-          client_name: client.client_name,
           brand_voice: voiceDraft.trim() || null,
         }),
       });
