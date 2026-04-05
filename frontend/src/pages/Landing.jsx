@@ -3,6 +3,7 @@ import { supabase } from "../supabase";
 import { useNavigate } from "react-router-dom";
 import AuthModal from "../components/AuthModal";
 import Footer from "../components/Footer";
+import Button from "../components/Button";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "../components/LanguageSelector";
 
@@ -105,12 +106,9 @@ export default function Landing() {
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
             <LanguageSelector variant="light" />
-            <button
-              onClick={() => setIsAuthModalOpen(true)}
-              className="px-3 sm:px-4 py-1.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors whitespace-nowrap"
-            >
+            <Button size="sm" onClick={() => setIsAuthModalOpen(true)}>
               {t('nav.signIn')}
-            </button>
+            </Button>
           </div>
         </div>
       </nav>
@@ -162,20 +160,13 @@ export default function Landing() {
               <span className={`text-xs font-mono ${charOver ? "text-red-500" : charWarn ? "text-amber-500" : "text-gray-500"}`}>
                 {t('compose.charLimit', { count: charCount })}
               </span>
-              <button
+              <Button
                 onClick={handleImprove}
-                disabled={!text.trim() || charOver || loading}
-                className="flex items-center gap-2 px-5 py-2 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-light disabled:opacity-40 disabled:cursor-not-allowed transition-all hover:-translate-y-0.5 hover:shadow-md"
+                disabled={!text.trim() || charOver}
+                loading={loading}
               >
-                {loading ? (
-                  <>
-                    <span className="w-3.5 h-3.5 border-2 border-white/40 border-t-white rounded-full animate-spin" />
-                    {t('compose.generating')}
-                  </>
-                ) : (
-                  t('compose.improve')
-                )}
-              </button>
+                {t('compose.improve')}
+              </Button>
             </div>
           </div>
         </div>
@@ -262,12 +253,12 @@ export default function Landing() {
                 <p className="text-sm font-semibold text-gray-900">{t('cta.title')}</p>
                 <p className="text-xs text-gray-600 mt-0.5">{t('cta.subtitle')}</p>
               </div>
-              <button
+              <Button
                 onClick={() => setIsAuthModalOpen(true)}
-                className="w-full sm:w-auto flex-shrink-0 px-4 py-2 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-light transition-colors"
+                className="w-full sm:w-auto flex-shrink-0"
               >
                 {t('cta.button')}
-              </button>
+              </Button>
             </div>
           </div>
         )}

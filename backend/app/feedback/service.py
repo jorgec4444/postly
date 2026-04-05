@@ -16,7 +16,7 @@ class FeedbackLogger:
     def _db(self):
         return get_supabase()
 
-    def log_feedback(self, ip: str, feedback: str, timestamp: str) -> None:
+    def log_feedback(self, ip: str, feedback: str, user_id: str | None = None) -> None:
         """Insert a feedback record. Silently no-ops if DB is unavailable."""
         if not self._db:
             logger.warning("Supabase not initialised — feedback not persisted.")
@@ -24,8 +24,10 @@ class FeedbackLogger:
 
         try:
             self._db.table("feedback_logs").insert(
-                {"ip": ip, "feedback_text": feedback, "created_at": timestamp}
-            ).execute()
+                {"ip": ip,
+                 "feedback_text": feedback,
+                 "user_id": user_id
+                 }).execute()
         except Exception as exc:
             logger.error("Failed to save feedback: %s", exc)
 

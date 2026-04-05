@@ -4,7 +4,7 @@
 """Orkly — FastAPI application entry point."""
 import logging
 from contextlib import asynccontextmanager
-from datetime import datetime
+from datetime import datetime, timezone
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,6 +16,7 @@ from app.rate_limit.controller import router as rate_limit_router
 from app.feedback.controller import router as feedback_router
 from app.admin.controller import router as admin_router
 from app.clients.controller import router as clients_router
+from app.storage.controller import router as storage_router
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(name)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -60,6 +61,7 @@ app.include_router(rate_limit_router)
 app.include_router(feedback_router)
 app.include_router(admin_router)
 app.include_router(clients_router)
+app.include_router(storage_router)
 
 @app.get("/", tags=["meta"])
 async def root():
@@ -72,11 +74,21 @@ async def root():
             "GET  /rate-limit/status": "Check remaining free generations",
             "POST /feedback": "Submit feedback",
             "GET  /health": "Health check",
-            "GET  /admin/stats": "Admin statistics (requires API key)",
+            "GET  /admin/stats": "Admin statistics",
+            "POST /clients/create": "Create a new client",
+            "GET  /clients/list": "List clients for the authenticated user",
+            "GET  /clients/{client_id}": "Get details of a specific client",
+            "GET  /clients/{client_id}/generations": "Get generations for a specific client",
+            "PUT  /clients/{client_id}": "Update a client's name or brand voice",
+            "POST /storage/upload/{client_id}/{folder}": "Generate a pre-signed URL for uploading a file to S3",
+            "GET  /storage/download/{client_id}/{folder}/{file_id}": "Generate a pre-signed URL for downloading a file from S3",
+            "GET  /storage/list/{client_id}/{folder}": "List files in a specific S3 folder for a client",
+            "DELETE /storage/delete/{client_id}/{folder}/{file_id}": "Delete a file from S3",
+            "POST /storage/save-file/{SaveFileMetadataRequest}": "Save file metadata to the database after a successful upload"
         },
     }
 
 
 @app.get("/health", tags=["meta"])
 async def health():
-    return {"status": "healthy", "timestamp": datetime.now().isoformat()}
+    return {"status": "healthy", "timestamp": datetime.now(timezone.utc).isoformat()}

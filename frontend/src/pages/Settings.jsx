@@ -5,6 +5,8 @@ import { LogOut, Trash2, ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 import LanguageSelector from "../components/LanguageSelector";
+import FeedbackModal from "../components/FeedbackModal";
+import Button from "../components/Button";
 
 function EditDisplayName({ user, t }) {
   const [editing, setEditing] = useState(false);
@@ -25,6 +27,7 @@ function EditDisplayName({ user, t }) {
     }
     setSaving(false);
   };
+  
 
   if (editing) {
     return (
@@ -41,19 +44,12 @@ function EditDisplayName({ user, t }) {
           placeholder={t('auth.displayNamePlaceholder')}
           className="flex-1 px-2.5 py-1 rounded-lg bg-gray-50 border border-gray-200 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary transition"
         />
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          className="px-2.5 py-1 rounded-lg bg-primary text-white text-xs font-medium hover:opacity-90 disabled:opacity-40 transition"
-        >
-          {saving ? t('settings.saving') : t('settings.save')}
-        </button>
-        <button
-          onClick={() => setEditing(false)}
-          className="px-2.5 py-1 rounded-lg text-xs text-gray-500 hover:bg-gray-100 transition"
-        >
+        <Button size="sm" onClick={handleSave} loading={saving}>
+          {t('settings.save')}
+        </Button>
+        <Button size="sm" variant="secondary" onClick={() => setEditing(false)}>
           {t('settings.cancel')}
-        </button>
+        </Button>
       </div>
     );
   }
@@ -77,6 +73,7 @@ export default function Settings() {
   const { user } = useOutletContext();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [showFeedback, setShowFeedback] = useState(false);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -154,12 +151,9 @@ export default function Settings() {
               <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">
                 {t('settings.free')}
               </span>
-              <button
-                onClick={() => navigate("/pricing")}
-                className="px-3 py-1.5 rounded-xl text-xs font-semibold bg-primary text-white hover:opacity-90 transition"
-              >
+              <Button size="sm" onClick={() => navigate("/pricing")}>
                 {t('settings.upgradePlan')}
-              </button>
+              </Button>
             </div>
           </div>
         </section>
@@ -186,6 +180,20 @@ export default function Settings() {
           </div>
         </section>
 
+        {/* ── Feedback ── */}
+        <section className="bg-white border border-gray-200 rounded-2xl p-5">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-semibold text-gray-900">{t('feedback.title')}</p>
+              <p className="text-xs text-gray-500 mt-0.5">{t('feedback.subtitle')}</p>
+            </div>
+            <Button size="sm" variant="secondary" onClick={() => setShowFeedback(true)}>
+              {t('feedback.send')}
+            </Button>
+          </div>
+          {showFeedback && <FeedbackModal onClose={() => setShowFeedback(false)} />}
+        </section>
+
         {/* ── Danger zone ── */}
         <section className="bg-white border border-red-100 rounded-2xl p-5">
           <h2 className="text-xs font-semibold text-red-500 uppercase tracking-wide mb-4">{t('settings.dangerZone')}</h2>
@@ -194,13 +202,10 @@ export default function Settings() {
               <p className="text-sm font-semibold text-gray-900">{t('settings.deleteAccount')}</p>
               <p className="text-xs text-gray-500 mt-0.5">{t('settings.deleteAccountDesc')}</p>
             </div>
-            <button
-              onClick={handleDeleteAccount}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm text-red-500 border border-red-200 hover:bg-red-50 transition"
-            >
+            <Button variant="danger" size="sm" onClick={handleDeleteAccount}>
               <Trash2 className="w-4 h-4" />
               {t('settings.delete')}
-            </button>
+            </Button>
           </div>
         </section>
 

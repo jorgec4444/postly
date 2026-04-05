@@ -8,7 +8,7 @@ so the app stays usable during development or DB outages.
 """
 import logging
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import HTTPException
 
 from app.config import FREE_DAILY_LIMIT, LOGGED_DAILY_LIMIT
@@ -18,11 +18,11 @@ logger = logging.getLogger(__name__)
 
 
 def _today() -> str:
-    return datetime.now().strftime("%Y-%m-%d")
+    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 
 def _reset_time() -> str:
-    return datetime.now().replace(hour=23, minute=59, second=59, microsecond=0).isoformat()
+    return datetime.now(timezone.utc).replace(hour=23, minute=59, second=59, microsecond=0).isoformat()
 
 
 # ── In-memory fallback (keyed by "ip:date") ──────────────────────────────────
@@ -124,7 +124,7 @@ class RateLimiter:
             return
 
         today = _today()
-        now = datetime.now().isoformat()
+        now = datetime.now(timezone.utc).isoformat()
         try:
             resp = (
                 self._db.table("rate_limits")
@@ -162,7 +162,7 @@ class RateLimiter:
             return
 
         today = _today()
-        now = datetime.now().isoformat()
+        now = datetime.now(timezone.utc).isoformat()
         ip = None  # Not used for logged-in users, but DB schema requires it
         try:
             resp = (

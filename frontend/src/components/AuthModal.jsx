@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import { supabase } from "../supabase";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
+import Button from "./Button";
 
 async function signInWithGoogle() {
   const { error } = await supabase.auth.signInWithOAuth({
@@ -245,16 +246,12 @@ export default function AuthModal({ isOpen, onClose }) {
                   {loading ? t('auth.sendingMagicLink') : t('auth.magicLink')}
                 </button>
               ) : (
-                <button
-                  onClick={handleEmailAuth}
-                  disabled={!email.trim() || !password.trim() || loading}
-                  className="w-full py-2.5 rounded-xl bg-primary text-white text-sm font-semibold hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition"
-                >
+                <Button variant="primary" onClick={handleEmailAuth} disabled={!email.trim() || !password.trim() || loading}>
                   {loading
                     ? mode === "register" ? t('auth.sendingVerification') : t('auth.loggingIn')
                     : mode === "register" ? t('auth.sendVerification') : t('auth.login')
                   }
-                </button>
+                </Button>
               )}
 
               {/* Switch login/register/magic */}

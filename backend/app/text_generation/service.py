@@ -6,7 +6,7 @@ import logging
 
 from fastapi import HTTPException, Request
 
-from app.utils.http import get_client_ip
+from app.utils.http import get_user_ip
 from app.ai.prompts import build_prompt
 from app.config import MODEL_NAME, get_openai_client
 from app.database import get_supabase
@@ -76,7 +76,7 @@ async def improve_text(request: TextRequest, req: Request, user = None):
     if user:
         status = rate_limiter.check_limit_user(user.id)
     else:
-        ip = get_client_ip(req)
+        ip = get_user_ip(req)
         status = rate_limiter.check_limit(ip)
     
     if not status["allowed"]:
@@ -123,7 +123,7 @@ async def improve_text(request: TextRequest, req: Request, user = None):
 async def save_generation_handler(save_generation_request: SaveGenerationRequest, request: Request) -> None:
     """Persist a generation record for tracking generations per client"""
 
-    ip = get_client_ip(request)
+    ip = get_user_ip(request)
     db = get_supabase()
 
     try:

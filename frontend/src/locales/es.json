@@ -257,7 +257,8 @@
       "cancel": "Cancelar",
       "send": "Enviar",
       "sending": "Enviando…",
-      "thanks": "✓ ¡Gracias por tu opinión!"
+      "thanks": "✓ ¡Gracias por tu opinión!",
+      "error": "No se pudo enviar el comentario. Por favor, inténtalo de nuevo."
     },
     "languages": {
       "en": "English",

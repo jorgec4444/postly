@@ -258,7 +258,8 @@
       "cancel": "Annuler",
       "send": "Envoyer",
       "sending": "Envoi…",
-      "thanks": "✓ Merci pour votre commentaire !"
+      "thanks": "✓ Merci pour votre commentaire !",
+      "error": "Impossible d'envoyer les commentaires. Veuillez réessayer."
     },
     "languages": {
       "en": "English",

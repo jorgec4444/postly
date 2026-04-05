@@ -258,7 +258,8 @@
       "cancel": "Cancel·lar",
       "send": "Enviar",
       "sending": "Enviant…",
-      "thanks": "✓ Gràcies per la teva opinió!"
+      "thanks": "✓ Gràcies per la teva opinió!",
+      "error": "No s'ha pogut enviar el comentari. Si us plau, torna a provar."
     },
     "languages": {
       "en": "English",

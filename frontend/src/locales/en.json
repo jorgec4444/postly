@@ -258,7 +258,8 @@
       "cancel": "Cancel",
       "send": "Send",
       "sending": "Sending…",
-      "thanks": "✓ Thanks for your feedback!"
+      "thanks": "✓ Thanks for your feedback!",
+      "error": "Could not send feedback. Please try again."
     },
     "languages": {
       "en": "English",

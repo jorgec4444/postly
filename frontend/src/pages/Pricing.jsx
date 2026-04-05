@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { plansConfig } from "../config/plans";
 import AuthModal from "../components/AuthModal";
+import Button from "../components/Button";
 import { supabase } from "../supabase";
 import { toast } from "react-hot-toast";
 
@@ -203,20 +204,17 @@ export default function Pricing() {
                 </p>
 
                 {/* CTA */}
-                <button
+                <Button
                   onClick={() => handleCta(plan.id)}
-                  className={`w-full flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-semibold transition-all mb-6 ${
-                    plan.highlight
-                      ? "bg-white text-primary hover:bg-white/90"
-                      : plan.ctaVariant === "primary"
-                        ? "bg-primary text-white hover:opacity-90"
-                        : "border border-gray-200 text-gray-700 hover:border-primary hover:text-primary"
+                  variant={plan.highlight ? "secondary" : plan.ctaVariant === "primary" ? "primary" : "secondary"}
+                  className={`w-full justify-between px-4 mb-6 ${
+                    plan.highlight ? "bg-white text-primary hover:bg-white/90 border-white" : ""
                   }`}
                 >
                   <span className="w-3.5" />
                   <span>{plan.cta}</span>
                   <ArrowRight className="w-3.5 h-3.5 flex-shrink-0" />
-                </button>
+                </Button>
 
                 {/* Divider */}
                 <div className={`h-px mb-5 ${plan.highlight ? "bg-white/15" : "bg-gray-100"}`} />

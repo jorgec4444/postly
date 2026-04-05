@@ -258,7 +258,8 @@
       "cancel": "取消",
       "send": "发送",
       "sending": "发送中…",
-      "thanks": "✓ 感谢您的反馈！"
+      "thanks": "✓ 感谢您的反馈！",
+      "error": "无法发送反馈。请重试。"
     },
     "languages": {
       "en": "English",
