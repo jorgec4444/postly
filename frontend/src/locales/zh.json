@@ -100,7 +100,7 @@
       "totalClients": "客户总数",
       "withBrandVoice": "已设品牌声音",
       "addedThisMonth": "本月新增",
-      "loading": "正在加载客户...",
+      "loading": "正在加载客户仪表盘...",
       "noClientsFound": "未找到客户"
     },
     "clientCard": {
@@ -160,6 +160,10 @@
       "folderContent": "内容",
       "newFolder": "新文件夹",
       "folderNamePlaceholder": "文件夹名称",
+      "folderAlreadyExists": "该文件夹已存在",
+      "folderCreated": "文件夹已成功创建",
+      "folderDeleted": "文件夹已成功删除",
+      "cannotDeleteDefaultFolder": "无法删除默认文件夹",
       "deleteFolderConfirm": "删除文件夹\"{{name}}\"？此操作无法撤销。",
       "generationHistory": "生成历史",
       "noGenerations": "暂无生成内容。生成内容以在此查看。",
@@ -168,7 +172,18 @@
       "original": "原始文本",
       "deleted": "客户已删除",
       "brandVoiceUpdated": "品牌声音已更新",
-      "fileUploadSoon": "文件上传即将推出"
+      "fileUploadSoon": "文件上传即将推出",
+      "uploadFile": "上传文件",
+      "fileUploaded": "已上传的文件",
+      "loadFilesError": "加载文件时出错。请重试。",
+      "loadingFiles": "正在加载文件…",
+      "noFiles": "此文件夹中暂无文件。",
+      "deleteFileConfirm": "删除\"{{name}}\"？此操作无法撤销。",
+      "fileDeleted": "文件已删除",
+      "fileName": "名称",
+      "fileSize": "尺寸",
+      "deleteFile": "删除 {{name}}",
+      "deleteFolder": "删除文件夹 {{name}}"
     },
     "createContent": {
       "title": "创建内容",
@@ -258,7 +273,8 @@
       "cancel": "取消",
       "send": "发送",
       "sending": "发送中…",
-      "thanks": "✓ 感谢您的反馈！"
+      "thanks": "✓ 感谢您的反馈！",
+      "error": "无法发送反馈。请重试。"
     },
     "languages": {
       "en": "English",

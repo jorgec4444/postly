@@ -13,6 +13,7 @@ class ClientResponse(BaseModel):
     created_at: datetime
     brand_voice: Optional[str] | None
     platforms: Optional[list[str]] | None
+    custom_folders: Optional[list[str]] | None
 
     model_config = {"from_attributes": True}
 
@@ -24,3 +25,4 @@ class ClientUpdateRequest(BaseModel):
     client_name: str | None = Field(default=None, min_length=1, max_length=100)
     brand_voice: str | None = Field(default=None, max_length=1000)
     platforms: list[str] | None = Field(default=None)
+    custom_folders: list[str] | None = Field(default=None)

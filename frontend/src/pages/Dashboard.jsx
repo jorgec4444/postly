@@ -4,6 +4,7 @@ import { useNavigate, Outlet } from "react-router-dom";
 import { toast } from 'react-hot-toast';
 import { useTranslation } from "react-i18next";
 import Sidebar from "../components/Sidebar";
+import Footer from "../components/Footer";
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
@@ -52,7 +53,7 @@ function Dashboard() {
     if (!sessionChecked) return null;
 
     return (
-        <div className="flex min-h-screen bg-bg">
+        <div className="min-h-screen bg-bg font-sans">
             {sidebarOpen && (
                 <div
                     className="fixed inset-0 bg-black/50 z-20 lg:hidden"

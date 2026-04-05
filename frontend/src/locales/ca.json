@@ -100,7 +100,7 @@
       "totalClients": "Total clients",
       "withBrandVoice": "Amb veu de marca",
       "addedThisMonth": "Afegits aquest mes",
-      "loading": "Carregant clients...",
+      "loading": "Carregant tauler de clients...",
       "noClientsFound": "No s'han trobat clients"
     },
     "clientCard": {
@@ -160,6 +160,10 @@
       "folderContent": "Contingut",
       "newFolder": "Nova carpeta",
       "folderNamePlaceholder": "Nom de la carpeta",
+      "folderAlreadyExists": "La carpeta ja existeix",
+      "folderCreated": "Carpeta creada exitosament",
+      "folderDeleted": "Carpeta el·liminada exitosament",
+      "cannotDeleteDefaultFolder": "No pots el·liminar una carpeta predeterminada",
       "deleteFolderConfirm": "Eliminar la carpeta \"{{name}}\"? Aquesta acció no es pot desfer.",
       "generationHistory": "Historial de generació",
       "noGenerations": "Encara no hi ha generacions. Genera contingut per veure-ho aquí.",
@@ -168,7 +172,18 @@
       "original": "Text original",
       "deleted": "Client eliminat",
       "brandVoiceUpdated": "Veu de marca actualitzada",
-      "fileUploadSoon": "Càrrega de fitxers a proximament"
+      "fileUploadSoon": "Càrrega de fitxers a proximament",
+      "uploadFile": "Pujar fitxer",
+      "fileUploaded": "Fitxer pujat",
+      "loadFilesError": "Error carregant fitxers. Si us plau, torna-ho a provar.",
+      "loadingFiles": "Carregant fitxers…",
+      "noFiles": "No hi ha fitxers en aquesta carpeta encara.",
+      "deleteFileConfirm": "El·liminar \"{{name}}\"? Aquesta acció no es pot desfer.",
+      "fileDeleted": "Fitxer el·liminat",
+      "fileName": "Nom",
+      "fileSize": "Mida",
+      "deleteFile": "El·liminar {{name}}",
+      "deleteFolder": "El·liminar carpeta {{name}}"
     },
     "createContent": {
       "title": "Crear contingut",
@@ -258,7 +273,8 @@
       "cancel": "Cancel·lar",
       "send": "Enviar",
       "sending": "Enviant…",
-      "thanks": "✓ Gràcies per la teva opinió!"
+      "thanks": "✓ Gràcies per la teva opinió!",
+      "error": "No s'ha pogut enviar el comentari. Si us plau, torna a provar."
     },
     "languages": {
       "en": "English",

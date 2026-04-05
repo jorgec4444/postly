@@ -1,34 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
-import { supabase } from "../supabase";
-import { ArrowLeft, Pencil, Check, X, Plus, Folder, FolderOpen, Trash2 } from "lucide-react";
+import { ArrowLeft, Pencil, Check, X, Plus, Folder, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import toast from 'react-hot-toast';
 import FilterSelect from "../components/FilterSelect";
-
-const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
-
-async function apiFetch(path, options = {}) {
-  const { data: { session } } = await supabase.auth.getSession();
-  const token = session?.access_token;
-  const res = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers,
-    },
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    const detail = err.detail;
-    const message = typeof detail === 'string' 
-      ? detail 
-      : detail?.message || `HTTP ${res.status}`;
-    throw new Error(message);
-  }
-  return res.status === 204 ? null : res.json();
-}
+import { apiFetch } from "../utils/apiFetch";
+import FolderSection from "../components/FolderSection";
 
 const PLATFORMS = [
   { id: "instagram", label: "Instagram", emoji: "📸", color: "text-pink-500", bg: "bg-pink-50 border-pink-200" },
@@ -84,13 +61,15 @@ function ClientDetail() {
           setClient(cached);
           setVoiceDraft(cached.brand_voice || "");
           setActivePlatforms(cached.platforms || []);
-          setFolders(cached.folders || DEFAULT_FOLDER_KEYS);
+          const customFolders = cached.custom_folders || [];
+          setFolders([...DEFAULT_FOLDER_KEYS, ...customFolders]);
         } else {
           const clientData = await apiFetch(`/client/${id}`);
           setClient(clientData);
           setVoiceDraft(clientData.brand_voice || "");
           setActivePlatforms(clientData.platforms || []);
-          setFolders(clientData.folders || DEFAULT_FOLDERS);
+          const customFolders = clientData.custom_folders || [];
+          setFolders([...DEFAULT_FOLDER_KEYS, ...customFolders]);
         }
         const generationsData = await apiFetch(`/client/${id}/generations`);
         setGenerations(generationsData);
@@ -143,18 +122,58 @@ function ClientDetail() {
     }
   };
 
-  const handleAddFolder = () => {
-    if (!newFolderName.trim()) return;
-    setFolders((prev) => [...prev, newFolderName.trim()]);
-    setNewFolderName("");
-    setAddingFolder(false);
-  };
+const handleAddFolder = async () => {
+  if (!newFolderName.trim()) return;
+  const newFolder = newFolderName.trim();
+  const existingLabels = folders.map(f => 
+    DEFAULT_FOLDER_KEYS.includes(f) ? t(`clientDetail.${f}`).toLowerCase() : f.toLowerCase()
+  );
+  if (existingLabels.includes(newFolder.toLowerCase())) {
+    toast.error(t('clientDetail.folderAlreadyExists'));
+    return;
+  }
+  const currentCustom = folders.filter(f => !DEFAULT_FOLDER_KEYS.includes(f));
+  const updatedCustom = [...currentCustom, newFolder];
 
-  const handleDeleteFolder = (folder) => {
-    if (!window.confirm(t('clientDetail.deleteFolderConfirm', { name: folder }))) return;
-    setFolders((prev) => prev.filter((f) => f !== folder));
-    if (openFolder === folder) setOpenFolder(null);
-  };
+  setFolders(prev => [...prev, newFolder]);
+  setNewFolderName("");
+  setAddingFolder(false);
+
+  try {
+    await apiFetch(`/client/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({ custom_folders: updatedCustom }),
+    });
+    toast.success(t('clientDetail.folderCreated'));
+  } catch (e) {
+    toast.error(e.message);
+  }
+};
+
+const handleDeleteFolder = async (folder) => {
+  if (!window.confirm(t('clientDetail.deleteFolderConfirm', { name: folder }))) return;
+  if (DEFAULT_FOLDER_KEYS.includes(folder)) {
+    toast.error(t('clientDetail.cannotDeleteDefaultFolder'));
+    return;
+  }
+  const updatedFolders = folders.filter(f => f !== folder);
+  setFolders(updatedFolders);
+  if (openFolder === folder) setOpenFolder(null);
+
+  const updatedCustom = updatedFolders.filter(f => !DEFAULT_FOLDER_KEYS.includes(f));
+  try {
+    await apiFetch(`/client/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({ custom_folders: updatedCustom }),
+    });
+    await apiFetch(`/storage/delete-folder/${id}/${folder}`, {
+      method: "DELETE"
+    });
+    toast.success(t("clientDetail.folderDeleted"));
+  } catch(e) {
+    toast.error(e.message)
+  }
+};
 
   const handleDeleteClient = async () => {
     if (!window.confirm(t('clientDetail.deleteConfirm', { name: client.client_name }))) return;
@@ -190,7 +209,7 @@ function ClientDetail() {
   );
 
   const initials = client.client_name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
-
+  
   return (
     <div className="max-w-4xl mx-auto">
 
@@ -326,34 +345,15 @@ function ClientDetail() {
 
           <div className="flex flex-col gap-1">
             {folders.map((folder) => (
-              <div key={folder}>
-                <div className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-50 transition-colors group">
-                  <button
-                    onClick={() => setOpenFolder(openFolder === folder ? null : folder)}
-                    className="flex items-center gap-2.5 text-sm text-gray-700 flex-1 text-left"
-                  >
-                    {openFolder === folder
-                      ? <FolderOpen className="w-4 h-4 text-primary" />
-                      : <Folder className="w-4 h-4 text-gray-500" />
-                    }
-                    {DEFAULT_FOLDER_KEYS.includes(folder) 
-                      ? t(`clientDetail.${folder}`) 
-                      : folder
-                    }
-                  </button>
-                  <button
-                    onClick={() => handleDeleteFolder(folder)}
-                    className="opacity-0 group-hover:opacity-100 p-1 rounded-lg text-gray-500 hover:text-red-500 hover:bg-red-50 transition"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-                {openFolder === folder && (
-                  <div className="ml-9 mt-1 mb-2 px-3 py-3 bg-gray-50 rounded-xl text-xs text-gray-500 italic">
-                    {t('clientDetail.fileUploadSoon')}
-                  </div>
-                )}
-              </div>
+              <FolderSection
+                key={folder}
+                clientId={parseInt(id)}
+                folderKey={folder}
+                folderLabel={DEFAULT_FOLDER_KEYS.includes(folder) ? t(`clientDetail.${folder}`) : folder}
+                isOpen={openFolder === folder}
+                onToggle={() => setOpenFolder(openFolder === folder ? null : folder)}
+                onDelete={() => handleDeleteFolder(folder)}
+              />
             ))}
 
             {addingFolder && (

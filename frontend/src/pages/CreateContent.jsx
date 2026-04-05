@@ -1,11 +1,10 @@
 import { useState, useMemo, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
-import { supabase } from "../supabase";
 import { ChevronDown, Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import toast from 'react-hot-toast';
-
-const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
+import Button from "../components/Button";
+import { apiFetch } from "../utils/apiFetch";
 
 const PLATFORMS = [
   { id: "instagram", label: "Instagram", emoji: "📸" },
@@ -21,28 +20,6 @@ const STYLE_COLORS = {
   casual:       "bg-amber-50 text-amber-700 border-amber-200",
   viral:        "bg-rose-50 text-rose-700 border-rose-200",
 };
-
-async function apiFetch(path, options = {}) {
-  const { data: { session } } = await supabase.auth.getSession();
-  const token = session?.access_token;
-  const res = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers,
-    },
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    const detail = err.detail;
-    const message = typeof detail === 'string'
-      ? detail
-      : detail?.message || `HTTP ${res.status}`;
-    throw new Error(message);
-  }
-  return res.status === 204 ? null : res.json();
-}
 
 function ClientSelector({ clients, selected, onSelect }) {
   const [open, setOpen] = useState(false);
@@ -401,20 +378,14 @@ export default function CreateContent() {
             </div>
           </div>
 
-          <button
+          <Button
             onClick={handleGenerate}
-            disabled={!canGenerate || loading}
-            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary-light disabled:opacity-40 disabled:cursor-not-allowed transition-all hover:-translate-y-0.5 hover:shadow-md"
+            disabled={!canGenerate}
+            loading={loading}
+            className="w-full py-3"
           >
-            {loading ? (
-              <>
-                <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                {t('createContent.generating')}
-              </>
-            ) : (
-              t('createContent.generate')
-            )}
-          </button>
+            {t('createContent.generate')}
+          </Button>
 
           {!selectedPlatform && text.trim() && (
             <p className="text-xs text-amber-500 text-center -mt-2">

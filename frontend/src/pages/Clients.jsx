@@ -1,40 +1,11 @@
 import { useState, useMemo } from "react";
 import { Search } from "lucide-react";
-import { supabase } from "../supabase";
 import { useOutletContext } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ClientCard from "../components/ClientCard";
 import AddClientModal from "../components/AddClientModal";
 import FilterSelect from '../components/FilterSelect';
-
-const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
-
-async function apiFetch(path, options = {}) {
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  const token = session?.access_token;
-
-  const res = await fetch(`${API_BASE}${path}`, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers,
-    },
-  });
-
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    const detail = err.detail;
-    const message = typeof detail === 'string' 
-      ? detail 
-      : detail?.message || `HTTP ${res.status}`;
-    throw new Error(message);
-  }
-
-  return res.status === 204 ? null : res.json();
-}
+import { apiFetch } from "../utils/apiFetch";
 
 function Clients() {
   const { clients, setClients, clientsLoading: loading } = useOutletContext();

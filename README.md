@@ -91,9 +91,13 @@ orkly/
 │   │   ├── text_generation/
 │   │   │   ├── controller.py     # Improve + save generation endpoints
 │   │   │   ├── service.py        # Generation persistence
-│   │   │   └── schemas.py        # Generation Pydantic models
+│   │   │   ├── schemas.py        # Generation Pydantic models
+|   |   ├── storage/
+|   |   |   ├── controller.py     # Handle file actions endpoints
+|   |   |   ├── service.py        # File handling
+|   |   |   └── schemas.py        # Files pydantic models
 │   │   ├── utils/
-│   │   │   └── http.py           # Shared HTTP helpers (get_client_ip)
+│   │   │   └── http.py           # Shared HTTP helpers (get_user_ip)
 │   │   ├── config.py             # Environment variables and clients
 │   │   └── database.py           # Supabase client
 │   ├── main.py                   # FastAPI entry point
@@ -105,7 +109,9 @@ orkly/
 │   │   │   ├── AuthModal.jsx     # Google OAuth modal
 │   │   │   ├── AuthListener.jsx  # Auth state listener
 │   │   │   ├── ClientCard.jsx    # Client card component
-│   │   │   └── Sidebar.jsx       # Dashboard sidebar
+│   │   │   ├── Sidebar.jsx       # Dashboard sidebar
+|   |   |   ├── FeedbackModal.jsx # Feedback modal
+|   |   |   └── Button.jsx        # Button class
 │   │   ├── config/
 │   │   │   └── toastConfig.js    # Toast notification config
 │   │   ├── pages/

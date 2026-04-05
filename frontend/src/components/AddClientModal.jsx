@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { X, Building2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import toast from 'react-hot-toast';
+import Button from "./Button";
 
 export default function AddClientModal({ onClose, onCreated, apiFetch }) {
   const [clientName, setClientName] = useState("");
@@ -107,19 +108,12 @@ export default function AddClientModal({ onClose, onCreated, apiFetch }) {
 
         {/* Actions */}
         <div className="flex gap-3 justify-end">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-100 transition"
-          >
+          <Button variant="secondary" onClick={onClose}>
             {t('addClient.cancel')}
-          </button>
-          <button
-            onClick={handleSubmit}
-            disabled={!clientName.trim() || loading}
-            className="px-5 py-2 rounded-xl text-sm font-semibold bg-gradient-to-br from-primary to-accent text-white hover:opacity-90 disabled:opacity-40 disabled:cursor-not-allowed transition shadow-sm"
-          >
-            {loading ? t('addClient.creating') : t('addClient.create')}
-          </button>
+          </Button>
+          <Button onClick={handleSubmit} disabled={!clientName.trim()} loading={loading}>
+            {t('addClient.create')}
+          </Button>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@
 """HTTP-related utilities for FastAPI endpoints."""
 from fastapi import Request
 
-def get_client_ip(request: Request) -> str:
+def get_user_ip(request: Request) -> str:
     """Extract the real client IP, respecting X-Forwarded-For (Railway/proxies)."""
     forwarded_for = request.headers.get("X-Forwarded-For")
     if forwarded_for:

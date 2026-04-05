@@ -4,9 +4,9 @@
 
 import logging
 
-from fastapi import APIRouter, Request
-from datetime import datetime
-from app.utils.http import get_client_ip
+from fastapi import APIRouter, Depends, Request
+from app.utils.http import get_user_ip
+from app.auth.dependencies import get_optional_user
 from .schemas import FeedbackRequest
 from .service import feedback_logger
 
@@ -15,12 +15,16 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/feedback", tags=["feedback"])
 
 @router.post("/save", response_model=dict)
-async def send_feedback(body: FeedbackRequest, req: Request):
+async def send_feedback(body: FeedbackRequest, req: Request, user = Depends(get_optional_user)):
     """Store user feedback."""
-    logger.info(f"Received feedback from IP {get_client_ip(req)}")
+
+    user_id = user.id if user else None
+    user_ip = get_user_ip(req)
+    logger.info(f"Received feedback from {'user ' + user_id if user_id else 'IP ' + user_ip}")
+
     feedback_logger.log_feedback(
-        ip=get_client_ip(req),
+        ip=user_ip,
         feedback=body.feedback,
-        timestamp=datetime.now().isoformat(),
+        user_id=user_id
     )
     return {"success": True, "message": "Feedback received — thank you!"}

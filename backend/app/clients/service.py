@@ -73,14 +73,13 @@ async def create_client(user_id: str, client_name: str, brand_voice: str | None)
 
 ALLOWED_FIELDS = {"client_name", "brand_voice", "platforms"}
 
-async def update_client(
-    client_id: int, user_id: str, **fields
-) -> dict | None:
-    
+ALLOWED_FIELDS = {"client_name", "brand_voice", "platforms", "custom_folders"}
+
+async def update_client(client_id: int, user_id: str, **fields) -> dict | None:
     safe_fields = {k: v for k, v in fields.items() if k in ALLOWED_FIELDS}
     if not safe_fields:
         return None
-
+    
     db = get_supabase()
     response = (
         db.table("clients")
@@ -91,6 +90,7 @@ async def update_client(
         .execute()
     )
     logger.info(f"Updated client {client_id} for user {user_id}")
+    
     return response.data[0] if response.data else None
 
 

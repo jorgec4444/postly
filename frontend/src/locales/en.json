@@ -100,7 +100,7 @@
       "totalClients": "Total clients",
       "withBrandVoice": "With brand voice",
       "addedThisMonth": "Added this month",
-      "loading": "Loading clients...",
+      "loading": "Loading clients dashboard...",
       "noClientsFound": "No clients found"
     },
     "clientCard": {
@@ -160,6 +160,10 @@
       "folderContracts": "Contracts",
       "folderContent": "Content",
       "folderNamePlaceholder": "Folder name",
+      "folderAlreadyExists": "A folder with that name already exists",
+      "folderCreated": "Folder created successfully",
+      "folderDeleted": "Folder deleted successfully",
+      "cannotDeleteDefaultFolder": "You cannot delete a default folder",
       "deleteFolderConfirm": "Delete folder \"{{name}}\"? This cannot be undone.",
       "generationHistory": "Generation history",
       "noGenerations": "No generations yet. Generate content to see it here.",
@@ -168,7 +172,18 @@
       "original": "Original text",
       "deleted": "Client deleted",
       "brandVoiceUpdated": "Brand voice updated",
-      "fileUploadSoon": "File upload coming soon "
+      "fileUploadSoon": "File upload coming soon ",
+      "uploadFile": "Upload file",
+      "fileUploaded": "File uploaded",
+      "loadFilesError": "Error loading files. Please try again.",
+      "loadingFiles": "Loading files…",
+      "noFiles": "No files in this folder yet.",
+      "deleteFileConfirm": "Delete \"{{name}}\"? This cannot be undone.",
+      "fileDeleted": "File deleted",
+      "fileName": "Name",
+      "fileSize": "Size",
+      "deleteFile": "Delete {{name}}",
+      "deleteFolder": "Delete folder {{name}}"
     },
     "createContent": {
       "title": "Create content",
@@ -258,7 +273,8 @@
       "cancel": "Cancel",
       "send": "Send",
       "sending": "Sending…",
-      "thanks": "✓ Thanks for your feedback!"
+      "thanks": "✓ Thanks for your feedback!",
+      "error": "Could not send feedback. Please try again."
     },
     "languages": {
       "en": "English",
