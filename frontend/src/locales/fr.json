@@ -100,7 +100,7 @@
       "totalClients": "Total clients",
       "withBrandVoice": "Avec voix de marque",
       "addedThisMonth": "Ajoutés ce mois",
-      "loading": "Chargement des clients...",
+      "loading": "Chargement du tableau de bord des clients...",
       "noClientsFound": "Aucun client trouvé"
     },
     "clientCard": {
@@ -160,6 +160,10 @@
       "folderContent": "Contenu",
       "newFolder": "Nouveau dossier",
       "folderNamePlaceholder": "Nom du dossier",
+      "folderAlreadyExists": "Le dossier existe déjà",
+      "folderCreated": "Le dossier a été créé avec succès",
+      "folderDeleted": "Le dossier a été supprimé avec succès",
+      "cannotDeleteDefaultFolder": "Vous ne pouvez pas supprimer un dossier par défaut",
       "deleteFolderConfirm": "Supprimer le dossier \"{{name}}\" ? Cette action est irréversible.",
       "generationHistory": "Historique de génération",
       "noGenerations": "Aucune génération pour l'instant. Générez du contenu pour le voir ici.",
@@ -168,7 +172,18 @@
       "original": "Texte original",
       "deleted": "Client supprimé",
       "brandVoiceUpdated": "Voix de marque mise à jour",
-      "fileUploadSoon": "Importation de fichiers bientôt disponible"
+      "fileUploadSoon": "Importation de fichiers bientôt disponible",
+      "uploadFile": "Télécharger un fichier",
+      "fileUploaded": "Fichier téléchargé",
+      "loadFilesError": "Erreur lors du chargement des fichiers. Veuillez réessayer.",
+      "loadingFiles": "Chargement des fichiers…",
+      "noFiles": "Aucun fichier dans ce dossier pour l'instant.",
+      "deleteFileConfirm": "Supprimer \"{{name}}\" ? Cette action est irréversible.",
+      "fileDeleted": "Fichier supprimé",
+      "fileName": "Nom",
+      "fileSize": "Taille",
+      "deleteFile": "Supprimer {{name}}",
+      "deleteFolder": "Supprimer le dossier {{name}}"
     },
     "createContent": {
       "title": "Créer du contenu",

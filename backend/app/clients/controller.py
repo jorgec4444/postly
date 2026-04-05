@@ -55,12 +55,12 @@ async def update_client(
 ):
     """Update client name or brand voice."""
 
+    update_data = body.model_dump(exclude_unset=True)
+
     updated = await service.update_client(
         client_id=client_id,
         user_id=user.id,
-        client_name=body.client_name,
-        brand_voice=body.brand_voice,
-        platforms=body.platforms,
+        **update_data
     )
     if not updated:
         raise HTTPException(status_code=404, detail="Client not found")

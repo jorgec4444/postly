@@ -99,7 +99,7 @@
       "totalClients": "Total clientes",
       "withBrandVoice": "Con voz de marca",
       "addedThisMonth": "Añadidos este mes",
-      "loading": "Cargando clientes...",
+      "loading": "Cargando tablero clientes...",
       "noClientsFound": "No se encontraron clientes"
     },
     "clientCard": {
@@ -159,6 +159,10 @@
       "folderContent": "Contenido",
       "newFolder": "Nueva carpeta",
       "folderNamePlaceholder": "Nombre de la carpeta",
+      "folderAlreadyExists": "La carpeta ya existe",
+      "folderCreated": "Carpeta creada exitosamente",
+      "folderDeleted": "Carpeta eliminada correctamente",
+      "cannotDeleteDefaultFolder": "No puedes eliminar una carpeta predeterminada",
       "deleteFolderConfirm": "¿Eliminar la carpeta \"{{name}}\"? Esta acción no se puede deshacer.",
       "generationHistory": "Historial de generaciones",
       "noGenerations": "Aún no hay generaciones. Genera contenido para verlo aquí.",
@@ -167,7 +171,18 @@
       "original": "Texto original",
       "deleted": "Cliente eliminado",
       "brandVoiceUpdated": "Voz de marca actualizada",
-      "fileUploadSoon": "Carga de archivos próximamente"
+      "fileUploadSoon": "Carga de archivos próximamente",
+      "uploadFile": "Subir archivo",
+      "fileUploaded": "Fichero subido",
+      "loadFilesError": "Error cargando archivos. Por favor, inténtalo de nuevo.",
+      "loadingFiles": "Cargando archivos…",
+      "noFiles": "No hay archivos en esta carpeta todavía.",
+      "deleteFileConfirm": "Eliminar \"{{name}}\"? Esta acción no se puede deshacer.",
+      "fileDeleted": "Archivo eliminado",
+      "fileName": "Nombre",
+      "fileSize": "Peso",
+      "deleteFile": "Eliminar {{name}}",
+      "deleteFolder": "Eliminar carpeta {{name}}"
     },
     "createContent": {
       "title": "Crear contenido",

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
-import { ArrowLeft, Pencil, Check, X, Plus, Folder, FolderOpen, Trash2 } from "lucide-react";
+import { ArrowLeft, Pencil, Check, X, Plus, Folder, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import toast from 'react-hot-toast';
 import FilterSelect from "../components/FilterSelect";
@@ -61,13 +61,15 @@ function ClientDetail() {
           setClient(cached);
           setVoiceDraft(cached.brand_voice || "");
           setActivePlatforms(cached.platforms || []);
-          setFolders(cached.folders || DEFAULT_FOLDER_KEYS);
+          const customFolders = cached.custom_folders || [];
+          setFolders([...DEFAULT_FOLDER_KEYS, ...customFolders]);
         } else {
           const clientData = await apiFetch(`/client/${id}`);
           setClient(clientData);
           setVoiceDraft(clientData.brand_voice || "");
           setActivePlatforms(clientData.platforms || []);
-          setFolders(clientData.folders || DEFAULT_FOLDERS);
+          const customFolders = clientData.custom_folders || [];
+          setFolders([...DEFAULT_FOLDER_KEYS, ...customFolders]);
         }
         const generationsData = await apiFetch(`/client/${id}/generations`);
         setGenerations(generationsData);
@@ -85,7 +87,6 @@ function ClientDetail() {
       const updated = await apiFetch(`/client/${id}`, {
         method: "PUT",
         body: JSON.stringify({
-          client_name: client.client_name,
           brand_voice: voiceDraft.trim() || null,
         }),
       });
@@ -121,18 +122,58 @@ function ClientDetail() {
     }
   };
 
-  const handleAddFolder = () => {
-    if (!newFolderName.trim()) return;
-    setFolders((prev) => [...prev, newFolderName.trim()]);
-    setNewFolderName("");
-    setAddingFolder(false);
-  };
+const handleAddFolder = async () => {
+  if (!newFolderName.trim()) return;
+  const newFolder = newFolderName.trim();
+  const existingLabels = folders.map(f => 
+    DEFAULT_FOLDER_KEYS.includes(f) ? t(`clientDetail.${f}`).toLowerCase() : f.toLowerCase()
+  );
+  if (existingLabels.includes(newFolder.toLowerCase())) {
+    toast.error(t('clientDetail.folderAlreadyExists'));
+    return;
+  }
+  const currentCustom = folders.filter(f => !DEFAULT_FOLDER_KEYS.includes(f));
+  const updatedCustom = [...currentCustom, newFolder];
 
-  const handleDeleteFolder = (folder) => {
-    if (!window.confirm(t('clientDetail.deleteFolderConfirm', { name: folder }))) return;
-    setFolders((prev) => prev.filter((f) => f !== folder));
-    if (openFolder === folder) setOpenFolder(null);
-  };
+  setFolders(prev => [...prev, newFolder]);
+  setNewFolderName("");
+  setAddingFolder(false);
+
+  try {
+    await apiFetch(`/client/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({ custom_folders: updatedCustom }),
+    });
+    toast.success(t('clientDetail.folderCreated'));
+  } catch (e) {
+    toast.error(e.message);
+  }
+};
+
+const handleDeleteFolder = async (folder) => {
+  if (!window.confirm(t('clientDetail.deleteFolderConfirm', { name: folder }))) return;
+  if (DEFAULT_FOLDER_KEYS.includes(folder)) {
+    toast.error(t('clientDetail.cannotDeleteDefaultFolder'));
+    return;
+  }
+  const updatedFolders = folders.filter(f => f !== folder);
+  setFolders(updatedFolders);
+  if (openFolder === folder) setOpenFolder(null);
+
+  const updatedCustom = updatedFolders.filter(f => !DEFAULT_FOLDER_KEYS.includes(f));
+  try {
+    await apiFetch(`/client/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({ custom_folders: updatedCustom }),
+    });
+    await apiFetch(`/storage/delete-folder/${id}/${folder}`, {
+      method: "DELETE"
+    });
+    toast.success(t("clientDetail.folderDeleted"));
+  } catch(e) {
+    toast.error(e.message)
+  }
+};
 
   const handleDeleteClient = async () => {
     if (!window.confirm(t('clientDetail.deleteConfirm', { name: client.client_name }))) return;
@@ -168,7 +209,7 @@ function ClientDetail() {
   );
 
   const initials = client.client_name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase();
-
+  
   return (
     <div className="max-w-4xl mx-auto">
 

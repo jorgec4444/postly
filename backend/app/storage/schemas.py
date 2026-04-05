@@ -3,7 +3,11 @@
 """Pydantic models for storage-related API endpoints."""
 
 from datetime import datetime
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+
+class S3UrlResponse(BaseModel):
+    url: str
+    file_path: str
 
 class GenerateUploadUrlRequest(BaseModel):
     """Request body for generating a pre-signed upload URL."""
@@ -20,7 +24,6 @@ class SaveFileMetadataRequest(BaseModel):
     file_size: int
     folder: str
     client_id: int
-    user_id: str
 
 class S3FileResponse(BaseModel):
     """Response model for listing files in S3."""

@@ -4,7 +4,7 @@
 
 from fastapi import HTTPException
 
-from .schemas import S3FileResponse, GenerateUploadUrlRequest, SaveFileMetadataRequest
+from .schemas import S3FileResponse, GenerateUploadUrlRequest, SaveFileMetadataRequest, S3UrlResponse
 from app.config import get_r2_client, R2_BUCKET_NAME
 from app.database import get_supabase
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 async def generate_upload_url(
         client_id: int, folder: str, upload_request: GenerateUploadUrlRequest, user_id: str
-        ) -> str:
+        ) -> S3UrlResponse:
     """Generate a pre-signed URL for uploading a file to S3."""
 
     r2_client = get_r2_client()
@@ -33,8 +33,8 @@ async def generate_upload_url(
     except Exception as e:
         logger.error(f"Error generating pre-signed URL: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate pre-signed URL") from e
-    
-    return upload_generated_url
+
+    return {"url": upload_generated_url, "file_path": path}
 
 async def save_file_metadata(request: SaveFileMetadataRequest, user_id: str) -> None:
     """Save file metadata to the database after a successful upload."""
@@ -66,7 +66,14 @@ async def generate_download_url(client_id: int, folder: str, file_id: int, user_
 
     r2_client = get_r2_client()
     db = get_supabase()
-    file = db.table("files").select("file_path").eq("id", file_id).eq("client_id", client_id).eq("user_id", user_id).single().execute()
+    file = (
+        db.table("files")
+        .select("file_path, file_name")
+        .eq("id", file_id)
+        .eq("client_id", client_id)
+        .eq("user_id", user_id)
+        .single().execute()
+        )
 
     if not file.data:
         logger.warning(f"File with ID {file_id} not found for client {client_id} and user {user_id}")
@@ -77,21 +84,31 @@ async def generate_download_url(client_id: int, folder: str, file_id: int, user_
     try:
         download_generated_url = r2_client.generate_presigned_url(
             "get_object",
-            Params={'Bucket': R2_BUCKET_NAME, 'Key': path},
+            Params={
+                'Bucket': R2_BUCKET_NAME,
+                'Key': path,
+                'ResponseContentDisposition': f'attachment; filename="{file.data["file_name"]}"'
+            },
             ExpiresIn=900 # URL expires in 15 minutes
             )
     except Exception as e:
         logger.error(f"Error generating pre-signed URL: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate pre-signed URL during download") from e
 
-    return download_generated_url
+    return {"url": download_generated_url, "file_path": path}
 
 async def list_files(client_id: int, folder: str, user_id: str) -> list[S3FileResponse]:
     """List files in a specific S3 folder for a client."""
     
     db = get_supabase()
     try:
-        files_list = db.table("files").select("*").eq("client_id", client_id).eq("folder", folder).eq("user_id", user_id).execute()
+        files_list = (
+            db.table("files")
+            .select("*")
+            .eq("client_id", client_id)
+            .eq("folder", folder)
+            .eq("user_id", user_id).execute()
+        )
     except Exception as e:
         logger.error(f"Error listing files: {e}")
         raise HTTPException(status_code=500, detail="Failed to list files") from e
@@ -104,7 +121,15 @@ async def delete_file(client_id: int, folder: str, file_id: int, user_id: str) -
     r2_client = get_r2_client()
     db = get_supabase()
 
-    file = db.table("files").select("file_path").eq("client_id", client_id).eq("folder", folder).eq("user_id", user_id).eq("id", file_id).single().execute()
+    file = (
+        db.table("files")
+        .select("file_path")
+        .eq("client_id", client_id)
+        .eq("folder", folder)
+        .eq("user_id", user_id)
+        .eq("id", file_id)
+        .single().execute()
+    )
 
     if not file.data:
         logger.warning(f"File with ID {file_id} not found for client {client_id} and user {user_id}")
@@ -123,3 +148,30 @@ async def delete_file(client_id: int, folder: str, file_id: int, user_id: str) -
         raise HTTPException(status_code=500, detail="Failed to delete file metadata") from e
 
     return None
+
+async def delete_folder(client_id: int, folder: str, user_id: str) -> None:
+    """Delete folder with the files inside from S3 and DB."""
+
+    r2_client = get_r2_client()
+    db = get_supabase()
+
+    client = (
+        db.table("clients")
+        .select("id")
+        .eq("id", client_id)
+        .eq("user_id", user_id)
+        .single().execute()
+    )
+    
+    if (not client.data):
+        raise HTTPException(status_code=401, detail="Client not found")
+
+    files_list = await list_files(client_id, folder, user_id)
+
+    try:
+        for file in files_list:
+            r2_client.delete_object(Bucket=R2_BUCKET_NAME, Key=file.file_path)
+            db.table("files").delete().eq("user_id", user_id).eq("id", file.id).execute()
+    except Exception as e:
+        logger.error(f"Error deleting folder {folder} for client {client_id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete folder") from e
