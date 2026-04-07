@@ -5,6 +5,29 @@
     "nav": {
       "signIn": "Sign in"
     },
+    "landing": {
+      "tryItFree": "Try it free — no sign-up needed",
+      "featuresLabel": "Everything you need",
+      "featuresTitle": "Built for community managers",
+      "feature1Title": "AI content generation",
+      "feature1Desc": "Generate 3 variations — professional, casual and viral — tuned to each client's brand voice.",
+      "feature2Title": "Client management",
+      "feature2Desc": "Organise every client with their own brand voice, active platforms and content history.",
+      "feature3Title": "File storage",
+      "feature3Desc": "Keep branding assets, photos and contracts organised per client — always within reach.",
+      "feature4Title": "6 platforms supported",
+      "feature4Desc": "Instagram, LinkedIn, Twitter/X, TikTok, YouTube and Twitch — content adapted to each one.",
+      "howLabel": "How it works",
+      "howTitle": "From draft to publish-ready in seconds",
+      "step1Title": "Add your client",
+      "step1Desc": "Create a client profile and define their brand voice in a few words.",
+      "step2Title": "Write your draft",
+      "step2Desc": "Paste your rough idea or use one of the templates to get started.",
+      "step3Title": "Get 3 AI variations",
+      "step3Desc": "Orkly generates professional, casual and viral versions — pick your favourite and copy.",
+      "ctaTitle": "Start managing your clients today",
+      "ctaSubtitle": "Free tier available. No credit card required."
+    },
     "dashboard": {
       "signInRequired": "Please sign in to access the dashboard",
       "loadClientsError": "Error loading clients. Please try again."

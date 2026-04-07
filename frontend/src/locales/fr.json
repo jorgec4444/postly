@@ -5,6 +5,29 @@
     "nav": {
       "signIn": "Se connecter"
     },
+    "landing": {
+      "tryItFree": "Essayez gratuitement — sans inscription",
+      "featuresLabel": "Tout ce dont vous avez besoin",
+      "featuresTitle": "Conçu pour les community managers",
+      "feature1Title": "Génération de contenu par IA",
+      "feature1Desc": "Générez 3 variations — professionnelle, décontractée et virale — adaptées à la voix de chaque client.",
+      "feature2Title": "Gestion des clients",
+      "feature2Desc": "Organisez chaque client avec sa propre voix de marque, ses plateformes actives et son historique.",
+      "feature3Title": "Stockage de fichiers",
+      "feature3Desc": "Conservez les assets de branding, photos et contrats organisés par client — toujours à portée.",
+      "feature4Title": "6 plateformes supportées",
+      "feature4Desc": "Instagram, LinkedIn, Twitter/X, TikTok, YouTube et Twitch — contenu adapté à chacune.",
+      "howLabel": "Comment ça marche",
+      "howTitle": "Du brouillon au prêt à publier en quelques secondes",
+      "step1Title": "Ajoutez votre client",
+      "step1Desc": "Créez un profil client et définissez sa voix de marque en quelques mots.",
+      "step2Title": "Rédigez votre brouillon",
+      "step2Desc": "Collez votre idée ou utilisez un modèle pour commencer.",
+      "step3Title": "Obtenez 3 variations IA",
+      "step3Desc": "Orkly génère des versions professionnelle, décontractée et virale — choisissez votre préférée et copiez.",
+      "ctaTitle": "Commencez à gérer vos clients aujourd'hui",
+      "ctaSubtitle": "Niveau gratuit disponible. Aucune carte de crédit requise."
+    },
     "dashboard": {
       "signInRequired": "Veuillez vous connecter pour accéder au tableau de bord",
       "loadClientsError": "Erreur lors du chargement des clients. Veuillez réessayer."

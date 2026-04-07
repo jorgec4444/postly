@@ -8,6 +8,9 @@ const LANGUAGES = [
   { code: 'ca', flag: '🏴', label: 'Català' },
   { code: 'fr', flag: '🇫🇷', label: 'Français' },
   { code: 'zh', flag: '🇨🇳', label: '中文' },
+  { code: 'de', flag: '🇩🇪', label: 'Deutsch' },
+  { code: 'ja', flag: '🇯🇵', label: '日本語' },
+  { code: 'hi', flag: '🇮🇳', label: 'हिन्दी' },
 ];
 
 export default function LanguageSelector({ variant = 'light' }) {
@@ -31,26 +34,34 @@ export default function LanguageSelector({ variant = 'light' }) {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(o => !o)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
         className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors w-full ${
           isDark
             ? 'text-white/70 hover:text-white hover:bg-white/10'
             : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
         }`}
       >
-        <span>{current.flag}</span>
+        <span aria-hidden="true">{current.flag}</span>
         <span className="flex-1 text-left">{current.label}</span>
-        <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? 'rotate-180' : ''}`} aria-hidden="true" />
       </button>
 
       {open && (
-        <div className={`absolute ${isDark ? 'bottom-full mb-1.5' : 'top-full mt-1.5'} left-0 right-0 rounded-xl shadow-lg overflow-hidden border z-50 ${
-          isDark
-            ? 'bg-gray-900 border-white/10'
-            : 'bg-white border-gray-200'
-        }`}>
+        <div
+          role="listbox"
+          aria-label="Select language"
+          className={`absolute ${isDark ? 'bottom-full mb-1.5' : 'top-full mt-1.5'} left-0 right-0 rounded-xl shadow-lg overflow-hidden border z-50 ${
+            isDark
+              ? 'bg-gray-900 border-white/10'
+              : 'bg-white border-gray-200'
+          }`}
+        >
           {LANGUAGES.map(({ code, flag, label }) => (
             <button
               key={code}
+              role="option"
+              aria-selected={current.code === code}
               onClick={() => { i18n.changeLanguage(code); setOpen(false); }}
               className={`flex items-center gap-2.5 w-full px-3 py-2 text-sm transition-colors ${
                 current.code === code
@@ -58,7 +69,7 @@ export default function LanguageSelector({ variant = 'light' }) {
                   : isDark ? 'text-white/70 hover:bg-white/10 hover:text-white' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
               }`}
             >
-              <span>{flag}</span>
+              <span aria-hidden="true">{flag}</span>
               <span>{label}</span>
             </button>
           ))}

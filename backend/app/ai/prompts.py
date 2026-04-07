@@ -67,5 +67,6 @@ def build_prompt(text: str, style: str, platform: str | None = None) -> str:
         f"Style: {style_desc}\n\n"
         f"{platform_block}\n"
         f"Original text: {text}\n\n"
-        f"Return only the improved text, without quotes or explanations."
+        f"Return only the improved text, without quotes or explanations.\n"
+        f"Respond in the same language as the input text. Do not translate or switch languages."
     )

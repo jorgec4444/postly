@@ -5,6 +5,29 @@
     "nav": {
       "signIn": "Iniciar sesión"
     },
+    "landing": {
+      "tryItFree": "Pruébalo gratis — sin registro",
+      "featuresLabel": "Todo lo que necesitas",
+      "featuresTitle": "Hecho para community managers",
+      "feature1Title": "Generación de contenido con IA",
+      "feature1Desc": "Genera 3 variaciones — profesional, casual y viral — adaptadas a la voz de cada cliente.",
+      "feature2Title": "Gestión de clientes",
+      "feature2Desc": "Organiza cada cliente con su propia voz de marca, plataformas activas e historial de contenido.",
+      "feature3Title": "Almacenamiento de archivos",
+      "feature3Desc": "Guarda assets de branding, fotos y contratos organizados por cliente — siempre a mano.",
+      "feature4Title": "6 plataformas soportadas",
+      "feature4Desc": "Instagram, LinkedIn, Twitter/X, TikTok, YouTube y Twitch — contenido adaptado a cada una.",
+      "howLabel": "Cómo funciona",
+      "howTitle": "Del borrador a listo para publicar en segundos",
+      "step1Title": "Añade tu cliente",
+      "step1Desc": "Crea un perfil de cliente y define su voz de marca en pocas palabras.",
+      "step2Title": "Escribe tu borrador",
+      "step2Desc": "Pega tu idea o usa una de las plantillas para empezar.",
+      "step3Title": "Obtén 3 variaciones con IA",
+      "step3Desc": "Orkly genera versiones profesional, casual y viral — elige la que más te guste y copia.",
+      "ctaTitle": "Empieza a gestionar tus clientes hoy",
+      "ctaSubtitle": "Plan gratuito disponible. Sin tarjeta de crédito."
+    },
     "dashboard": {
       "signInRequired": "Por favor inicia sesión para acceder al panel de control de clientes",
       "loadClientsError": "Error cargando clientes. Por favor, inténtalo de nuevo."

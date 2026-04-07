@@ -5,6 +5,29 @@
     "nav": {
       "signIn": "登录"
     },
+    "landing": {
+      "tryItFree": "免费试用 — 无需注册",
+      "featuresLabel": "您所需的一切",
+      "featuresTitle": "专为社区经理打造",
+      "feature1Title": "AI内容生成",
+      "feature1Desc": "生成3种变体 — 专业、休闲和病毒式 — 根据每个客户的品牌声音量身定制。",
+      "feature2Title": "客户管理",
+      "feature2Desc": "为每个客户组织品牌声音、活跃平台和内容历史。",
+      "feature3Title": "文件存储",
+      "feature3Desc": "按客户整理品牌资产、照片和合同 — 随时可用。",
+      "feature4Title": "支持6个平台",
+      "feature4Desc": "Instagram、LinkedIn、Twitter/X、TikTok、YouTube和Twitch — 内容适配每个平台。",
+      "howLabel": "工作原理",
+      "howTitle": "从草稿到发布就绪，只需几秒",
+      "step1Title": "添加客户",
+      "step1Desc": "创建客户档案并用几句话定义其品牌声音。",
+      "step2Title": "撰写草稿",
+      "step2Desc": "粘贴您的想法或使用模板开始创作。",
+      "step3Title": "获取3个AI变体",
+      "step3Desc": "Orkly生成专业、休闲和病毒式版本 — 选择您喜欢的并复制。",
+      "ctaTitle": "今天开始管理您的客户",
+      "ctaSubtitle": "提供免费套餐。无需信用卡。"
+    },
     "dashboard": {
       "signInRequired": "请登录以访问仪表板",
       "loadClientsError": "加载客户时出错。请重试。"

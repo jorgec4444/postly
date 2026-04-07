@@ -1,0 +1,425 @@
+{
+  "translation": {
+    "and": "und",
+    "saved": "Gespeichert",
+    "nav": {
+      "signIn": "Anmelden"
+    },
+    "dashboard": {
+      "signInRequired": "Bitte melden Sie sich an, um auf das Dashboard zuzugreifen",
+      "loadClientsError": "Fehler beim Laden der Kunden. Bitte versuchen Sie es erneut."
+    },
+    "hero": {
+      "badge": "KI-Content-Tool für Community Manager",
+      "title1": "Orchestrieren Sie die Social Media",
+      "title2": "Ihrer Kunden.",
+      "subtitle": "Ein Dashboard für alle Ihre Kunden. Für Agenturen und Freelancer.",
+      "builtFor": "Entwickelt für"
+    },
+    "compose": {
+      "label": "Ihr Entwurf",
+      "placeholder": "Schreiben oder fügen Sie Ihren Beitrag hier ein… (Strg+Enter zum Verbessern)",
+      "charLimit": "{{count}} / 500",
+      "improve": "Beitrag verbessern →",
+      "generating": "Wird generiert…"
+    },
+    "templates": {
+      "label": "Vorlagen →",
+      "launch": "Nach [X Monaten] Arbeit starten wir heute [Produktname]. [Kurze Beschreibung]. Ich bin [Emotion], dies zu teilen.",
+      "milestone": "🎯 Meilenstein: [Zahl/Leistung]. Vor [Zeit] begannen wir mit [Situation]. Heute feiern wir [Leistung].",
+      "lesson": "💡 Gelernte Lektion [wo]: [Hauptlektion]. Früher dachte ich [alte Überzeugung]. Jetzt verstehe ich [neue Perspektive].",
+      "announcement": "📢 [Was Sie ankündigen]. Ab [wann], [was sich ändert]. Das bedeutet [Vorteil]. [Handlungsaufforderung].",
+      "question": "Frage an die Community: [spezifische Frage]? Meiner Erfahrung nach [Kontext]. Wie machen Sie es?"
+    },
+    "loading": {
+      "generating": "<strong>3 Variationen</strong> werden mit KI generiert…"
+    },
+    "variations": {
+      "label": "Generierte Variationen",
+      "copy": "Kopieren",
+      "copied": "✓ Kopiert"
+    },
+    "cta": {
+      "title": "Dies für einen Kunden speichern",
+      "subtitle": "Melden Sie sich an, um Kunden, Markenstimmen und den Generierungsverlauf zu verwalten.",
+      "button": "Kostenlos anmelden →"
+    },
+    "auth": {
+      "welcome": "Willkommen zurück, bitte melden Sie sich an.",
+      "subtitle": "Melden Sie sich an, um Ihre Kunden und Inhalte zu verwalten.",
+      "google": "Mit Google fortfahren",
+      "terms": "Mit der Anmeldung stimmen Sie unseren",
+      "termsLink": "Nutzungsbedingungen",
+      "privacyLink": "Datenschutzrichtlinie",
+      "orEmail": "Oder mit E-Mail fortfahren",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "login": "Anmelden",
+      "register": "Konto erstellen",
+      "loggingIn": "Anmelden…",
+      "sendingVerification": "Bestätigungs-E-Mail wird gesendet…",
+      "hasAccount": "Bereits ein Konto?",
+      "noAccount": "Noch kein Konto?",
+      "switchToLogin": "Anmelden",
+      "switchToRegister": "Registrieren",
+      "magicLink": "Magic Link senden",
+      "sendingMagicLink": "Wird gesendet…",
+      "magicLinkSent": "Überprüfen Sie Ihre E-Mail! Wir haben Ihnen einen Magic Link gesendet.",
+      "errorInvalidCredentials": "Ungültige E-Mail oder Passwort.",
+      "errorEmailTaken": "Diese E-Mail ist bereits registriert.",
+      "errorGeneric": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+      "emailPlaceholder": "sie@beispiel.de",
+      "passwordPlaceholder": "Ihr Passwort",
+      "welcomeToast": "Willkommen bei Orkly! 🎉 Sie können loslegen.",
+      "displayName": "Vollständiger Name",
+      "displayNamePlaceholder": "Ihr Name (optional)",
+      "sendVerification": "Bestätigungs-E-Mail senden",
+      "registerSuccess": "Fast fertig. Überprüfen Sie Ihre E-Mail zur Kontobestätigung.",
+      "logginSuccess": "Anmeldung erfolgreich",
+      "errorGoogleSignIn": "Fehler bei der Google-Anmeldung. Bitte versuchen Sie es erneut.",
+      "errorPasswordLength": "Das Passwort muss mindestens 8 Zeichen haben",
+      "errorPasswordUppercase": "Muss mindestens einen Großbuchstaben enthalten",
+      "errorPasswordNumber": "Muss mindestens eine Zahl enthalten",
+      "ruleLength": "Mindestens 8 Zeichen",
+      "ruleUppercase": "Ein Großbuchstabe",
+      "ruleNumber": "Eine Zahl"
+    },
+    "sidebar": {
+      "clients": "Kunden",
+      "createContent": "Inhalte erstellen",
+      "settings": "Einstellungen"
+    },
+    "clients": {
+      "title": "Kunden",
+      "subtitle": "Alle Ihre Kunden an einem Ort organisieren",
+      "newClient": "+ Neuer Kunde",
+      "searchPlaceholder": "Kunden suchen...",
+      "sortAlphabetical": "Alphabetisch",
+      "sortNewest": "Neueste",
+      "sortOldest": "Älteste",
+      "totalClients": "Kunden gesamt",
+      "withBrandVoice": "Mit Markenstimme",
+      "addedThisMonth": "Diesen Monat hinzugefügt",
+      "loading": "Kunden werden geladen...",
+      "noClientsFound": "Keine Kunden gefunden"
+    },
+    "clientCard": {
+      "brandVoice": "Markenstimme",
+      "noBrandVoice": "Keine Markenstimme gesetzt",
+      "added": "Hinzugefügt {{date}}",
+      "voiceSet": "Stimme gesetzt",
+      "noVoice": "Keine Stimme",
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "saved": "Gespeichert",
+      "saving": "Wird gespeichert…",
+      "deleted": "Kunde gelöscht",
+      "describeBrandVoice": "Markenstimme beschreiben…",
+      "deleteConfirm": "\"{{name}}\" löschen? Dies kann nicht rückgängig gemacht werden."
+    },
+    "addClient": {
+      "title": "Neuer Kunde",
+      "clientName": "Kundenname",
+      "clientNamePlaceholder": "Muster GmbH",
+      "brandVoice": "Markenstimme",
+      "brandVoiceOptional": "(optional)",
+      "brandVoicePlaceholder": "z.B. Freundlich und direkt. Kurze Sätze. Kein Fachjargon.",
+      "cancel": "Abbrechen",
+      "create": "Kunde erstellen",
+      "creating": "Wird erstellt…",
+      "success": "Kunde erstellt"
+    },
+    "clientDetail": {
+      "back": "Zurück zu Kunden",
+      "loading": "Kunde wird geladen...",
+      "brandVoice": "Markenstimme",
+      "noBrandVoice": "Noch keine Markenstimme definiert.",
+      "brandVoiceTooltip": "Die KI schreibt automatisch im Ton dieses Kunden.",
+      "addedOn": "Hinzugefügt am",
+      "generateContent": "Inhalt generieren",
+      "editClient": "Kunde bearbeiten",
+      "deleteClient": "Kunde löschen",
+      "deleteConfirm": "\"{{name}}\" löschen? Dies kann nicht rückgängig gemacht werden.",
+      "saveChanges": "Änderungen speichern",
+      "saving": "Wird gespeichert…",
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "clientName": "Kundenname",
+      "brandVoiceLabel": "Markenstimme",
+      "brandVoiceOptional": "(optional)",
+      "brandVoicePlaceholder": "z.B. Freundlich und direkt. Kurze Sätze. Kein Fachjargon.",
+      "editBrandVoice": "Markenstimme bearbeiten",
+      "platforms": "Plattformen",
+      "allPlatforms": "Alle Plattformen",
+      "platformsUpdated": "Plattformen aktualisiert",
+      "folders": "Ordner",
+      "newFolder": "Neuer Ordner",
+      "folderBranding": "Branding",
+      "folderPhotos": "Fotos",
+      "folderVideos": "Videos",
+      "folderContracts": "Verträge",
+      "folderContent": "Inhalt",
+      "folderNamePlaceholder": "Ordnername",
+      "deleteFolderConfirm": "Ordner \"{{name}}\" löschen? Dies kann nicht rückgängig gemacht werden.",
+      "generationHistory": "Generierungsverlauf",
+      "noGenerations": "Noch keine Generierungen. Erstellen Sie Inhalte, um sie hier zu sehen.",
+      "noGenerationsForPlatform": "Noch keine Generierungen für {{platform}}.",
+      "totalGenerations": "Generierungen gesamt",
+      "original": "Originaltext",
+      "deleted": "Kunde gelöscht",
+      "brandVoiceUpdated": "Markenstimme aktualisiert",
+      "fileUploadSoon": "Datei-Upload bald verfügbar",
+      "loadingFiles": "Dateien werden geladen…",
+      "noFiles": "Noch keine Dateien in diesem Ordner.",
+      "fileName": "Name",
+      "fileSize": "Größe",
+      "deleteFile": "{{name}} löschen",
+      "deleteFolder": "Ordner {{name}} löschen",
+      "fileUploaded": "Datei erfolgreich hochgeladen",
+      "uploadFile": "Datei hochladen",
+      "fileDeleted": "Datei gelöscht",
+      "deleteFileConfirm": "\"{{name}}\" löschen? Dies kann nicht rückgängig gemacht werden.",
+      "folderDeleted": "Ordner gelöscht",
+      "folderCreated": "Ordner erstellt",
+      "folderAlreadyExists": "Ein Ordner mit diesem Namen existiert bereits",
+      "cannotDeleteDefaultFolder": "Standardordner können nicht gelöscht werden",
+      "loadFilesError": "Fehler beim Laden der Dateien."
+    },
+    "createContent": {
+      "title": "Inhalte erstellen",
+      "subtitle": "KI-gestützte Inhalte für die Markenstimme Ihres Kunden generieren",
+      "step1": "1 · Kunde & Plattform",
+      "step2": "2 · Ihr Entwurf",
+      "step3": "3 · Variation auswählen",
+      "selectClient": "Kunden auswählen…",
+      "noClient": "Kein Kunde (generisch)",
+      "voiceSet": "Stimme gesetzt",
+      "brandVoiceActive": "Markenstimme aktiv",
+      "brandVoiceTooltip": "Die KI schreibt automatisch im Ton dieses Kunden.",
+      "templatesLabel": "Vorlagen →",
+      "placeholder": "Schreiben oder fügen Sie Ihren Entwurf hier ein… (Strg+Enter zum Generieren)",
+      "charLimit": "{{count}} / 500",
+      "creativityLabel": "Kreativitätsstufe",
+      "generate": "Inhalt generieren →",
+      "generating": "3 Variationen werden generiert…",
+      "selectPlatformWarning": "Wählen Sie eine Plattform zum Generieren",
+      "selectClientWarning": "Wählen Sie einen Kunden zum Generieren",
+      "startOver": "↩ Neu beginnen",
+      "savedToHistory": "Im Verlauf von {{name}} gespeichert",
+      "copy": "Kopieren",
+      "copied": "✓ Kopiert",
+      "saveThis": "Speichern",
+      "savedVariation": "✓ Gespeichert",
+      "couldNotSave": "Konnte nicht im Verlauf gespeichert werden",
+      "savedSuccess": "Im Verlauf gespeichert",
+      "copiedSuccess": "In die Zwischenablage kopiert",
+      "templateLabels": {
+        "launch": "🚀 Launch",
+        "milestone": "🎯 Meilenstein",
+        "lesson": "💡 Lektion",
+        "announcement": "📢 Ankündigung",
+        "question": "❓ Frage"
+      },
+      "creativity": {
+        "precise": {
+          "label": "Präzise",
+          "desc": "Treu Ihrem Original"
+        },
+        "balanced": {
+          "label": "Ausgewogen",
+          "desc": "Der goldene Mittelweg"
+        },
+        "creative": {
+          "label": "Kreativ",
+          "desc": "Kühn und unerwartet"
+        }
+      },
+      "styleMeta": {
+        "professional": {
+          "label": "Professionell",
+          "desc": "Prägnant · klar und direkt"
+        },
+        "casual": {
+          "label": "Locker",
+          "desc": "Freundlich · mit Emojis"
+        },
+        "viral": {
+          "label": "Viral",
+          "desc": "Maximales Engagement"
+        }
+      }
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "subtitle": "Konto und Einstellungen verwalten",
+      "account": "Konto",
+      "signOut": "Abmelden",
+      "plan": "Plan",
+      "freePlan": "Kostenloser Plan",
+      "freeLimit": "15 Generierungen pro Tag",
+      "free": "Kostenlos",
+      "legal": "Rechtliches",
+      "termsOfService": "Nutzungsbedingungen",
+      "privacyPolicy": "Datenschutzrichtlinie",
+      "dangerZone": "Gefahrenzone",
+      "deleteAccount": "Konto löschen",
+      "deleteAccountDesc": "Konto und alle Daten dauerhaft löschen",
+      "delete": "Löschen",
+      "deleteAccountUnavailable": "Kontolöschung ist noch nicht verfügbar. Bitte kontaktieren Sie jorgecdev444@gmail.com",
+      "signedOut": "Erfolgreich abgemeldet",
+      "language": "Sprache",
+      "editName": "Anzeigenamen bearbeiten",
+      "nameSaved": "Name aktualisiert",
+      "nameError": "Name konnte nicht aktualisiert werden",
+      "save": "Speichern",
+      "saving": "Wird gespeichert…",
+      "cancel": "Abbrechen",
+      "noName": "Kein Name gesetzt",
+      "upgradePlan": "Plan upgraden"
+    },
+    "footer": {
+      "feedback": "Feedback senden",
+      "terms": "Nutzungsbedingungen",
+      "privacy": "Datenschutz",
+      "contact": "Kontakt",
+      "pricing": "Preise"
+    },
+    "feedback": {
+      "title": "Feedback hinterlassen",
+      "subtitle": "Was würden Sie verbessern? Was fehlt?",
+      "placeholder": "Hier schreiben…",
+      "cancel": "Abbrechen",
+      "send": "Senden",
+      "sending": "Wird gesendet…",
+      "thanks": "✓ Danke für Ihr Feedback!",
+      "error": "Feedback konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
+    },
+    "languages": {
+      "en": "English",
+      "es": "Español",
+      "ca": "Català",
+      "fr": "Français",
+      "zh": "中文",
+      "de": "Deutsch",
+      "ja": "日本語",
+      "hi": "हिन्दी"
+    },
+    "pricing": {
+      "badge": "Einfache, transparente Preise",
+      "title1": "Pläne für jeden",
+      "title2": "Community Manager",
+      "subtitle": "Kostenlos starten, upgraden wenn nötig. Keine versteckten Gebühren.",
+      "monthly": "Monatlich",
+      "yearly": "Jährlich",
+      "saveBadge": "Bis zu 27% sparen",
+      "savedVsMonthly": "€{{amount}} gespart vs. monatlich",
+      "orBilledYearly": "oder €{{amount}}/Mo. jährlich abgerechnet",
+      "perMonth": "/Mo.",
+      "back": "← Zurück",
+      "comingSoon": "Demnächst",
+      "reassurance": {
+        "noCard": {
+          "icon": "🔒",
+          "title": "Keine Kreditkarte erforderlich",
+          "desc": "Kostenlos starten, upgraden wenn bereit."
+        },
+        "cancel": {
+          "icon": "↩️",
+          "title": "Jederzeit kündigen",
+          "desc": "Keine Bindung. In einem Klick kündigen."
+        },
+        "instant": {
+          "icon": "⚡",
+          "title": "Sofortiger Zugang",
+          "desc": "Ihr Plan wird sofort nach der Buchung aktiviert."
+        }
+      },
+      "plans": {
+        "free": {
+          "name": "Kostenlos",
+          "description": "Testen Sie Orkly und sehen Sie den Unterschied.",
+          "cta": "Kostenlos starten",
+          "features": [
+            "3 Kunden",
+            "30 KI-Generierungen / Monat",
+            "3 Inhaltsstile",
+            "Generierungsverlauf pro Kunde",
+            "6 Plattformen unterstützt",
+            "Mehrsprachige Oberfläche"
+          ]
+        },
+        "solo": {
+          "name": "Solo",
+          "description": "Für den freiberuflichen Community Manager.",
+          "cta": "Solo starten",
+          "features": [
+            "15 Kunden",
+            "300 KI-Generierungen / Monat",
+            "Alles aus dem kostenlosen Plan",
+            "Markenstimme pro Kunde",
+            "Plattformeinstellungen pro Kunde",
+            "5 GB Speicher",
+            "*Hashtag-Empfehlungen",
+            "*Content-Wiederverwendung"
+          ]
+        },
+        "pro": {
+          "name": "Pro",
+          "description": "Für den etablierten Freelancer.",
+          "cta": "Pro starten",
+          "badge": "Beliebteste",
+          "features": [
+            "Unbegrenzte Kunden",
+            "Unbegrenzte KI-Generierungen",
+            "Alles aus dem Solo-Plan",
+            "50 GB Speicher",
+            "*Ordner mit Kunden teilen",
+            "*Branding-Extraktor",
+            "*Karussell-Generierung",
+            "*KI-Inhaltskalender",
+            "*Beitragsplanung",
+            "*Wiederkehrende Beiträge",
+            "*Inhaltsfreigabe",
+            "*Berichte pro Kunde"
+          ]
+        },
+        "agency": {
+          "name": "Agentur",
+          "description": "Für kleine Agenturen.",
+          "cta": "Agentur starten",
+          "features": [
+            "Alles aus dem Pro-Plan",
+            "200 GB Speicher",
+            "*Mehrere Benutzer",
+            "*Mehrere Social-Konten pro Kunde",
+            "*Direktveröffentlichung",
+            "*White-Label"
+          ]
+        }
+      }
+    },
+    "landing": {
+      "tryItFree": "Kostenlos testen — ohne Anmeldung",
+      "featuresLabel": "Alles, was Sie brauchen",
+      "featuresTitle": "Für Community Manager entwickelt",
+      "feature1Title": "KI-Inhaltsgenerierung",
+      "feature1Desc": "Generieren Sie 3 Varianten — professionell, locker und viral — abgestimmt auf die Markenstimme jedes Kunden.",
+      "feature2Title": "Kundenverwaltung",
+      "feature2Desc": "Organisieren Sie jeden Kunden mit eigener Markenstimme, aktiven Plattformen und Inhaltsverlauf.",
+      "feature3Title": "Dateispeicher",
+      "feature3Desc": "Bewahren Sie Branding-Assets, Fotos und Verträge geordnet nach Kunde — immer griffbereit.",
+      "feature4Title": "6 Plattformen unterstützt",
+      "feature4Desc": "Instagram, LinkedIn, Twitter/X, TikTok, YouTube und Twitch — Inhalte für jede Plattform angepasst.",
+      "howLabel": "So funktioniert es",
+      "howTitle": "Vom Entwurf zur Veröffentlichung in Sekunden",
+      "step1Title": "Kunden hinzufügen",
+      "step1Desc": "Erstellen Sie ein Kundenprofil und definieren Sie die Markenstimme in wenigen Worten.",
+      "step2Title": "Entwurf schreiben",
+      "step2Desc": "Fügen Sie Ihre Idee ein oder nutzen Sie eine Vorlage zum Starten.",
+      "step3Title": "3 KI-Varianten erhalten",
+      "step3Desc": "Orkly generiert professionelle, lockere und virale Versionen — wählen Sie Ihre Lieblingsversion und kopieren Sie.",
+      "ctaTitle": "Verwalten Sie Ihre Kunden noch heute",
+      "ctaSubtitle": "Kostenlose Version verfügbar. Keine Kreditkarte erforderlich."
+    }
+  }
+}

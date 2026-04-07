@@ -1,0 +1,425 @@
+{
+  "translation": {
+    "and": "および",
+    "saved": "保存済み",
+    "nav": {
+      "signIn": "ログイン"
+    },
+    "dashboard": {
+      "signInRequired": "ダッシュボードにアクセスするにはログインしてください",
+      "loadClientsError": "クライアントの読み込みに失敗しました。もう一度お試しください。"
+    },
+    "hero": {
+      "badge": "コミュニティマネージャー向けAIコンテンツツール",
+      "title1": "クライアントのソーシャルメディアを",
+      "title2": "オーケストレート。",
+      "subtitle": "全クライアントを一つのダッシュボードで。代理店とフリーランサー向け。",
+      "builtFor": "対応プラットフォーム"
+    },
+    "compose": {
+      "label": "下書き",
+      "placeholder": "ここに投稿を入力または貼り付け… (Ctrl+Enterで改善)",
+      "charLimit": "{{count}} / 500",
+      "improve": "投稿を改善 →",
+      "generating": "生成中…"
+    },
+    "templates": {
+      "label": "テンプレート →",
+      "launch": "[X ヶ月]の作業の末、本日[製品名]をローンチします。[簡単な説明]。[感情]でこれを共有します。",
+      "milestone": "🎯 マイルストーン：[数字/達成]。[時間]前に[状況]から始めました。今日は[達成]を祝います。",
+      "lesson": "💡 [場所]で学んだ教訓：[主な教訓]。以前は[古い信念]と思っていました。今は[新しい視点]を理解しています。",
+      "announcement": "📢 [発表内容]。[いつ]から、[何が変わるか]。これは[利点]を意味します。[行動喚起]。",
+      "question": "コミュニティへの質問：[具体的な質問]？私の経験では[文脈]。あなたはどうしていますか？"
+    },
+    "loading": {
+      "generating": "AIで<strong>3つのバリエーション</strong>を生成中…"
+    },
+    "variations": {
+      "label": "生成されたバリエーション",
+      "copy": "コピー",
+      "copied": "✓ コピー済み"
+    },
+    "cta": {
+      "title": "クライアントのために保存する",
+      "subtitle": "ログインしてクライアント、ブランドボイス、生成履歴を管理。",
+      "button": "無料でサインイン →"
+    },
+    "auth": {
+      "welcome": "おかえりなさい。サインインしてください。",
+      "subtitle": "クライアントとコンテンツを管理するにはサインインしてください。",
+      "google": "Googleで続ける",
+      "terms": "サインインすることで同意します",
+      "termsLink": "利用規約",
+      "privacyLink": "プライバシーポリシー",
+      "orEmail": "またはメールで続ける",
+      "email": "メール",
+      "password": "パスワード",
+      "login": "サインイン",
+      "register": "アカウント作成",
+      "loggingIn": "サインイン中…",
+      "sendingVerification": "確認メールを送信中…",
+      "hasAccount": "すでにアカウントをお持ちですか？",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "switchToLogin": "サインイン",
+      "switchToRegister": "サインアップ",
+      "magicLink": "マジックリンクを送る",
+      "sendingMagicLink": "送信中…",
+      "magicLinkSent": "メールを確認してください！マジックリンクを送りました。",
+      "errorInvalidCredentials": "メールまたはパスワードが無効です。",
+      "errorEmailTaken": "このメールはすでに登録されています。",
+      "errorGeneric": "問題が発生しました。もう一度お試しください。",
+      "emailPlaceholder": "you@example.com",
+      "passwordPlaceholder": "パスワード",
+      "welcomeToast": "Orklyへようこそ！🎉 準備完了。",
+      "displayName": "フルネーム",
+      "displayNamePlaceholder": "お名前（任意）",
+      "sendVerification": "確認メールを送る",
+      "registerSuccess": "もうすぐです。アカウントを確認するメールを確認してください。",
+      "logginSuccess": "ログイン成功",
+      "errorGoogleSignIn": "Googleでのサインインエラー。もう一度お試しください。",
+      "errorPasswordLength": "パスワードは8文字以上必要です",
+      "errorPasswordUppercase": "少なくとも1つの大文字を含める必要があります",
+      "errorPasswordNumber": "少なくとも1つの数字を含める必要があります",
+      "ruleLength": "最低8文字",
+      "ruleUppercase": "大文字1つ",
+      "ruleNumber": "数字1つ"
+    },
+    "sidebar": {
+      "clients": "クライアント",
+      "createContent": "コンテンツ作成",
+      "settings": "設定"
+    },
+    "clients": {
+      "title": "クライアント",
+      "subtitle": "全クライアントを一か所で管理",
+      "newClient": "+ 新規クライアント",
+      "searchPlaceholder": "クライアントを検索...",
+      "sortAlphabetical": "五十音順",
+      "sortNewest": "新しい順",
+      "sortOldest": "古い順",
+      "totalClients": "クライアント総数",
+      "withBrandVoice": "ブランドボイスあり",
+      "addedThisMonth": "今月追加",
+      "loading": "クライアントを読み込み中...",
+      "noClientsFound": "クライアントが見つかりません"
+    },
+    "clientCard": {
+      "brandVoice": "ブランドボイス",
+      "noBrandVoice": "ブランドボイス未設定",
+      "added": "追加日 {{date}}",
+      "voiceSet": "ボイス設定済み",
+      "noVoice": "ボイスなし",
+      "cancel": "キャンセル",
+      "save": "保存",
+      "saved": "保存済み",
+      "saving": "保存中…",
+      "deleted": "クライアント削除済み",
+      "describeBrandVoice": "ブランドボイスを説明…",
+      "deleteConfirm": "\"{{name}}\"を削除しますか？この操作は元に戻せません。"
+    },
+    "addClient": {
+      "title": "新規クライアント",
+      "clientName": "クライアント名",
+      "clientNamePlaceholder": "株式会社サンプル",
+      "brandVoice": "ブランドボイス",
+      "brandVoiceOptional": "（任意）",
+      "brandVoicePlaceholder": "例：親切で直接的。短い文。専門用語なし。",
+      "cancel": "キャンセル",
+      "create": "クライアントを作成",
+      "creating": "作成中…",
+      "success": "クライアント作成済み"
+    },
+    "clientDetail": {
+      "back": "クライアントに戻る",
+      "loading": "クライアントを読み込み中...",
+      "brandVoice": "ブランドボイス",
+      "noBrandVoice": "まだブランドボイスが定義されていません。",
+      "brandVoiceTooltip": "AIはこのクライアントのトーンで自動的に書きます。",
+      "addedOn": "追加日",
+      "generateContent": "コンテンツを生成",
+      "editClient": "クライアントを編集",
+      "deleteClient": "クライアントを削除",
+      "deleteConfirm": "\"{{name}}\"を削除しますか？この操作は元に戻せません。",
+      "saveChanges": "変更を保存",
+      "saving": "保存中…",
+      "save": "保存",
+      "cancel": "キャンセル",
+      "clientName": "クライアント名",
+      "brandVoiceLabel": "ブランドボイス",
+      "brandVoiceOptional": "（任意）",
+      "brandVoicePlaceholder": "例：親切で直接的。短い文。専門用語なし。",
+      "editBrandVoice": "ブランドボイスを編集",
+      "platforms": "プラットフォーム",
+      "allPlatforms": "全プラットフォーム",
+      "platformsUpdated": "プラットフォーム更新済み",
+      "folders": "フォルダ",
+      "newFolder": "新規フォルダ",
+      "folderBranding": "ブランディング",
+      "folderPhotos": "写真",
+      "folderVideos": "動画",
+      "folderContracts": "契約書",
+      "folderContent": "コンテンツ",
+      "folderNamePlaceholder": "フォルダ名",
+      "deleteFolderConfirm": "フォルダ\"{{name}}\"を削除しますか？この操作は元に戻せません。",
+      "generationHistory": "生成履歴",
+      "noGenerations": "まだ生成がありません。コンテンツを生成するとここに表示されます。",
+      "noGenerationsForPlatform": "{{platform}}の生成がまだありません。",
+      "totalGenerations": "生成総数",
+      "original": "元のテキスト",
+      "deleted": "クライアント削除済み",
+      "brandVoiceUpdated": "ブランドボイス更新済み",
+      "fileUploadSoon": "ファイルアップロード近日公開",
+      "loadingFiles": "ファイルを読み込み中…",
+      "noFiles": "このフォルダにまだファイルがありません。",
+      "fileName": "名前",
+      "fileSize": "サイズ",
+      "deleteFile": "{{name}}を削除",
+      "deleteFolder": "フォルダ{{name}}を削除",
+      "fileUploaded": "ファイルが正常にアップロードされました",
+      "uploadFile": "ファイルをアップロード",
+      "fileDeleted": "ファイル削除済み",
+      "deleteFileConfirm": "\"{{name}}\"を削除しますか？この操作は元に戻せません。",
+      "folderDeleted": "フォルダ削除済み",
+      "folderCreated": "フォルダ作成済み",
+      "folderAlreadyExists": "この名前のフォルダはすでに存在します",
+      "cannotDeleteDefaultFolder": "デフォルトフォルダは削除できません",
+      "loadFilesError": "ファイルの読み込みエラー。"
+    },
+    "createContent": {
+      "title": "コンテンツを作成",
+      "subtitle": "クライアントのブランドボイスに合わせたAIコンテンツを生成",
+      "step1": "1 · クライアント & プラットフォーム",
+      "step2": "2 · 下書き",
+      "step3": "3 · バリエーションを選択",
+      "selectClient": "クライアントを選択…",
+      "noClient": "クライアントなし（汎用）",
+      "voiceSet": "ボイス設定済み",
+      "brandVoiceActive": "ブランドボイス有効",
+      "brandVoiceTooltip": "AIはこのクライアントのトーンで自動的に書きます。",
+      "templatesLabel": "テンプレート →",
+      "placeholder": "ここに下書きを入力または貼り付け… (Ctrl+Enterで生成)",
+      "charLimit": "{{count}} / 500",
+      "creativityLabel": "クリエイティビティレベル",
+      "generate": "コンテンツを生成 →",
+      "generating": "3つのバリエーションを生成中…",
+      "selectPlatformWarning": "生成するプラットフォームを選択",
+      "selectClientWarning": "生成するクライアントを選択",
+      "startOver": "↩ やり直す",
+      "savedToHistory": "{{name}}の生成履歴に保存済み",
+      "copy": "コピー",
+      "copied": "✓ コピー済み",
+      "saveThis": "保存する",
+      "savedVariation": "✓ 保存済み",
+      "couldNotSave": "履歴に保存できませんでした",
+      "savedSuccess": "履歴に保存済み",
+      "copiedSuccess": "クリップボードにコピー済み",
+      "templateLabels": {
+        "launch": "🚀 ローンチ",
+        "milestone": "🎯 マイルストーン",
+        "lesson": "💡 教訓",
+        "announcement": "📢 お知らせ",
+        "question": "❓ 質問"
+      },
+      "creativity": {
+        "precise": {
+          "label": "正確",
+          "desc": "元のテキストに忠実"
+        },
+        "balanced": {
+          "label": "バランス",
+          "desc": "ベストな中間点"
+        },
+        "creative": {
+          "label": "クリエイティブ",
+          "desc": "大胆で予想外"
+        }
+      },
+      "styleMeta": {
+        "professional": {
+          "label": "プロフェッショナル",
+          "desc": "簡潔 · 明確で直接的"
+        },
+        "casual": {
+          "label": "カジュアル",
+          "desc": "フレンドリー · 絵文字付き"
+        },
+        "viral": {
+          "label": "バイラル",
+          "desc": "最大エンゲージメント"
+        }
+      }
+    },
+    "settings": {
+      "title": "設定",
+      "subtitle": "アカウントと設定を管理",
+      "account": "アカウント",
+      "signOut": "サインアウト",
+      "plan": "プラン",
+      "freePlan": "無料プラン",
+      "freeLimit": "1日15回生成",
+      "free": "無料",
+      "legal": "法的情報",
+      "termsOfService": "利用規約",
+      "privacyPolicy": "プライバシーポリシー",
+      "dangerZone": "危険ゾーン",
+      "deleteAccount": "アカウントを削除",
+      "deleteAccountDesc": "アカウントとすべてのデータを完全に削除",
+      "delete": "削除",
+      "deleteAccountUnavailable": "アカウント削除はまだ利用できません。jorgecdev444@gmail.comにお問い合わせください",
+      "signedOut": "正常にサインアウトしました",
+      "language": "言語",
+      "editName": "表示名を編集",
+      "nameSaved": "名前を更新しました",
+      "nameError": "名前を更新できませんでした",
+      "save": "保存",
+      "saving": "保存中…",
+      "cancel": "キャンセル",
+      "noName": "名前未設定",
+      "upgradePlan": "プランをアップグレード"
+    },
+    "footer": {
+      "feedback": "フィードバックを送る",
+      "terms": "利用規約",
+      "privacy": "プライバシー",
+      "contact": "お問い合わせ",
+      "pricing": "料金"
+    },
+    "feedback": {
+      "title": "フィードバックを残す",
+      "subtitle": "何を改善しますか？何が不足していますか？",
+      "placeholder": "ここに書く…",
+      "cancel": "キャンセル",
+      "send": "送信",
+      "sending": "送信中…",
+      "thanks": "✓ フィードバックありがとうございます！",
+      "error": "フィードバックを送信できませんでした。もう一度お試しください。"
+    },
+    "languages": {
+      "en": "English",
+      "es": "Español",
+      "ca": "Català",
+      "fr": "Français",
+      "zh": "中文",
+      "de": "Deutsch",
+      "ja": "日本語",
+      "hi": "हिन्दी"
+    },
+    "pricing": {
+      "badge": "シンプルで透明な料金",
+      "title1": "すべての",
+      "title2": "コミュニティマネージャーのためのプラン",
+      "subtitle": "無料で始め、必要に応じてアップグレード。隠れた費用なし。",
+      "monthly": "月払い",
+      "yearly": "年払い",
+      "saveBadge": "最大27%節約",
+      "savedVsMonthly": "月払いより€{{amount}}節約",
+      "orBilledYearly": "または年払いで€{{amount}}/月",
+      "perMonth": "/月",
+      "back": "← 戻る",
+      "comingSoon": "近日公開",
+      "reassurance": {
+        "noCard": {
+          "icon": "🔒",
+          "title": "クレジットカード不要",
+          "desc": "無料で始め、準備ができたらアップグレード。"
+        },
+        "cancel": {
+          "icon": "↩️",
+          "title": "いつでもキャンセル",
+          "desc": "縛りなし。ワンクリックでキャンセル。"
+        },
+        "instant": {
+          "icon": "⚡",
+          "title": "即時アクセス",
+          "desc": "サブスクライブした瞬間にプランが有効になります。"
+        }
+      },
+      "plans": {
+        "free": {
+          "name": "無料",
+          "description": "Orklyを試して違いを体験。",
+          "cta": "無料で始める",
+          "features": [
+            "3クライアント",
+            "30 AI生成/月",
+            "3コンテンツスタイル",
+            "クライアントごとの生成履歴",
+            "6プラットフォーム対応",
+            "多言語インターフェース"
+          ]
+        },
+        "solo": {
+          "name": "ソロ",
+          "description": "フリーランスのコミュニティマネージャー向け。",
+          "cta": "ソロを始める",
+          "features": [
+            "15クライアント",
+            "300 AI生成/月",
+            "無料プランのすべて",
+            "クライアントごとのブランドボイス",
+            "クライアントごとのプラットフォーム設定",
+            "5GBストレージ",
+            "*ハッシュタグ推薦",
+            "*コンテンツ再利用"
+          ]
+        },
+        "pro": {
+          "name": "プロ",
+          "description": "確立したフリーランサー向け。",
+          "cta": "プロを始める",
+          "badge": "最も人気",
+          "features": [
+            "無制限クライアント",
+            "無制限AI生成",
+            "ソロプランのすべて",
+            "50GBストレージ",
+            "*クライアントとフォルダを共有",
+            "*ウェブからブランディング抽出",
+            "*カルーセル生成",
+            "*AIコンテンツカレンダー",
+            "*投稿スケジューリング",
+            "*定期投稿",
+            "*クライアントコンテンツ承認",
+            "*クライアントごとのレポート"
+          ]
+        },
+        "agency": {
+          "name": "エージェンシー",
+          "description": "小規模エージェンシー向け。",
+          "cta": "エージェンシーを始める",
+          "features": [
+            "プロプランのすべて",
+            "200GBストレージ",
+            "*複数ユーザー/シート",
+            "*クライアントごとの複数ソーシャルアカウント",
+            "*ダイレクト公開",
+            "*ホワイトラベル"
+          ]
+        }
+      }
+    },
+    "landing": {
+      "tryItFree": "無料で試す — 登録不要",
+      "featuresLabel": "必要なものがすべて",
+      "featuresTitle": "コミュニティマネージャーのために",
+      "feature1Title": "AIコンテンツ生成",
+      "feature1Desc": "プロフェッショナル、カジュアル、バイラルの3バリエーションを各クライアントのブランドボイスに合わせて生成。",
+      "feature2Title": "クライアント管理",
+      "feature2Desc": "各クライアントのブランドボイス、アクティブなプラットフォーム、コンテンツ履歴を整理。",
+      "feature3Title": "ファイルストレージ",
+      "feature3Desc": "ブランディング素材、写真、契約書をクライアントごとに整理 — いつでもすぐアクセス。",
+      "feature4Title": "6プラットフォーム対応",
+      "feature4Desc": "Instagram、LinkedIn、Twitter/X、TikTok、YouTube、Twitch — 各プラットフォームに最適化。",
+      "howLabel": "使い方",
+      "howTitle": "下書きから公開準備まで数秒で",
+      "step1Title": "クライアントを追加",
+      "step1Desc": "クライアントプロフィールを作成し、ブランドボイスを数語で定義します。",
+      "step2Title": "下書きを書く",
+      "step2Desc": "アイデアを貼り付けるか、テンプレートを使って始めましょう。",
+      "step3Title": "3つのAIバリエーションを取得",
+      "step3Desc": "Orklyがプロ、カジュアル、バイラルの3バージョンを生成 — お気に入りを選んでコピー。",
+      "ctaTitle": "今日からクライアントを管理しよう",
+      "ctaSubtitle": "無料プランあり。クレジットカード不要。"
+    }
+  }
+}

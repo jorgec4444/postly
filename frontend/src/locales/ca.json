@@ -5,6 +5,29 @@
     "nav": {
       "signIn": "Inicia sessió"
     },
+    "landing": {
+      "tryItFree": "Prova-ho gratis — sense registre",
+      "featuresLabel": "Tot el que necessites",
+      "featuresTitle": "Fet per a community managers",
+      "feature1Title": "Generació de contingut amb IA",
+      "feature1Desc": "Genera 3 variacions — professional, casual i viral — adaptades a la veu de cada client.",
+      "feature2Title": "Gestió de clients",
+      "feature2Desc": "Organitza cada client amb la seva pròpia veu de marca, plataformes actives i historial de contingut.",
+      "feature3Title": "Emmagatzematge de fitxers",
+      "feature3Desc": "Guarda assets de branding, fotos i contractes organitzats per client — sempre a mà.",
+      "feature4Title": "6 plataformes suportades",
+      "feature4Desc": "Instagram, LinkedIn, Twitter/X, TikTok, YouTube i Twitch — contingut adaptat a cadascuna.",
+      "howLabel": "Com funciona",
+      "howTitle": "De l'esborrany a llest per publicar en segons",
+      "step1Title": "Afegeix el teu client",
+      "step1Desc": "Crea un perfil de client i defineix la seva veu de marca en poques paraules.",
+      "step2Title": "Escriu el teu esborrany",
+      "step2Desc": "Enganxa la teva idea o usa una de les plantilles per començar.",
+      "step3Title": "Obtén 3 variacions amb IA",
+      "step3Desc": "Orkly genera versions professional, casual i viral — tria la que més t'agradi i copia.",
+      "ctaTitle": "Comença a gestionar els teus clients avui",
+      "ctaSubtitle": "Pla gratuït disponible. Sense targeta de crèdit."
+    },
     "dashboard": {
       "signInRequired": "Per favor inicia sessió per accedir al panell de control de clients",
       "loadClientsError": "Error carregant clients. Si us plau, torna-ho a provar."

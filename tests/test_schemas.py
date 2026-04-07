@@ -5,8 +5,8 @@
 import pytest
 from pydantic import ValidationError
 
-from backend.app.schemas import FeedbackRequest, TextRequest
-
+from backend.app.feedback.schemas import FeedbackRequest
+from backend.app.text_generation.schemas import TextRequest
 
 class TestTextRequest:
     def test_valid_request(self):
