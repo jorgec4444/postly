@@ -22,6 +22,7 @@ export default function ClientAvatar({ initials, logoUrl, onUpload, onDelete, up
             src={logoUrl}
             alt={initials}
             className="w-full h-full object-cover"
+            style={{ width: "100%", height: "100%", borderRadius: 0 }}
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-bold text-lg">
