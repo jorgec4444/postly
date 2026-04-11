@@ -8,7 +8,7 @@ from app.auth.dependencies import get_current_user
 from app.text_generation.schemas import GenerationsResponse
 from .schemas import ClientResponse, ClientCreateRequest, ClientUpdateRequest
 from . import service
-from fastapi import APIRouter, Depends, status, HTTPException
+from fastapi import APIRouter, Depends, status, HTTPException, UploadFile
 
 logger = logging.getLogger(__name__)
 
@@ -78,3 +78,12 @@ async def delete_client(client_id: int, user = Depends(get_current_user)):
 
     if not deleted:
         raise HTTPException(status_code=404, detail="Client not found")
+
+@router.post("/{client_id}/logo", response_model=dict)
+async def upload_logo(
+    client_id: int,
+    file: UploadFile,
+    user = Depends(get_current_user)
+):
+    """Upload a client logo directly to R2 logos bucket."""
+    return await service.upload_client_logo(client_id, file, user.id)

@@ -7,6 +7,7 @@ import FilterSelect from "../components/FilterSelect";
 import { apiFetch } from "../utils/apiFetch";
 import FolderSection from "../components/FolderSection";
 import ClientAvatar from "../components/ClientAvatar";
+import { supabase } from "../supabase";
 
 const PLATFORMS = [
   { id: "instagram", label: "Instagram", emoji: "📸", color: "text-pink-500", bg: "bg-pink-50 border-pink-200" },
@@ -180,19 +181,15 @@ const handleDeleteFolder = async (folder) => {
   const handleUploadLogo = async (file) => {
     setUploadingLogo(true);
     try {
-      const { url, file_path } = await apiFetch(`/storage/upload/${id}/logo`, {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const { logo_url } = await apiFetch(`/client/${id}/logo`, {
         method: "POST",
-        body: JSON.stringify({ file_name: file.name, mime_type: file.type }),
+        body: formData
       });
-      await fetch(url, {
-        method: "PUT",
-        headers: { "Content-Type": file.type },
-        body: file,
-      });
-      const updated = await apiFetch(`/client/${id}`, {
-        method: "PUT",
-        body: JSON.stringify({ logo_url: file_path }),
-      });
+
+      const updated = { ...client, logo_url };
       setClient(updated);
       setClients(prev => prev.map(c => c.id === updated.id ? updated : c));
       toast.success(t("clientDetail.logoUploaded"));

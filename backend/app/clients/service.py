@@ -7,7 +7,8 @@ import logging
 from app.database import get_supabase
 from app.text_generation.service import fetch_client_generations
 from datetime import datetime, timezone 
-
+from app.config import get_r2_logos_client, R2_LOGOS_BUCKET_NAME, R2_PUBLIC_URL
+from fastapi import UploadFile, HTTPException
 from app.text_generation.schemas import GenerationsResponse
 
 
@@ -107,3 +108,44 @@ async def soft_delete_client(client_id: int, user_id: str) -> bool:
     )
 
     return bool(response.data)
+
+async def upload_client_logo(client_id: int, file: UploadFile, user_id: str) -> dict:
+    """Upload a client logo to R2 logos bucket and update the client record."""
+    
+    db = get_supabase()
+    
+    # Verificar ownership
+    client = db.table("clients").select("id").eq("id", client_id).eq("user_id", user_id).single().execute()
+    if not client.data:
+        raise HTTPException(status_code=404, detail="Client not found")
+    
+    r2 = get_r2_logos_client()
+    path = f"{user_id}/{client_id}/logo/{file.filename}"
+    
+    try:
+        contents = await file.read()
+        r2.put_object(
+            Bucket=R2_LOGOS_BUCKET_NAME,
+            Key=path,
+            Body=contents,
+            ContentType=file.content_type,
+        )
+        logger.info("Successfully uploaded logo to R2")
+    except Exception as e:
+        logger.error(f"Error uploading logo to R2: {e}")
+        raise HTTPException(status_code=500, detail="Failed to upload logo") from e
+    
+    public_url = f"{R2_PUBLIC_URL}/{path}"
+    
+    try:
+        response = (
+            db.table("clients")
+            .update({"logo_url": public_url})
+            .eq("id", client_id)
+            .eq("user_id", user_id)
+            .execute()
+        )
+        return {"logo_url": public_url}
+    except Exception as e:
+        logger.error(f"Error saving logo_url: {e}")
+        raise HTTPException(status_code=500, detail="Failed to save logo URL") from e

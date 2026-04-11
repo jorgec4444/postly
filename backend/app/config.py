@@ -31,6 +31,11 @@ R2_SECRET_ACCESS_KEY: Optional[str] = os.getenv("R2_SECRET_ACCESS_KEY")
 R2_BUCKET_NAME: Optional[str] = os.getenv("R2_BUCKET_NAME")
 R2_ENDPOINT: Optional[str] = os.getenv("R2_ENDPOINT")
 
+# ── R2 Storage public logos bucket (Cloudflare) ─────────────────────────────────────────────────
+
+R2_LOGOS_BUCKET_NAME = os.getenv("R2_LOGOS_BUCKET_NAME", "orkly-logos")
+R2_PUBLIC_URL = os.getenv("R2_PUBLIC_URL", "")
+
 # ── Admin ─────────────────────────────────────────────────────────────────────
 ADMIN_API_KEY: Optional[str] = os.getenv("ADMIN_API_KEY")
 
@@ -106,4 +111,39 @@ def init_r2_client():
 
 def get_r2_client():
     """Return the cached R2 client, or None if unavailable."""
+    if _r2_client is None:
+        return init_r2_client()
     return _r2_client
+
+_r2_logos_client = None
+
+def init_r2_logos_client():
+    """Initialise and cache the R2 logos client. Safe to call multiple times."""
+    global _r2_logos_client
+    if _r2_logos_client is not None:
+        return _r2_logos_client
+
+    if not all([R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_ENDPOINT, R2_LOGOS_BUCKET_NAME]):
+        print("[config] R2 logos client NOT initialised — missing one or more R2_* env vars.")
+        return None
+    try:
+        import boto3
+        _r2_logos_client = boto3.client(
+            "s3",
+            endpoint_url=R2_ENDPOINT,
+            aws_access_key_id=R2_ACCESS_KEY_ID,
+            aws_secret_access_key=R2_SECRET_ACCESS_KEY,
+            region_name="auto",
+        )
+        print(f"[config] R2 logos client initialised (bucket={R2_LOGOS_BUCKET_NAME}).")
+        return _r2_logos_client
+    except Exception as exc:
+        print(f"[config] ERROR initialising R2 logos client: {exc}")
+        return None
+
+
+def get_r2_logos_client():
+    """Return the cached R2 logos client, or None if unavailable."""
+    if _r2_logos_client is None:
+        return init_r2_logos_client()
+    return _r2_logos_client
