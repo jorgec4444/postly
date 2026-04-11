@@ -87,3 +87,7 @@ async def upload_logo(
 ):
     """Upload a client logo directly to R2 logos bucket."""
     return await service.upload_client_logo(client_id, file, user.id)
+
+@router.delete("/{client_id}/logo", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_logo(client_id: int, user = Depends(get_current_user)):
+    return await service.delete_client_logo(client_id, user.id)

@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Camera, Trash2, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export default function ClientAvatar({ initials, logoUrl, onUpload, onDelete, uploading, editable }) {
+export default function ClientAvatar({ initials, logoUrl, onUpload, onDelete, uploading, editable, className = "w-14 h-14 rounded-2xl" }) {
   const fileInputRef = useRef(null);
   const { t } = useTranslation();
 
@@ -15,8 +15,8 @@ export default function ClientAvatar({ initials, logoUrl, onUpload, onDelete, up
 
   return (
     <div className="relative flex-shrink-0 group/avatar">
-      {/* Avatar — logo o iniciales */}
-      <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-sm">
+      {/* Avatar — logo or initials */}
+      <div className={`${className} overflow-hidden shadow-sm`}>
         {logoUrl ? (
           <img
             src={logoUrl}
@@ -31,14 +31,14 @@ export default function ClientAvatar({ initials, logoUrl, onUpload, onDelete, up
         )}
       </div>
 
-      {/* Spinner de carga */}
+      {/* Spinner */}
       {uploading && (
         <div className="absolute inset-0 rounded-2xl bg-black/50 flex items-center justify-center">
           <Loader2 className="w-5 h-5 text-white animate-spin" />
         </div>
       )}
 
-      {/* Overlay de edición — solo si editable y no cargando */}
+      {/* Edition overlay — only if editable and not loading */}
       {editable && !uploading && (
         <div className="absolute inset-0 rounded-2xl bg-black/40 opacity-0 group-hover/avatar:opacity-100 transition-opacity flex items-center justify-center gap-1.5">
           <button
@@ -60,7 +60,7 @@ export default function ClientAvatar({ initials, logoUrl, onUpload, onDelete, up
         </div>
       )}
 
-      {/* Input oculto */}
+      {/* Hidden input */}
       <input
         type="file"
         ref={fileInputRef}

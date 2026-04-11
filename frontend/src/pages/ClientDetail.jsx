@@ -7,7 +7,6 @@ import FilterSelect from "../components/FilterSelect";
 import { apiFetch } from "../utils/apiFetch";
 import FolderSection from "../components/FolderSection";
 import ClientAvatar from "../components/ClientAvatar";
-import { supabase } from "../supabase";
 
 const PLATFORMS = [
   { id: "instagram", label: "Instagram", emoji: "📸", color: "text-pink-500", bg: "bg-pink-50 border-pink-200" },
@@ -202,10 +201,8 @@ const handleDeleteFolder = async (folder) => {
 
   const handleDeleteLogo = async () => {
     try {
-      const updated = await apiFetch(`/client/${id}`, {
-        method: "PUT",
-        body: JSON.stringify({ logo_url: null }),
-      });
+      await apiFetch(`/client/${id}/logo`, { method: "DELETE" });
+      const updated = { ...client, logo_url: null };
       setClient(updated);
       setClients(prev => prev.map(c => c.id === updated.id ? updated : c));
       toast.success(t("clientDetail.logoDeleted"));

@@ -114,7 +114,7 @@ async def upload_client_logo(client_id: int, file: UploadFile, user_id: str) -> 
     
     db = get_supabase()
     
-    # Verificar ownership
+    # Verify ownership
     client = db.table("clients").select("id").eq("id", client_id).eq("user_id", user_id).single().execute()
     if not client.data:
         raise HTTPException(status_code=404, detail="Client not found")
@@ -149,3 +149,22 @@ async def upload_client_logo(client_id: int, file: UploadFile, user_id: str) -> 
     except Exception as e:
         logger.error(f"Error saving logo_url: {e}")
         raise HTTPException(status_code=500, detail="Failed to save logo URL") from e
+    
+async def delete_client_logo(client_id: int, user_id: str) -> None:
+    db = get_supabase()
+    client = db.table("clients").select("id, logo_url").eq("id", client_id).eq("user_id", user_id).single().execute()
+    
+    if not client.data or not client.data.get("logo_url"):
+        raise HTTPException(status_code=404, detail="Logo not found")
+
+    logo_url = client.data["logo_url"]
+    path = logo_url.replace(f"{R2_PUBLIC_URL}/", "")
+
+    r2 = get_r2_logos_client()
+    try:
+        r2.delete_object(Bucket=R2_LOGOS_BUCKET_NAME, Key=path)
+    except Exception as e:
+        logger.error(f"Error deleting logo from R2: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete logo from R2") from e
+
+    db.table("clients").update({"logo_url": None}).eq("id", client_id).eq("user_id", user_id).execute()

@@ -3,6 +3,7 @@ import { Calendar, AlertCircle, CheckCircle2, Pencil, Trash2 } from "lucide-reac
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import toast from 'react-hot-toast';
+import ClientAvatar from "./ClientAvatar";
 
 export default function ClientCard({ client, onDeleted, onUpdated, apiFetch }) {
   const [editing, setEditing] = useState(false);
@@ -86,9 +87,12 @@ export default function ClientCard({ client, onDeleted, onUpdated, apiFetch }) {
       {/* ── Header ── */}
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
-          <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white font-semibold text-base flex-shrink-0 shadow-sm">
-            {initials}
-          </div>
+          <ClientAvatar
+            initials={initials}
+            logoUrl={client.logo_url}
+            editable={false}
+            className="w-11 h-11 rounded-full"
+          />
           <div className="min-w-0">
             {editing ? (
               <input
