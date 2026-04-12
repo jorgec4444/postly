@@ -14,7 +14,6 @@ import ReactMarkdown from "react-markdown";
 // ── Client selector ────────────────────────────────────────────────────────
 function ClientSelector({ clients, selected, onSelect }) {
   const [open, setOpen] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const { t } = useTranslation();
   const ref = useRef(null);
   const selectedClient = clients.find(c => c.id === selected);
@@ -181,6 +180,7 @@ export default function Chat() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [streaming, setStreaming] = useState(false);
   const [loadingSessions, setLoadingSessions] = useState(true);
   const [selectedClientId, setSelectedClientId] = useState(null);
