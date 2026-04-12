@@ -14,6 +14,7 @@ import ReactMarkdown from "react-markdown";
 // ── Client selector ────────────────────────────────────────────────────────
 function ClientSelector({ clients, selected, onSelect }) {
   const [open, setOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const { t } = useTranslation();
   const ref = useRef(null);
   const selectedClient = clients.find(c => c.id === selected);
@@ -216,6 +217,7 @@ export default function Chat() {
   };
 
   const selectSession = async (sessionId) => {
+    setSidebarOpen(false);
     setActiveSessionId(sessionId);
     setMessages([]);
     
@@ -355,7 +357,17 @@ export default function Chat() {
     <div className="flex h-screen -m-4 md:-m-8 overflow-hidden">
 
       {/* ── Sessions sidebar ── */}
-      <aside className="w-64 flex-shrink-0 border-r border-gray-200 bg-white flex flex-col hidden md:flex">
+      <aside className={`
+        flex-shrink-0 border-r border-gray-200 bg-white flex flex-col
+        fixed inset-y-0 left-0 z-50 w-64 transition-transform duration-300
+        md:relative md:translate-x-0
+        ${sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black/30 z-40 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+      `}>
         {/* Header */}
         <div className="p-4 border-b border-gray-100 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-gray-700">{t("chat.conversations") || "Conversations"}</h2>
@@ -440,6 +452,13 @@ export default function Chat() {
               aria-label={t("chat.newChat") || "New chat"}
             >
               <Plus className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setSidebarOpen(o => !o)}
+              className="md:hidden p-1.5 rounded-lg text-gray-500 hover:text-primary hover:bg-primary/8 transition-colors"
+              aria-label="Open conversations"
+            >
+              <MessageSquare className="w-4 h-4" />
             </button>
 
             {/* Logo of the active client */}
