@@ -110,7 +110,8 @@
     "sidebar": {
       "clients": "Clients",
       "createContent": "Créer du contenu",
-      "settings": "Paramètres"
+      "settings": "Paramètres",
+      "chat": "Assistant IA"
     },
     "clients": {
       "title": "Clients",
@@ -308,7 +309,10 @@
       "es": "Español",
       "ca": "Català",
       "fr": "Français",
-      "zh": "中文"
+      "de": "Deutsch",
+      "zh": "中文",
+      "ja": "日本語",
+      "hi": "हिन्दी"
     },
     "pricing": {
       "badge": "Tarification simple et transparente",
@@ -403,6 +407,35 @@
           ]
         }
       }
+    },
+    "chat": {
+      "conversations": "Conversations",
+      "newChat": "Nouvelle conversation",
+      "noSessions": "Aucune conversation pour l'instant",
+      "today": "Aujourd'hui",
+      "yesterday": "Hier",
+      "generalChat": "Général",
+      "unknownClient": "Client",
+      "deleteSession": "Supprimer la conversation",
+      "aiAssistant": "Assistant IA",
+      "selectOrCreate": "Sélectionnez ou créez une conversation",
+      "noClient": "Sans client",
+      "selectClient": "Sélectionner un client",
+      "emptyTitle": "Comment puis-je vous aider aujourd'hui ?",
+      "emptySubtitle": "Posez-moi n'importe quelle question sur la stratégie de contenu, le copywriting ou les réseaux sociaux.",
+      "suggestion1": "Donnez-moi une stratégie de contenu pour une marque fitness",
+      "suggestion2": "Écrivez 5 légendes Instagram pour un café",
+      "suggestion3": "Quels sont les meilleurs horaires pour publier sur LinkedIn ?",
+      "suggestion4": "Créez un plan de calendrier de contenu sur 30 jours",
+      "placeholder": "Posez n'importe quelle question sur la stratégie de contenu, le copywriting…",
+      "send": "Envoyer le message",
+      "enterToSend": "Entrée pour envoyer · Maj+Entrée pour nouvelle ligne",
+      "errorLoadingSessions": "Impossible de charger les sessions",
+      "errorLoadingMessages": "Impossible de charger les messages",
+      "errorCreatingSession": "Impossible de créer la session",
+      "errorDeletingSession": "Impossible de supprimer la session",
+      "errorSending": "Impossible d'envoyer le message",
+      "noSession": "Créez d'abord une session"
     }
   }
 }

@@ -110,7 +110,8 @@
     "sidebar": {
       "clients": "Clients",
       "createContent": "Create content",
-      "settings": "Settings"
+      "settings": "Settings",
+      "chat": "AI Assistant"
     },
     "clients": {
       "title": "Clients",
@@ -308,7 +309,10 @@
       "es": "Español",
       "ca": "Català",
       "fr": "Français",
-      "zh": "中文"
+      "de": "Deutsch",
+      "zh": "中文",
+      "ja": "日本語",
+      "hi": "हिन्दी"
     },
     "pricing": {
       "badge": "Simple, transparent pricing",
@@ -403,6 +407,35 @@
           ]
         }
       }
+    },
+    "chat": {
+      "conversations": "Conversations",
+      "newChat": "New chat",
+      "noSessions": "No conversations yet",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "generalChat": "General",
+      "unknownClient": "Client",
+      "deleteSession": "Delete conversation",
+      "aiAssistant": "AI Assistant",
+      "selectOrCreate": "Select or create a conversation",
+      "noClient": "No client",
+      "selectClient": "Select client",
+      "emptyTitle": "How can I help you today?",
+      "emptySubtitle": "Ask me anything about content strategy, copywriting or social media.",
+      "suggestion1": "Give me a content strategy for a fitness brand",
+      "suggestion2": "Write 5 Instagram captions for a coffee shop",
+      "suggestion3": "What are the best posting times for LinkedIn?",
+      "suggestion4": "Create a 30-day content calendar outline",
+      "placeholder": "Ask anything about content strategy, copywriting…",
+      "send": "Send message",
+      "enterToSend": "Enter to send · Shift+Enter for new line",
+      "errorLoadingSessions": "Could not load sessions",
+      "errorLoadingMessages": "Could not load messages",
+      "errorCreatingSession": "Could not create session",
+      "errorDeletingSession": "Could not delete session",
+      "errorSending": "Could not send message",
+      "noSession": "Create a session first"
     }
   }
 }

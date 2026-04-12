@@ -110,7 +110,8 @@
     "sidebar": {
       "clients": "Clients",
       "createContent": "Crear contingut",
-      "settings": "Configuració"
+      "settings": "Configuració",
+      "chat": "Assistent IA"
     },
     "clients": {
       "title": "Clients",
@@ -308,7 +309,10 @@
       "es": "Español",
       "ca": "Català",
       "fr": "Français",
-      "zh": "中文"
+      "de": "Deutsch",
+      "zh": "中文",
+      "ja": "日本語",
+      "hi": "हिन्दी"
     },
     "pricing": {
       "badge": "Simple, preu transparent",
@@ -403,6 +407,35 @@
           ]
         }
       }
+    },
+    "chat": {
+      "conversations": "Converses",
+      "newChat": "Nova conversa",
+      "noSessions": "Sense converses encara",
+      "today": "Avui",
+      "yesterday": "Ahir",
+      "generalChat": "General",
+      "unknownClient": "Client",
+      "deleteSession": "Eliminar conversa",
+      "aiAssistant": "Assistent IA",
+      "selectOrCreate": "Selecciona o crea una conversa",
+      "noClient": "Sense client",
+      "selectClient": "Seleccionar client",
+      "emptyTitle": "En què et puc ajudar avui?",
+      "emptySubtitle": "Pregunta'm qualsevol cosa sobre estratègia de contingut, copywriting o xarxes socials.",
+      "suggestion1": "Dona'm una estratègia de contingut per a una marca de fitness",
+      "suggestion2": "Escriu 5 captions d'Instagram per a una cafeteria",
+      "suggestion3": "Quins són els millors horaris per publicar a LinkedIn?",
+      "suggestion4": "Crea un esquema de calendari de contingut de 30 dies",
+      "placeholder": "Pregunta qualsevol cosa sobre estratègia de contingut, copywriting…",
+      "send": "Enviar missatge",
+      "enterToSend": "Enter per enviar · Shift+Enter per nova línia",
+      "errorLoadingSessions": "No s'han pogut carregar les sessions",
+      "errorLoadingMessages": "No s'han pogut carregar els missatges",
+      "errorCreatingSession": "No s'ha pogut crear la sessió",
+      "errorDeletingSession": "No s'ha pogut eliminar la sessió",
+      "errorSending": "No s'ha pogut enviar el missatge",
+      "noSession": "Crea una sessió primer"
     }
   }
 }

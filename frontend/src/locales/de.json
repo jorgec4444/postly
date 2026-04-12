@@ -87,7 +87,8 @@
     "sidebar": {
       "clients": "Kunden",
       "createContent": "Inhalte erstellen",
-      "settings": "Einstellungen"
+      "settings": "Einstellungen",
+      "chat": "KI-Assistent"
     },
     "clients": {
       "title": "Kunden",
@@ -303,8 +304,8 @@
       "es": "Español",
       "ca": "Català",
       "fr": "Français",
-      "zh": "中文",
       "de": "Deutsch",
+      "zh": "中文",
       "ja": "日本語",
       "hi": "हिन्दी"
     },
@@ -424,6 +425,35 @@
       "step3Desc": "Orkly generiert professionelle, lockere und virale Versionen — wählen Sie Ihre Lieblingsversion und kopieren Sie.",
       "ctaTitle": "Verwalten Sie Ihre Kunden noch heute",
       "ctaSubtitle": "Kostenlose Version verfügbar. Keine Kreditkarte erforderlich."
+    },
+    "chat": {
+      "conversations": "Gespräche",
+      "newChat": "Neues Gespräch",
+      "noSessions": "Noch keine Gespräche",
+      "today": "Heute",
+      "yesterday": "Gestern",
+      "generalChat": "Allgemein",
+      "unknownClient": "Kunde",
+      "deleteSession": "Gespräch löschen",
+      "aiAssistant": "KI-Assistent",
+      "selectOrCreate": "Gespräch auswählen oder erstellen",
+      "noClient": "Kein Kunde",
+      "selectClient": "Kunde auswählen",
+      "emptyTitle": "Wie kann ich Ihnen heute helfen?",
+      "emptySubtitle": "Fragen Sie mich alles über Content-Strategie, Copywriting oder Social Media.",
+      "suggestion1": "Geben Sie mir eine Content-Strategie für eine Fitness-Marke",
+      "suggestion2": "Schreiben Sie 5 Instagram-Bildunterschriften für ein Café",
+      "suggestion3": "Was sind die besten Zeiten für LinkedIn-Posts?",
+      "suggestion4": "Erstellen Sie einen 30-Tage-Inhaltskalender",
+      "placeholder": "Fragen Sie alles über Content-Strategie, Copywriting…",
+      "send": "Nachricht senden",
+      "enterToSend": "Enter zum Senden · Shift+Enter für neue Zeile",
+      "errorLoadingSessions": "Gespräche konnten nicht geladen werden",
+      "errorLoadingMessages": "Nachrichten konnten nicht geladen werden",
+      "errorCreatingSession": "Gespräch konnte nicht erstellt werden",
+      "errorDeletingSession": "Gespräch konnte nicht gelöscht werden",
+      "errorSending": "Nachricht konnte nicht gesendet werden",
+      "noSession": "Erstellen Sie zuerst ein Gespräch"
     }
   }
 }

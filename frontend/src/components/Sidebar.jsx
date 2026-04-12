@@ -65,6 +65,19 @@ function Sidebar({ isOpen, onClose }) {
                         </NavLink>
                     </li>
                     <li>
+                    <NavLink
+                        to="/dashboard/chat"
+                        onClick={onClose}
+                        className={({ isActive }) =>
+                        `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+                            isActive ? 'bg-white/20 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white'
+                        }`
+                        }
+                    >
+                        {t('sidebar.chat')}
+                    </NavLink>
+                    </li>
+                    <li>
                         <NavLink
                             to="/dashboard/settings"
                             onClick={onClose}

@@ -9,7 +9,7 @@ import Button from "../components/Button";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "../components/LanguageSelector";
 import { apiFetch } from "../utils/apiFetch";
-import { Sparkles, Users, FolderOpen, Zap, Check } from "lucide-react";
+import { Sparkles, Users, FolderOpen, Zap } from "lucide-react";
 
 const STYLE_COLORS = {
   professional: "bg-blue-50 text-blue-700 border-blue-200",

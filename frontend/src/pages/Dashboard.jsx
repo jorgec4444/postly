@@ -3,10 +3,8 @@ import { supabase } from "../supabase";
 import { useNavigate, Outlet } from "react-router-dom";
 import { toast } from 'react-hot-toast';
 import { useTranslation } from "react-i18next";
+import { apiFetch } from "../utils/apiFetch";
 import Sidebar from "../components/Sidebar";
-import Footer from "../components/Footer";
-
-const API_BASE = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -29,10 +27,7 @@ function Dashboard() {
             setSessionChecked(true);
 
             try {
-                const data = await fetch(`${API_BASE}/client/list`, {
-                    headers: { Authorization: `Bearer ${session.access_token}` }
-                });
-                const json = await data.json();
+                const json = await apiFetch("/client/list");
                 setClients(Array.isArray(json) ? json : []);
             } catch (e) {
                 toast.error(t('dashboard.loadClientsError'));

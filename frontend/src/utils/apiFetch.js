@@ -7,16 +7,18 @@ export async function apiFetch(path, options = {}) {
   const token = session?.access_token;
   
   const isFormData = options.body instanceof FormData;
+  const { raw = false, ...fetchOptions } = options;
   
   const res = await fetch(`${API_BASE}${path}`, {
-    ...options,
+    ...fetchOptions,
     headers: {
       ...(isFormData ? {} : { "Content-Type": "application/json" }),
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers,
+      ...fetchOptions.headers,
     },
   });
-  if (!res.ok) {
+
+  if (!res.ok && !raw) {
     const err = await res.json().catch(() => ({}));
     const detail = err.detail;
     const message = typeof detail === 'string' 
@@ -24,5 +26,7 @@ export async function apiFetch(path, options = {}) {
       : detail?.message || `HTTP ${res.status}`;
     throw new Error(message);
   }
+
+  if (raw) return res;
   return res.status === 204 ? null : res.json();
 }

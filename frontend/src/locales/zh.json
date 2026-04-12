@@ -110,7 +110,8 @@
     "sidebar": {
       "clients": "客户",
       "createContent": "创建内容",
-      "settings": "设置"
+      "settings": "设置",
+      "chat": "AI助手"
     },
     "clients": {
       "title": "客户",
@@ -308,7 +309,10 @@
       "es": "Español",
       "ca": "Català",
       "fr": "Français",
-      "zh": "中文"
+      "de": "Deutsch",
+      "zh": "中文",
+      "ja": "日本語",
+      "hi": "हिन्दी"
     },
     "pricing": {
       "badge": "简单透明的定价",
@@ -403,6 +407,35 @@
           ]
         }
       }
+    },
+    "chat": {
+      "conversations": "对话",
+      "newChat": "新对话",
+      "noSessions": "暂无对话",
+      "today": "今天",
+      "yesterday": "昨天",
+      "generalChat": "通用",
+      "unknownClient": "客户",
+      "deleteSession": "删除对话",
+      "aiAssistant": "AI助手",
+      "selectOrCreate": "选择或创建对话",
+      "noClient": "无客户",
+      "selectClient": "选择客户",
+      "emptyTitle": "今天我能帮您什么？",
+      "emptySubtitle": "询问我任何关于内容策略、文案写作或社交媒体的问题。",
+      "suggestion1": "给我一个健身品牌的内容策略",
+      "suggestion2": "为一家咖啡店写5条Instagram文案",
+      "suggestion3": "LinkedIn发帖的最佳时间是什么？",
+      "suggestion4": "创建一个30天内容日历大纲",
+      "placeholder": "询问任何关于内容策略、文案写作的问题…",
+      "send": "发送消息",
+      "enterToSend": "Enter发送 · Shift+Enter换行",
+      "errorLoadingSessions": "无法加载对话",
+      "errorLoadingMessages": "无法加载消息",
+      "errorCreatingSession": "无法创建对话",
+      "errorDeletingSession": "无法删除对话",
+      "errorSending": "无法发送消息",
+      "noSession": "请先创建一个对话"
     }
   }
 }

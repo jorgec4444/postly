@@ -87,7 +87,8 @@
     "sidebar": {
       "clients": "क्लाइंट्स",
       "createContent": "कंटेंट बनाएं",
-      "settings": "सेटिंग्स"
+      "settings": "सेटिंग्स",
+      "chat": "AI सहायक"
     },
     "clients": {
       "title": "क्लाइंट्स",
@@ -303,8 +304,8 @@
       "es": "Español",
       "ca": "Català",
       "fr": "Français",
-      "zh": "中文",
       "de": "Deutsch",
+      "zh": "中文",
       "ja": "日本語",
       "hi": "हिन्दी"
     },
@@ -424,6 +425,35 @@
       "step3Desc": "Orkly प्रोफेशनल, कैज़ुअल और वायरल वर्शन जेनरेट करता है — अपना पसंदीदा चुनें और कॉपी करें।",
       "ctaTitle": "आज से अपने क्लाइंट्स को मैनेज करना शुरू करें",
       "ctaSubtitle": "फ्री टियर उपलब्ध। क्रेडिट कार्ड की ज़रूरत नहीं।"
+    },
+    "chat": {
+      "conversations": "बातचीत",
+      "newChat": "नई बातचीत",
+      "noSessions": "अभी कोई बातचीत नहीं",
+      "today": "आज",
+      "yesterday": "कल",
+      "generalChat": "सामान्य",
+      "unknownClient": "क्लाइंट",
+      "deleteSession": "बातचीत हटाएं",
+      "aiAssistant": "AI सहायक",
+      "selectOrCreate": "बातचीत चुनें या बनाएं",
+      "noClient": "कोई क्लाइंट नहीं",
+      "selectClient": "क्लाइंट चुनें",
+      "emptyTitle": "आज मैं आपकी कैसे मदद कर सकता हूं?",
+      "emptySubtitle": "कंटेंट स्ट्रैटेजी, कॉपीराइटिंग या सोशल मीडिया के बारे में कुछ भी पूछें।",
+      "suggestion1": "एक फिटनेस ब्रांड के लिए कंटेंट स्ट्रैटेजी दें",
+      "suggestion2": "एक कॉफी शॉप के लिए 5 Instagram कैप्शन लिखें",
+      "suggestion3": "LinkedIn पर पोस्ट करने का सबसे अच्छा समय क्या है?",
+      "suggestion4": "30 दिन का कंटेंट कैलेंडर आउटलाइन बनाएं",
+      "placeholder": "कंटेंट स्ट्रैटेजी, कॉपीराइटिंग के बारे में कुछ भी पूछें…",
+      "send": "संदेश भेजें",
+      "enterToSend": "भेजने के लिए Enter · नई लाइन के लिए Shift+Enter",
+      "errorLoadingSessions": "सेशन लोड नहीं हो सके",
+      "errorLoadingMessages": "संदेश लोड नहीं हो सके",
+      "errorCreatingSession": "सेशन नहीं बन सका",
+      "errorDeletingSession": "सेशन नहीं हटाया जा सका",
+      "errorSending": "संदेश नहीं भेजा जा सका",
+      "noSession": "पहले एक सेशन बनाएं"
     }
   }
 }

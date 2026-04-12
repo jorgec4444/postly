@@ -109,7 +109,8 @@
     "sidebar": {
       "clients": "Clientes",
       "createContent": "Crear contenido",
-      "settings": "Ajustes"
+      "settings": "Ajustes",
+      "chat": "Asistente IA"
     },
     "clients": {
       "title": "Clientes",
@@ -307,7 +308,10 @@
       "es": "Español",
       "ca": "Català",
       "fr": "Français",
-      "zh": "中文"
+      "de": "Deutsch",
+      "zh": "中文",
+      "ja": "日本語",
+      "hi": "हिन्दी"
     },
     "pricing": {
       "badge": "Simple, precio transparente",
@@ -402,6 +406,35 @@
           ]
         }
       }
+    },
+    "chat": {
+      "conversations": "Conversaciones",
+      "newChat": "Nueva conversación",
+      "noSessions": "Sin conversaciones aún",
+      "today": "Hoy",
+      "yesterday": "Ayer",
+      "generalChat": "General",
+      "unknownClient": "Cliente",
+      "deleteSession": "Eliminar conversación",
+      "aiAssistant": "Asistente IA",
+      "selectOrCreate": "Selecciona o crea una conversación",
+      "noClient": "Sin cliente",
+      "selectClient": "Seleccionar cliente",
+      "emptyTitle": "¿En qué puedo ayudarte hoy?",
+      "emptySubtitle": "Pregúntame cualquier cosa sobre estrategia de contenido, copywriting o redes sociales.",
+      "suggestion1": "Dame una estrategia de contenido para una marca de fitness",
+      "suggestion2": "Escribe 5 captions de Instagram para una cafetería",
+      "suggestion3": "¿Cuáles son los mejores horarios para publicar en LinkedIn?",
+      "suggestion4": "Crea un esquema de calendario de contenido de 30 días",
+      "placeholder": "Pregunta cualquier cosa sobre estrategia de contenido, copywriting…",
+      "send": "Enviar mensaje",
+      "enterToSend": "Enter para enviar · Shift+Enter para nueva línea",
+      "errorLoadingSessions": "No se pudieron cargar las sesiones",
+      "errorLoadingMessages": "No se pudieron cargar los mensajes",
+      "errorCreatingSession": "No se pudo crear la sesión",
+      "errorDeletingSession": "No se pudo eliminar la sesión",
+      "errorSending": "No se pudo enviar el mensaje",
+      "noSession": "Crea una sesión primero"
     }
   }
 }

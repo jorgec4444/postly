@@ -11,6 +11,7 @@ import ClientDetail from './pages/ClientDetail'
 import CreateContent from './pages/CreateContent'
 import Settings from './pages/Settings'
 import Pricing from './pages/Pricing'
+import Chat from './pages/Chat'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="clients/:id" element={<ClientDetail />} />
           <Route path="create" element={<CreateContent />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="chat" element={<Chat />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -17,6 +17,7 @@ from app.feedback.controller import router as feedback_router
 from app.admin.controller import router as admin_router
 from app.clients.controller import router as clients_router
 from app.storage.controller import router as storage_router
+from app.chat.controller import router as chat_router
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(name)s: %(message)s")
 logger = logging.getLogger(__name__)
@@ -48,7 +49,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://orkly-testing.vinagre444.workers.dev", "https://orkly.app", "https://orkly.vinagre444.workers.dev"],
+    allow_origins=["https://orkly-testing.vinagre444.workers.dev", "https://orkly.app", "https://orkly.vinagre444.workers.dev", "http://localhost:5173"],
     allow_credentials=False,
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"]
@@ -63,6 +64,7 @@ app.include_router(feedback_router)
 app.include_router(admin_router)
 app.include_router(clients_router)
 app.include_router(storage_router)
+app.include_router(chat_router)
 
 @app.get("/", tags=["meta"])
 async def root():
@@ -70,22 +72,41 @@ async def root():
         "service": "Orkly",
         "version": "2.0.0",
         "endpoints": {
-            "POST /text-generation/improve": "Improve a text with AI (3 variations)",
-            "POST /text-generation/save": "Save a text generation record for analytics",
-            "GET  /rate-limit/status": "Check remaining free generations",
-            "POST /feedback": "Submit feedback",
-            "GET  /health": "Health check",
-            "GET  /admin/stats": "Admin statistics",
-            "POST /clients/create": "Create a new client",
-            "GET  /clients/list": "List clients for the authenticated user",
-            "GET  /clients/{client_id}": "Get details of a specific client",
-            "GET  /clients/{client_id}/generations": "Get generations for a specific client",
-            "PUT  /clients/{client_id}": "Update a client's name or brand voice",
-            "POST /storage/upload/{client_id}/{folder}": "Generate a pre-signed URL for uploading a file to S3",
-            "GET  /storage/download/{client_id}/{folder}/{file_id}": "Generate a pre-signed URL for downloading a file from S3",
-            "GET  /storage/list/{client_id}/{folder}": "List files in a specific S3 folder for a client",
-            "DELETE /storage/delete/{client_id}/{folder}/{file_id}": "Delete a file from S3",
-            "POST /storage/save-file/{SaveFileMetadataRequest}": "Save file metadata to the database after a successful upload"
+            "text-generation": {
+                "POST /text-generation/improve": "Improve a text with AI (3 variations)",
+                "POST /text-generation/save": "Save a text generation record for analytics"
+            },
+            "rate_limit": {
+                "GET  /rate-limit/status": "Check remaining free generations"
+            },
+            "feedback": {
+                "POST /feedback": "Submit feedback"
+            },
+            "internal": {
+                "GET  /health": "Health check",
+                "GET  /admin/stats": "Admin statistics"
+            },
+            "clients": {
+                "POST /clients/create": "Create a new client",
+                "GET  /clients/list": "List clients for the authenticated user",
+                "GET  /clients/{client_id}": "Get details of a specific client",
+                "GET  /clients/{client_id}/generations": "Get generations for a specific client",
+                "PUT  /clients/{client_id}": "Update a client's name or brand voice"
+            },
+            "storage": {
+                "POST /storage/upload/{client_id}/{folder}": "Generate a pre-signed URL for uploading a file to S3",
+                "GET  /storage/download/{client_id}/{folder}/{file_id}": "Generate a pre-signed URL for downloading a file from S3",
+                "GET  /storage/list/{client_id}/{folder}": "List files in a specific S3 folder for a client",
+                "DELETE /storage/delete/{client_id}/{folder}/{file_id}": "Delete a file from S3",
+                "POST /storage/save-file/{SaveFileMetadataRequest}": "Save file metadata to the database after a successful upload"
+            },
+            "chat": {
+                "POST /chat/session": "Create and save a new session in DB",
+                "GET /chat/session/{session_id}/messages": "Get last 10 messages of the user session as the historical context",
+                "POST /chat/session/{session_id}/messages": "Send a message and save original and response text to DB",
+                "GET /chat/sessions": "Get all user sessions",
+                "DELETE /chat/sessions": "Delete an user session"
+            }
         },
     }
 
