@@ -356,17 +356,19 @@ export default function Chat() {
   return (
     <div className="flex h-screen -m-4 md:-m-8 overflow-hidden">
 
+      {/* ── Mobile overlay ── */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/30 z-40 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
       {/* ── Sessions sidebar ── */}
       <aside className={`
         flex-shrink-0 border-r border-gray-200 bg-white flex flex-col
         fixed inset-y-0 left-0 z-50 w-64 transition-transform duration-300
-        md:relative md:translate-x-0
-        ${sidebarOpen && (
-          <div
-            className="fixed inset-0 bg-black/30 z-40 md:hidden"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
+        md:relative md:inset-auto md:translate-x-0 md:flex
+        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>
         {/* Header */}
         <div className="p-4 border-b border-gray-100 flex items-center justify-between">
@@ -430,7 +432,7 @@ export default function Chat() {
                 <button
                   onClick={(e) => deleteSession(session.id, e)}
                   aria-label={t("chat.deleteSession") || "Delete conversation"}
-                  className="opacity-0 group-hover:opacity-100 p-1 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all flex-shrink-0"
+                  className="p-1 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all flex-shrink-0 md:opacity-0 md:group-hover:opacity-100"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
