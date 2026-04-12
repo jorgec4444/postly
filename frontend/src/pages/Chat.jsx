@@ -53,7 +53,7 @@ function ClientSelector({ clients, selected, onSelect }) {
         <div
           role="listbox"
           aria-label={t("chat.selectClient") || "Select client"}
-          className="absolute top-full left-0 mt-1.5 w-52 bg-white border border-gray-200 rounded-xl shadow-lg z-20 overflow-hidden"
+          className="absolute top-full right-0 mt-1.5 w-52 bg-white border border-gray-200 rounded-xl shadow-lg z-20 overflow-hidden"
         >
           <button
             role="option"
@@ -230,11 +230,12 @@ export default function Chat() {
     }
   };
 
-  const createSession = async (clientId = null) => {
+  const createSession = async (clientId = undefined) => {
+    const resolvedClientId = clientId !== undefined ? clientId : selectedClientId ?? null;
     try {
       const session = await apiFetch("/chat/session", {
         method: "POST",
-        body: JSON.stringify({ client_id: clientId ?? selectedClientId ?? null }),
+        body: JSON.stringify({ client_id: resolvedClientId }),
       });
       setSessions(prev => [session, ...prev]);
       setActiveSessionId(session.id);
@@ -467,7 +468,7 @@ export default function Chat() {
             selected={selectedClientId}
             onSelect={async (id) => {
               setSelectedClientId(id);
-              const existing = sessions.find(s => s.client_id === id);
+              const existing = sessions.find(s => s.client_id === (id ?? null));
               if (existing) {
                 await selectSession(existing.id);
               } else {

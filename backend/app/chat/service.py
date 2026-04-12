@@ -6,6 +6,9 @@ from fastapi import HTTPException
 from fastapi.responses import StreamingResponse
 from app.database import get_supabase
 from app.config import get_openai_client, MODEL_NAME
+import logging
+
+logger = logging.getLogger(__name__)
 
 async def create_new_session(request: ChatSessionRequest, user_id: str) -> ChatSessionResponse:
     db = get_supabase()
@@ -93,10 +96,10 @@ async def send_chat_message(session_id: str, request: ChatMessageRequest, user_i
             .execute()
         )
 
-        system = "You are an AI assistant for community managers and social media agencies. Help with content strategy, copywriting, research and any task related to social media management.\n\nRespond in the same language as the user wrote"
+        system = "You are an AI assistant for community managers and social media agencies. Help with content strategy, copywriting, research and any task related to social media management. Always respond in the same language the user writes in."
 
         if brand_voice:
-            system += f"\n\nThe user is working with a client that has this brand voice: {brand_voice}. Use it as context when relevant."
+            system += f"\n\nYou are currently helping with content for a specific client. Here is their brand description, use it to tailor ALL your responses, recommendations and content to match this client's identity and industry:\n\n{brand_voice}"
 
         messages = [{"role": "system", "content": system}]
 
